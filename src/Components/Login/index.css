@@ -1,0 +1,123 @@
+.login-image{
+    width:100%;
+    cursor:pointer;
+}
+.login-image:hover{
+    transform: scale(1.02);
+}
+
+.form-element{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: flex-end;
+  
+}
+
+.login-container{
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items: center;
+    height: 100vh;
+    gap:10px
+
+}
+
+.container{
+    width:100%
+}
+.form-container {
+    width: 90%; /* Fit the form within the screen */
+    max-width: 400px; /* Prevent it from getting too wide */
+    padding: 15px; /* Add padding for spacing */
+    border-radius: 8px; /* Smooth corners */
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+    background: white; /* Distinct background color */
+}
+
+.label{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    align-self: flex-start;
+    
+  
+}
+
+.checkbox-container{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap:10px
+}
+
+.checkbox{
+    cursor: pointer;
+    outline: none;
+    width: 17px;
+    height: 17px;
+}
+
+.input-element{
+    color:white;
+    font-weight: bold;
+    cursor: pointer;
+    outline: none !important;
+    width: 270px;
+    height: 30px;
+    padding: 6px;
+    border-width: 0px;
+    border-radius: 8px;
+    background-image: linear-gradient(to right,skyblue,dodgerblue);
+}
+.input-element:hover{
+    background-image: linear-gradient(to right,dodgerblue,skyblue);
+}
+
+
+.login-button-form{
+    background: linear-gradient(to right, #00FFB2, #2ECC71);
+    border-width:0px;
+    border-radius: 8px;
+    width:280px;
+    height: 40px;
+    cursor: pointer;
+    outline: none;
+    color: white;
+    font-weight: bold;
+}
+
+.login-button-form:hover{
+    background: linear-gradient(to right, #2ECC71, #00FFB2);
+}
+
+.error-message {
+    color: red;
+    font-weight: bold;
+    font-size: 14px;
+    margin-top: 10px;
+    
+  }
+
+
+@media screen and (min-width: 768px){
+    .login-image{
+        width: 80%;
+    }
+    .login-container{
+        flex-direction: row;
+        align-items: center;
+    }
+    .form-container{
+        width: 50%;
+    }
+    .login-button-form{
+        width: 310px;
+    }
+    .input-element{
+        width: 300px;
+    }
+    
+}
+
+

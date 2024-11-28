@@ -1,0 +1,28 @@
+.signup-image{
+    width:100%
+}
+
+
+.signup-button-form{
+    background: linear-gradient(to right, #FF9500, #FF5722); /* Bright Orange to Deep Orange */
+    border-width:0px;
+    border-radius: 8px;
+    width:280px;
+    height: 40px;
+    cursor: pointer;
+    outline: none;
+    color: white;
+    font-weight: bold;
+}
+.signup-button-form:hover{
+    background: linear-gradient(to right, #FF5722, #FF9500); /* Deep Orange to Bright Orange */
+}
+@media screen and (min-width: 768px) {
+    .signup-image{
+        width:80%;
+    }
+    .signup-button-form{
+
+        width: 310px;
+    }
+}
