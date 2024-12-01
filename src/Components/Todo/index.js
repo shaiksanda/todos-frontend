@@ -1,6 +1,7 @@
 import { useState,useEffect} from 'react';
 import Calendar from 'react-calendar';
 import Confetti from 'react-confetti';
+import { useNavigate } from 'react-router-dom';
 
 import Cookies from 'js-cookie';
 import { Oval } from 'react-loader-spinner'
@@ -34,6 +35,8 @@ const Todo = () => {
 
   const [showConfetti, setShowConfetti] = useState(false);
 
+  const navigate = useNavigate();
+
 
   
   useEffect(() => {
@@ -54,6 +57,11 @@ const Todo = () => {
     }
   }, [data]);
   
+  const handleLogout=()=>{
+    Cookies.remove('jwt_token')
+    Cookies.remove('username')
+    navigate('/')
+  }
   
   
 
@@ -327,6 +335,9 @@ const Todo = () => {
   
   return (
     <div className="todos-bg-container">
+      <div style={{textAlign:'right'}}>
+        <button onClick={handleLogout} className='delete-all-todos-button'>Logout</button>
+      </div>
 
      <div className="todo-top-container">
         <div className="calendar-container">
@@ -358,14 +369,25 @@ const Todo = () => {
                 id="tag"
               >
                 <option value="default" hidden>Select One</option>
-              <option value="Work">Work</option>
-              <option value="Education">Education</option>
-              <option value="Health">Health</option>
-              <option value="Finance">Finance</option>
-              <option value="Household">Household</option>
-              <option value="Family">Family</option>
-              <option value="Travel">Travel</option>
-              <option value="Others">Others</option>
+                <option value="Work">Work</option>
+<option value="Education">Education</option>
+<option value="Health">Health</option>
+<option value="Finance">Finance</option>
+<option value="Household">Household</option>
+<option value="Family">Family</option>
+<option value="Travel">Travel</option>
+<option value="Personal">Personal</option>
+<option value="Shopping">Shopping</option>
+<option value="Fitness">Fitness</option>
+<option value="Hobbies">Hobbies</option>
+<option value="Groceries">Groceries</option>
+<option value="Social">Spiritual</option>
+<option value="Entertainment">Entertainment</option>
+<option value="Appointments">Appointments</option>
+<option value="Maintenance">Maintenance</option>
+
+<option value="Chores">Others</option>
+
               </select>
 
               <label htmlFor="priority" className='label'>PRIORITY</label>
@@ -427,14 +449,22 @@ const Todo = () => {
                 
               >
               <option value="default" hidden>Select One</option>
-              <option value="Work">Work</option>
-              <option value="Education">Education</option>
-              <option value="Health">Health</option>
-              <option value="Finance">Finance</option>
-              <option value="Household">Household</option>
-              <option value="Family">Family</option>
-              <option value="Travel">Travel</option>
-              <option value="Others">Others</option>
+                <option value="Work">Work</option>
+<option value="Education">Education</option>
+<option value="Health">Health</option>
+<option value="Finance">Finance</option>
+<option value="Household">Household</option>
+<option value="Family">Family</option>
+<option value="Travel">Travel</option>
+<option value="Personal">Personal</option>
+<option value="Shopping">Shopping</option>
+<option value="Fitness">Fitness</option>
+<option value="Hobbies">Hobbies</option>
+<option value="Groceries">Groceries</option>
+<option value="Social">Spiritual</option>
+<option value="Entertainment">Entertainment</option>
+<option value="Appointments">Appointments</option>
+<option value="Maintenance">Maintenance</option>
               </select>
               <label htmlFor='filterPriority'  className='label'>PRIORITY</label>
             <select
