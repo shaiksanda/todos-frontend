@@ -186,13 +186,40 @@
     border: none;
     border-radius: 8px;
     background: linear-gradient(135deg, #ff5c5c, #d9534f);
-font-weight: bold;
+    font-weight: bold;
   }
 
   .remove-filters-button:hover{
     background: linear-gradient(135deg,  #d9534f,#ff5c5c);
     color:white
   }
+
+  .delete-all-todos-button{
+    height: 35px;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    border-radius: 8px;
+    background-color:red;
+    font-weight: bold;
+    color:white;
+    text-align: right;
+  }
+
+ .update-todo-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap:10px
+ }
+
+
+ .update-heading{
+  font-size: 24px;
+  color: #FF9800;
+  font-weight: bold;
+ }
   
   @media screen and (min-width: 768px){
     .todo-image-1{
