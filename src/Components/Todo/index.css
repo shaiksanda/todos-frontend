@@ -114,7 +114,7 @@
     align-items: center;
     justify-content: space-around;
     gap:15px;
-    height: 80vh;
+    height: 100vh;
     margin: 8px;
 
   }
@@ -343,6 +343,7 @@
 
     .todo-top-container{
       flex-direction: row;
+      height: 80vh;
     }
     .fetch-todos-heading{
       font-size: 30px;
