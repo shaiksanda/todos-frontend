@@ -134,6 +134,14 @@
 
   
   
+  .confetti-container {
+    position: fixed; /* Fixed so it stays on screen */
+    top: 50%; /* 50% from the top of the page */
+     /* 50% from the left */
+    /* This moves it exactly to the center */
+    z-index: 9999; /* Ensure it appears on top of other elements */
+    pointer-events: none; /* Optional: To allow clicks through the confetti */
+}
 
 
   .todo-image-1{
@@ -142,7 +150,7 @@
   }
 
   .fetch-todos-heading{
-    font-size: 20px;
+    font-size: 24px;
     font-weight: bold;
     text-align: center;
   }
@@ -221,7 +229,7 @@
     background-color:red;
     font-weight: bold;
     color:white;
-    width: 100px;
+    width: 120px;
   }
 
  .update-todo-container{
@@ -282,8 +290,22 @@
 }
 
 
+.todo-data-container{
+  display: grid;
+  grid-template-columns: repeat(1,300px);
+  gap:10px;
+  align-items: center;
+}
+
+.filter-heading{
+  text-align: center;
+}
+
   
   @media screen and (min-width: 768px){
+    .todo-data-container{
+      grid-template-columns: repeat(2,280px);
+    }
     .todo-image-1{
       width: 100%;
     }
@@ -322,9 +344,17 @@
     .todo-top-container{
       flex-direction: row;
     }
+    .fetch-todos-heading{
+      font-size: 30px;
+    }
    
     }
 
+    @media screen and (min-width:768px){
+      .todo-data-container{
+        grid-template-columns: repeat(3,280px);
+      }
+    }
 
     
     

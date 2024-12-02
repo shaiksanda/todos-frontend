@@ -395,7 +395,7 @@ const Todo = () => {
       </div>
 
       <h1 className="fetch-todos-heading">Fetching todos for: <span className="formatted-date-heading">{formattedDate}</span></h1>
-      <div style={{ textAlign: 'right' }}>
+      <div style={{ textAlign: 'center' }}>
         <button onClick={handleDeleteAllTodos} className='delete-all-todos-button'>Delete All Todos</button>
       </div>
       <div className="spinner-container">
@@ -409,13 +409,13 @@ const Todo = () => {
         </div>
       </div>
       <div className='todo-bottom-container'>
+        
+
         <div>
+          <h1 className='filter-heading'>Use Filters to Organize Your Data <FcFilledFilter size={20} /></h1>
+          <div className='confetti-container'>
           {showConfetti && <Confetti />}
         </div>
-
-        <div>
-          <h1 className='filter-heading'>Use Filters to Organize Your Data <FcFilledFilter size={"30px"} /></h1>
-
           <div className='filters-container'>
             <input onChange={handleSearch} value={search} type="search" placeholder='Search...' className='todo-input-element' />
             <label htmlFor='filterTag' className='label'>TAG</label>
@@ -477,6 +477,7 @@ const Todo = () => {
         </div>
 
         <div className='todo-data-container'>
+        
 
           {filteredData.length === 0 ? (<div className='no-todos-container'>
 
