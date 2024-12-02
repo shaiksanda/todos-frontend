@@ -11,7 +11,7 @@ html, body {
     display: flex;
     flex-direction:column;
     padding: 70px 10px 10px 10px;
-    background: linear-gradient(to right,orange,white); /* Vibrant blue to aqua to green */
+    background: linear-gradient(to right,#DB2763,#B0DB43); /* Vibrant blue to aqua to green */
 
     gap:10px
 }
@@ -40,12 +40,12 @@ html, body {
 .home-heading{
    
     font-family: 'Poppins', sans-serif;
-    color: black;
+    color: palegoldenrod;
     font-weight: bold;
 }
 
 .todo-content{
-    color:black;
+    color:palegoldenrod;
     font-weight: bold;
 }
 
@@ -63,7 +63,7 @@ html, body {
 
 @media screen and (min-width:768px){
     .start-now-button{
-        width: 100px;
+        width: 120px;
     }
 }
 
