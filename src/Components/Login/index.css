@@ -11,7 +11,6 @@
     flex-direction: column;
     gap: 10px;
     justify-content: flex-end;
-  
 }
 
 .login-container{
@@ -63,7 +62,7 @@
     font-weight: bold;
     cursor: pointer;
     outline: none !important;
-    width: 270px;
+    width: 300px;
     height: 30px;
     padding: 6px;
     border-width: 0px;
@@ -79,7 +78,7 @@
     background: linear-gradient(to right, #00FFB2, #2ECC71);
     border-width:0px;
     border-radius: 8px;
-    width:280px;
+    width:300px;
     height: 40px;
     cursor: pointer;
     outline: none;
@@ -106,7 +105,6 @@
     }
     .login-container{
         flex-direction: row;
-        align-items: center;
     }
     .form-container{
         width: 50%;
@@ -114,9 +112,7 @@
     .login-button-form{
         width: 310px;
     }
-    .input-element{
-        width: 300px;
-    }
+    
     
 }
 

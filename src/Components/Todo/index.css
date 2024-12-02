@@ -1,6 +1,6 @@
 /* Customizing the calendar container */
 .react-calendar {
-    width: 280px;
+    width: 300px;
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -49,7 +49,7 @@
   /* Tile (day) customization */
   .react-calendar__tile {
     border-radius: 50%;
-    font-size: 14px;
+    font-size: 18px;
     padding: 10px;
     text-align: center;
     transition: background-color 0.3s ease, color 0.3s ease;
@@ -91,22 +91,37 @@
   
 
   .todos-bg-container{
-    padding:20px;
+    padding-top:90px ;
   }
 
+  .welcome-heading{
+    font-size: 24px;
+  }
+
+  .create-task-heading{
+    font-size: 24px;
+    text-align: center;
+    color: #FF1493;
+    font-weight: bold;
+  }
   .formatted-date-heading{
     color: orange;
   }
 
   .todo-top-container{
-    display: grid;
-    grid-template-columns: repeat(1,fr);
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    justify-content: space-around;
     gap:15px;
+    height: 100vh;
+    margin: 8px;
 
   }
   .calendar-container{
-    margin-right: 5px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
   }
 
   
@@ -116,6 +131,8 @@
     gap: 10px;
   
   }
+
+  
   
 
 
@@ -139,6 +156,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    margin: 8px;
 
   }
 
@@ -203,7 +221,7 @@
     background-color:red;
     font-weight: bold;
     color:white;
-    text-align: right;
+    width: 100px;
   }
 
  .update-todo-container{
@@ -211,8 +229,18 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap:10px
+  gap:10px;
+  margin-top: 20px;
+  
  }
+
+ .popup-content {
+  z-index: 2000 !important; /* Ensure it's above the header */
+  position: relative; /* Maintain correct placement */
+  bottom: 0;
+  left:0;
+  right:0;
+}
 
 
  .update-heading{
@@ -220,34 +248,83 @@
   color: #FF9800;
   font-weight: bold;
  }
+
+
+ .todo-input-element{
+  color:white;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  outline: none !important;
+  width: 300px;
+  height: 40px;
+  padding: 8px;
+  border-width: 0px;
+  border-radius: 8px;
+  background-image: linear-gradient(to right,skyblue,dodgerblue);
+}
+
+.todo-input-element:hover{
+  background-image: linear-gradient(to right,dodgerblue,skyblue);
+}
+
+.todo-login-button-form{
+  background: linear-gradient(to right, #00FFB2, #2ECC71);
+  border-width:0px;
+  border-radius: 8px;
+  width:300px;
+  height: 40px;
+  padding: 8px;
+  cursor: pointer;
+  outline: none;
+  color: white;
+  font-weight: bold;
+}
+
+
   
   @media screen and (min-width: 768px){
     .todo-image-1{
       width: 100%;
-     
     }
+    .delete-all-todos-button{
+      width: 120px;
+    }
+    .welcome-heading{
+      font-size: 30px;
+    }
+    .todo-login-button-form{
+      width: 100%;
+    }
+    .todo-input-element{
+      width: 100%;
+    }
+    /* .calendar-container{
+      width: 50%;
+    } */
+
+    .create-task-container{
+      width: 50%;
+    }
+    
     .todo-bottom-container{
       flex-direction: row;
     }
     .react-calendar{
-      width: 100%;
+      width: 45%;
     }
     .formatted-date-heading{
       color:dodgerblue;
     }
 
     .todo-top-container{
-      grid-template-columns: repeat(2,1fr);
+      flex-direction: row;
     }
    
     }
 
 
-    @media screen and (min-width:1024px){
-      .todo-top-container{
-        grid-template-columns: repeat(3,1fr);
-      }
-    }
+    
     
 
     .icon {

@@ -1,0 +1,77 @@
+
+
+.todo-header-container{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: fixed;
+    top:0;
+    left:0;
+    right:0;
+    z-index: 1000;  /* Ensure it stays above other content */
+    background-image: linear-gradient(to right, white,#E6E6FA,white);
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5)
+}
+
+.logout-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    padding: 20px;
+    border-radius: 8px;
+    
+    height: auto;
+    width: 300px;
+}
+
+.popup-heading{
+    color: #3b82f6;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.popup-buttons{
+    display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  justify-content: center;
+}
+
+.confirm-button{
+    width: 90px;
+    height: 40px;
+    border: none;
+    background-color: orangered;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    outline: none;
+}
+
+.close-button{
+    width: 90px;
+    height: 40px;
+    border: none;
+    background-color: darkmagenta;
+    cursor: pointer;
+    outline: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+
+@media screen and (min-width:768px){
+    .confirm-button{
+        width:120px
+    }
+    .close-button{
+        width: 120px;
+    }
+}
