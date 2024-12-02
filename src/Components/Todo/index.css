@@ -301,6 +301,12 @@
   text-align: center;
 }
 
+.main-content{
+  min-height: 100vh;
+}
+
+
+
   
   @media screen and (min-width: 768px){
     .todo-data-container{
@@ -312,9 +318,7 @@
     .delete-all-todos-button{
       width: 120px;
     }
-    .welcome-heading{
-      font-size: 30px;
-    }
+    
     .todo-login-button-form{
       width: 90%;
     }
@@ -355,6 +359,7 @@
       .todo-data-container{
         grid-template-columns: repeat(3,280px);
       }
+      
     }
 
     

@@ -1,3 +1,7 @@
 .dashboard-container{
     padding-top: 80px;
 }
+
+.welcome-heading{
+    font-size: 16px;
+}

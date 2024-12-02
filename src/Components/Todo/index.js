@@ -9,7 +9,7 @@ import Popup from 'reactjs-popup'
 
 import { FcFilledFilter } from "react-icons/fc";
 import TodosHeader from '../TodosHeader';
-import TodosFooter from '../TodosFooter';
+
 
 import 'reactjs-popup/dist/index.css'
 import 'react-calendar/dist/Calendar.css';
@@ -258,10 +258,10 @@ const Todo = () => {
 
 
   const formattedDate = `${selectedDate.getDate()}/${selectedDate.toLocaleString('default', { weekday: 'short' })}/${selectedDate.getFullYear()}`;
-  
-  
 
-  
+
+
+
 
   const handleDeleteTodo = async (id) => {
     const url = `https://todos-backend-d9im.onrender.com/todos/${id}`
@@ -323,17 +323,18 @@ const Todo = () => {
   return (
     <div className="todos-bg-container">
       <TodosHeader />
-      <div className="todo-top-container">
-        <div className="calendar-container">
-          <Calendar onChange={handleDateChange} value={selectedDate} />
-        </div>
-        {/* <div>
+      <div className='main-content'>
+        <div className="todo-top-container">
+          <div className="calendar-container">
+            <Calendar onChange={handleDateChange} value={selectedDate} />
+          </div>
+          {/* <div>
           <img className="todo-image-1" alt="todo" src="https://res.cloudinary.com/dq4yjeejc/image/upload/v1732776857/Designer_lucty3.jpg" />
         </div> */}
-        
-          
+
+
           <form onSubmit={handleAddTask} id="form" className="form-element form-container" >
-          <h1 style={{margin:"0px"}} className='create-task-heading'>Create A Task</h1>
+            <h1 style={{ margin: "0px" }} className='create-task-heading'>Create A Task</h1>
             <label htmlFor="task" className="label">
               TASK
             </label>
@@ -391,195 +392,196 @@ const Todo = () => {
             </button>
             {showMsg && <p style={{ color: "Orange", fontWeight: "bold" }}>{msg}</p>}
           </form>
-        
-      </div>
 
-      <h1 className="fetch-todos-heading">Fetching todos for: <span className="formatted-date-heading">{formattedDate}</span></h1>
-      <div style={{ textAlign: 'center' }}>
-        <button onClick={handleDeleteAllTodos} className='delete-all-todos-button'>Delete All Todos</button>
-      </div>
-      <div className="spinner-container">
+        </div>
+
+        <h1 className="fetch-todos-heading">Fetching todos for: <span className="formatted-date-heading">{formattedDate}</span></h1>
+        <div style={{ textAlign: 'center' }}>
+          <button onClick={handleDeleteAllTodos} className='delete-all-todos-button'>Delete All Todos</button>
+        </div>
         <div className="spinner-container">
-          {isLoading && <Oval
-            color="green"
-            height={50}
-            width={50}
-            ariaLabel="loading"
-          />}
+          <div className="spinner-container">
+            {isLoading && <Oval
+              color="green"
+              height={50}
+              width={50}
+              ariaLabel="loading"
+            />}
+          </div>
         </div>
-      </div>
-      <div className='todo-bottom-container'>
-        
+        <div className='todo-bottom-container'>
 
-        <div>
-          <h1 className='filter-heading'>Use Filters to Organize Your Data <FcFilledFilter size={20} /></h1>
-          <div className='confetti-container'>
-          {showConfetti && <Confetti />}
-        </div>
-          <div className='filters-container'>
-            <input onChange={handleSearch} value={search} type="search" placeholder='Search...' className='todo-input-element' />
-            <label htmlFor='filterTag' className='label'>TAG</label>
-            <select
-              id="filterTag"
-              value={filterTag}
-              onChange={handleFilterTag}
-              className='todo-input-element'
-              style={{ color: 'black' }}
 
-            >
-              <option value="default" hidden>Select One</option>
-              <option value="Work">Work</option>
-              <option value="Education">Education</option>
-              <option value="Health">Health</option>
-              <option value="Finance">Finance</option>
-              <option value="Household">Household</option>
-              <option value="Family">Family</option>
-              <option value="Travel">Travel</option>
-              <option value="Personal">Personal</option>
-              <option value="Shopping">Shopping</option>
-              <option value="Fitness">Fitness</option>
-              <option value="Hobbies">Hobbies</option>
-              <option value="Groceries">Groceries</option>
-              <option value="Social">Spiritual</option>
-              <option value="Entertainment">Entertainment</option>
-              <option value="Appointments">Appointments</option>
-              <option value="Maintenance">Maintenance</option>
-            </select>
-            <label htmlFor='filterPriority' className='label'>PRIORITY</label>
-            <select
-              id="filterPriority"
-              value={filterPriority}
-              onChange={handleFilterPriority}
-              className='todo-input-element'
-              style={{ color: 'black' }}
-            >
-              <option value="default" hidden>Select One</option>
-              <option value="low">low</option>
-              <option value="medium">medium</option>
-              <option value="high">high</option>
-            </select>
-            <label htmlFor='status' className='label'>STATUS</label>
-            <select
-              value={status}
-              onChange={handleStatus}
-              className='todo-input-element'
-              style={{ color: 'black' }}
-              id='status'
-            >
-              <option value="default" hidden>Select One</option>
-              <option value="pending">pending</option>
-              <option value="completed">completed</option>
+          <div>
+            <h1 className='filter-heading'>Use Filters to Organize Your Data <FcFilledFilter size={20} /></h1>
+            <div className='confetti-container'>
+              {showConfetti && <Confetti />}
+            </div>
+            <div className='filters-container'>
+              <input onChange={handleSearch} value={search} type="search" placeholder='Search...' className='todo-input-element' />
+              <label htmlFor='filterTag' className='label'>TAG</label>
+              <select
+                id="filterTag"
+                value={filterTag}
+                onChange={handleFilterTag}
+                className='todo-input-element'
+                style={{ color: 'black' }}
 
-            </select>
-            <button onClick={handleRemoveFilters} className='remove-filters-button'>Remove Filters</button>
+              >
+                <option value="default" hidden>Select One</option>
+                <option value="Work">Work</option>
+                <option value="Education">Education</option>
+                <option value="Health">Health</option>
+                <option value="Finance">Finance</option>
+                <option value="Household">Household</option>
+                <option value="Family">Family</option>
+                <option value="Travel">Travel</option>
+                <option value="Personal">Personal</option>
+                <option value="Shopping">Shopping</option>
+                <option value="Fitness">Fitness</option>
+                <option value="Hobbies">Hobbies</option>
+                <option value="Groceries">Groceries</option>
+                <option value="Social">Spiritual</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Appointments">Appointments</option>
+                <option value="Maintenance">Maintenance</option>
+              </select>
+              <label htmlFor='filterPriority' className='label'>PRIORITY</label>
+              <select
+                id="filterPriority"
+                value={filterPriority}
+                onChange={handleFilterPriority}
+                className='todo-input-element'
+                style={{ color: 'black' }}
+              >
+                <option value="default" hidden>Select One</option>
+                <option value="low">low</option>
+                <option value="medium">medium</option>
+                <option value="high">high</option>
+              </select>
+              <label htmlFor='status' className='label'>STATUS</label>
+              <select
+                value={status}
+                onChange={handleStatus}
+                className='todo-input-element'
+                style={{ color: 'black' }}
+                id='status'
+              >
+                <option value="default" hidden>Select One</option>
+                <option value="pending">pending</option>
+                <option value="completed">completed</option>
+
+              </select>
+              <button onClick={handleRemoveFilters} className='remove-filters-button'>Remove Filters</button>
+            </div>
+
           </div>
 
-        </div>
+          <div className='todo-data-container'>
 
-        <div className='todo-data-container'>
-        
 
-          {filteredData.length === 0 ? (<div className='no-todos-container'>
+            {filteredData.length === 0 ? (<div className='no-todos-container'>
 
-            <img className='todo-image-1' alt="todo" src="https://img.freepik.com/free-photo/3d-illustration-calendar-with-checkmarks-pen_107791-15855.jpg" />
-            <div>
-              <p className='no-todos-content'>No Todos for this Date: <span className="formatted-date-heading">{formattedDate}</span></p>
-              <h3 style={{ fontWeight: "bold", color: "green" }}>Please Try to Add Tasks</h3>
-            </div>
-          </div>) : (filteredData.map((item) => (
-            <div className='each-todo' key={item._id}>
-              <input checked={item.status === "completed"} onChange={() => handleCheckboxStatus(item._id, item.status)} className="checkbox" type="checkbox" />
-              <p>{item.todo}</p>
-              {/* <FaEdit className='icon' title="Edit Task" /> */}
+              <img className='todo-image-1' alt="todo" src="https://img.freepik.com/free-photo/3d-illustration-calendar-with-checkmarks-pen_107791-15855.jpg" />
+              <div>
+                <p className='no-todos-content'>No Todos for this Date: <span className="formatted-date-heading">{formattedDate}</span></p>
+                <h3 style={{ fontWeight: "bold", color: "green" }}>Please Try to Add Tasks</h3>
+              </div>
+            </div>) : (filteredData.map((item) => (
+              <div className='each-todo' key={item._id}>
+                <input checked={item.status === "completed"} onChange={() => handleCheckboxStatus(item._id, item.status)} className="checkbox" type="checkbox" />
+                <p>{item.todo}</p>
+                {/* <FaEdit className='icon' title="Edit Task" /> */}
 
-              <Popup contentStyle={{
-                backgroundColor: 'white',
-                border: 'none',
-                borderRadius: '12px',
-                width: '90%', // Full width for small devices
-                maxWidth: '400px',
-                marginTop:"60px", // Optional: Limit max width for larger devices
-                zIndex: '2500'
+                <Popup contentStyle={{
+                  backgroundColor: 'white',
+                  border: 'none',
+                  borderRadius: '12px',
+                  width: '90%', // Full width for small devices
+                  maxWidth: '400px',
+                  marginTop: "60px", // Optional: Limit max width for larger devices
+                  zIndex: '2500'
 
-              }}
-              className='popup-content'
-                position="right center" modal
-                trigger={<button className="icon" title="Edit Task" style={{ color: 'black' }}>
-                  📝</button>}>
+                }}
+                  className='popup-content'
+                  position="right center" modal
+                  trigger={<button className="icon" title="Edit Task" style={{ color: 'black' }}>
+                    📝</button>}>
 
-                {close => (
-                  <div className="update-todo-container">
+                  {close => (
+                    <div className="update-todo-container">
 
-                    <h1 className='update-heading'>Update Your Task</h1>
+                      <h1 className='update-heading'>Update Your Task</h1>
 
-                    <form onSubmit={(e) => handleUpdateTask(e, item._id)} id="form" className="form-element form-conainer" >
-                      <label htmlFor="task" className="label">
-                        TASK
-                      </label>
-                      <input value={todo} onChange={handleTodoChange} id="task" placeholder="Enter the Task Here" className="todo-input-element" type="text" />
-                      <label htmlFor="tag" className='label'>TAG</label>
-                      <select
-                        name="tag"
-                        value={tag}
-                        onChange={handleTagChange}
-                        className='todo-input-element'
-                        style={{ color: 'black' }}
-                        id="tag"
-                      >
-                        <option value="default" hidden>Select One</option>
-                        <option value="Work">Work</option>
-                        <option value="Education">Education</option>
-                        <option value="Health">Health</option>
-                        <option value="Finance">Finance</option>
-                        <option value="Household">Household</option>
-                        <option value="Family">Family</option>
-                        <option value="Travel">Travel</option>
-                        <option value="Personal">Personal</option>
-                        <option value="Shopping">Shopping</option>
-                        <option value="Fitness">Fitness</option>
-                        <option value="Hobbies">Hobbies</option>
-                        <option value="Groceries">Groceries</option>
-                        <option value="Social">Spiritual</option>
-                        <option value="Entertainment">Entertainment</option>
-                        <option value="Appointments">Appointments</option>
-                        <option value="Maintenance">Maintenance</option>
-                      </select>
+                      <form onSubmit={(e) => handleUpdateTask(e, item._id)} id="form" className="form-element form-conainer" >
+                        <label htmlFor="task" className="label">
+                          TASK
+                        </label>
+                        <input value={todo} onChange={handleTodoChange} id="task" placeholder="Enter the Task Here" className="todo-input-element" type="text" />
+                        <label htmlFor="tag" className='label'>TAG</label>
+                        <select
+                          name="tag"
+                          value={tag}
+                          onChange={handleTagChange}
+                          className='todo-input-element'
+                          style={{ color: 'black' }}
+                          id="tag"
+                        >
+                          <option value="default" hidden>Select One</option>
+                          <option value="Work">Work</option>
+                          <option value="Education">Education</option>
+                          <option value="Health">Health</option>
+                          <option value="Finance">Finance</option>
+                          <option value="Household">Household</option>
+                          <option value="Family">Family</option>
+                          <option value="Travel">Travel</option>
+                          <option value="Personal">Personal</option>
+                          <option value="Shopping">Shopping</option>
+                          <option value="Fitness">Fitness</option>
+                          <option value="Hobbies">Hobbies</option>
+                          <option value="Groceries">Groceries</option>
+                          <option value="Social">Spiritual</option>
+                          <option value="Entertainment">Entertainment</option>
+                          <option value="Appointments">Appointments</option>
+                          <option value="Maintenance">Maintenance</option>
+                        </select>
 
-                      <label htmlFor="priority" className='label'>PRIORITY</label>
-                      <select
-                        id="priority"
-                        name="priority"
-                        value={priority}
-                        onChange={handlePriorityChange}
-                        className='todo-input-element'
-                        style={{ color: 'black' }}
-                      >
-                        <option value="default" hidden>Select One</option>
-                        <option value="low">low</option>
-                        <option value="medium">medium</option>
-                        <option value="high">high</option>
+                        <label htmlFor="priority" className='label'>PRIORITY</label>
+                        <select
+                          id="priority"
+                          name="priority"
+                          value={priority}
+                          onChange={handlePriorityChange}
+                          className='todo-input-element'
+                          style={{ color: 'black' }}
+                        >
+                          <option value="default" hidden>Select One</option>
+                          <option value="low">low</option>
+                          <option value="medium">medium</option>
+                          <option value="high">high</option>
 
-                      </select>
-                      <button type="submit" className="todo-login-button-form">
-                        UPDATE
-                      </button>
-                      {showUpdatedMsg && <p style={{ color: "green", fontWeight: "bold" }}>Todo Updated Successfully now close this.</p>}
-                      <button style={{ textAlign: "center",width:"300px" }} onClick={close} className='delete-all-todos-button'>Close</button>
+                        </select>
+                        <button type="submit" className="todo-login-button-form">
+                          UPDATE
+                        </button>
+                        {showUpdatedMsg && <p style={{ color: "green", fontWeight: "bold" }}>Todo Updated Successfully now close this.</p>}
+                        <button style={{ textAlign: "center", width: "300px" }} onClick={close} className='delete-all-todos-button'>Close</button>
 
-                    </form>
-                    <div>
+                      </form>
+                      <div>
+                      </div>
                     </div>
-                  </div>
-                )}
-              </Popup>
+                  )}
+                </Popup>
 
-              <button onClick={() => handleDeleteTodo(item._id)} className="icon" title="Delete Task" style={{ color: 'red' }}>🗑️</button>
-            </div>
-          )))}
+                <button onClick={() => handleDeleteTodo(item._id)} className="icon" title="Delete Task" style={{ color: 'red' }}>🗑️</button>
+              </div>
+            )))}
 
+          </div>
         </div>
       </div>
-      <TodosFooter />
+      
     </div>
   );
 };

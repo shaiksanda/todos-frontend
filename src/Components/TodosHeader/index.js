@@ -2,6 +2,7 @@ import Cookies from 'js-cookie'
 
 import { useNavigate, Link } from 'react-router-dom';
 import Popup from 'reactjs-popup'
+import { MdDashboard } from "react-icons/md";
 
 import { LuLogOut } from "react-icons/lu";
 import 'reactjs-popup/dist/index.css'
@@ -37,7 +38,7 @@ const TodosHeader = () => {
         <Link to="/todo"><img className="todo-logo-1" alt="logo" src="https://res.cloudinary.com/dq4yjeejc/image/upload/v1732187200/Screenshot_2024-11-21_162706-removebg-preview_jpwc5d.png" /></Link>
       </div>
       <div>
-        <h1 className='welcome-heading'> <span style={{ color: 'black' }}>Welcome </span>
+        <h1 className='username-heading'> <span style={{ color: 'black' }}>Welcome </span>
           {letters.map((letter, index) => (
             <span key={index} style={{ color: getRandomColor() }}>
               {letter}
@@ -46,6 +47,9 @@ const TodosHeader = () => {
       </div>
       <div className='dashboard'>
         <Link to="/dashboard" className='remove-styling' ><h1>Dashboard</h1></Link>
+      </div>
+      <div className='small-device-icon'>
+      <Link to="/dashboard"><MdDashboard size={25} /></Link>
       </div>
       <div>
         <Popup contentStyle={{
