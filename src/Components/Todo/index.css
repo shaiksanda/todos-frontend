@@ -114,7 +114,7 @@
     align-items: center;
     justify-content: space-around;
     gap:15px;
-    height: 100vh;
+    height: 80vh;
     margin: 8px;
 
   }
@@ -294,16 +294,18 @@
       font-size: 30px;
     }
     .todo-login-button-form{
-      width: 100%;
+      width: 90%;
     }
     .todo-input-element{
-      width: 100%;
+      width: 90%;
     }
-    /* .calendar-container{
-      width: 50%;
-    } */
+    
 
     .create-task-container{
+      width: 50%;
+    }
+
+    .calendar-container{
       width: 50%;
     }
     
@@ -311,7 +313,7 @@
       flex-direction: row;
     }
     .react-calendar{
-      width: 45%;
+      width: 55%;
     }
     .formatted-date-heading{
       color:dodgerblue;
