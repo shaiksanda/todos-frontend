@@ -9,6 +9,7 @@ import Popup from 'reactjs-popup'
 
 import { FcFilledFilter } from "react-icons/fc";
 import TodosHeader from '../TodosHeader';
+import TodosFooter from '../TodosFooter';
 
 import 'reactjs-popup/dist/index.css'
 import 'react-calendar/dist/Calendar.css';
@@ -475,7 +476,7 @@ const Todo = () => {
 
         </div>
 
-        <div className='todo-top-container'>
+        <div className='todo-data-container'>
 
           {filteredData.length === 0 ? (<div className='no-todos-container'>
 
@@ -577,6 +578,7 @@ const Todo = () => {
 
         </div>
       </div>
+      <TodosFooter />
     </div>
   );
 };

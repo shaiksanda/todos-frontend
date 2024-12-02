@@ -1,7 +1,9 @@
 import Cookies from 'js-cookie'
 
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,Link } from 'react-router-dom';
 import Popup from 'reactjs-popup'
+
+import { LuLogOut } from "react-icons/lu";
 import 'reactjs-popup/dist/index.css'
 import "./index.css"
 const TodosHeader = () => {
@@ -32,12 +34,18 @@ const TodosHeader = () => {
     return (
         <div className='todo-header-container'>
             <div>
+              <Link to="/todo"><img className="todo-logo-1" alt="logo" src="https://res.cloudinary.com/dq4yjeejc/image/upload/v1732187200/Screenshot_2024-11-21_162706-removebg-preview_jpwc5d.png" /></Link>
+            </div>
+            <div>
                 <h1 className='welcome-heading'> <span style={{ color: 'black' }}>Welcome </span>
                     {letters.map((letter, index) => (
                         <span key={index} style={{ color: getRandomColor() }}>
                             {letter}
                         </span>
                     ))}</h1>
+            </div>
+            <div className='dashboard'>
+              <Link to="/dashboard" className='remove-styling' ><h1>Dashboard</h1></Link>
             </div>
             <div>
                 <Popup contentStyle={{
@@ -49,7 +57,17 @@ const TodosHeader = () => {
 
 
                 }}
-                    position="right center" modal trigger={<button className='delete-all-todos-button'>Logout</button>}>
+                    position="right center" modal trigger={
+                        <div>
+                        <button type="button" className="logout-button">
+                          Logout
+                        </button>
+                        <LuLogOut
+                          size={25}
+                          className="small-device-icon"
+                        />
+                      </div>
+                    }>
                       {close => (
             <div className="logout-container">
               <div>

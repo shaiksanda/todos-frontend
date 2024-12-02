@@ -25,6 +25,10 @@
     width: 300px;
 }
 
+.small-device-icon{
+    display: block;
+}
+
 .popup-heading{
     color: #3b82f6;
   font-size: 24px;
@@ -66,12 +70,50 @@
     font-size: 16px;
 }
 
+.logout-button{
+    display:none;
+}
+
+.remove-styling{
+    text-decoration: none;
+}
+
+.dashboard{
+    display: none;
+}
+.todo-logo-1{
+    width: 50px;
+    height:50px;
+    cursor: pointer;
+}
 
 @media screen and (min-width:768px){
     .confirm-button{
         width:120px
     }
+    .todo-logo-1{
+        width: 80px;
+        height: 80px;
+    }
     .close-button{
         width: 120px;
     }
+    .dashboard{
+        display: block;
+    }
+    .small-device-icon{
+        display:none;
+    }
+    .logout-button {
+        height: 40px;
+        width: 120px;
+        border: none;
+        border-radius: 8px;
+        background-color: orangered;
+        cursor: pointer;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        display: block;
+      }
 }
