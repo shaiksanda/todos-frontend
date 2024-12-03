@@ -357,7 +357,7 @@
 
     @media screen and (min-width:768px){
       .todo-data-container{
-        grid-template-columns: repeat(3,280px);
+        grid-template-columns: repeat(3,300px);
       }
       
     }
