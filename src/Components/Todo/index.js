@@ -215,7 +215,7 @@ const Todo = () => {
     }
 
     const response = await fetch(url, options)
-    const url1 = 'https://todos-backend-d9im.onrender.com/todos'
+    const url1 = `https://todos-backend-d9im.onrender.com/todos?selectedDate=${selectedDate.toISOString()}`
     const options1 = {
       method: "GET",
       headers: {

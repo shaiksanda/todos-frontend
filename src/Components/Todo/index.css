@@ -198,13 +198,15 @@
   }
 
   .remove-filters-button{
-    height: 35px;
+    height: 40px;
     cursor: pointer;
     outline: none;
     border: none;
     border-radius: 8px;
+    font-size: 20px;
     background: linear-gradient(135deg, #ff5c5c, #d9534f);
     font-weight: bold;
+    width:300px;
   }
 
   .remove-filters-button:hover{
@@ -213,7 +215,7 @@
   }
 
   .delete-all-todos-button{
-    height: 35px;
+    height: 50px;
     cursor: pointer;
     outline: none;
     border: none;
@@ -221,7 +223,7 @@
     background-color:red;
     font-weight: bold;
     color:white;
-    width: 120px;
+    width: 160px;
   }
 
  .update-todo-container{
