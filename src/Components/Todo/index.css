@@ -160,27 +160,23 @@
     align-items: center;
   }
 
-  .todo-bottom-container{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin: 8px;
-
-  }
-
+  
   .each-todo{
     display: flex;
     align-items: center;
+    justify-content: flex-start;
     gap:10px;
-    background-color: lightblue;
+    background-color: black;
     border-radius: 8px;
     cursor: pointer;
     padding: 0px 10px 0px 10px;
     box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+    color:white
   }
 
   .each-todo:hover{
-    background-color: #00BFFF;
+    background-color:yellow;
+    color:black
   }
 
   .no-todos-container{
@@ -194,11 +190,7 @@
     font-weight: bold;
   }
 
-  .filters-container{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
+  
   .filter-heading{
     font-weight: bold;
     font-size: 18px;
@@ -294,7 +286,12 @@
   display: grid;
   grid-template-columns: repeat(1,300px);
   gap:10px;
-  align-items: center;
+  align-items: stretch;
+}
+
+.todo-checkbox{
+  width: 20px;
+  height: 20px;
 }
 
 .filter-heading{
@@ -306,9 +303,46 @@
 }
 
 
+.delete-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  
+}
 
+.todo-bottom-container{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 8px;
+
+}
+
+.filters-container{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.filter-container{
+  width:100%;
+}
+
+.todo-display{
+  font-size: 20px;
+  font-style: italic;
+  font-weight: 700;
+  
+}
   
   @media screen and (min-width: 768px){
+    .filter-container{
+      width: 340px;
+    }
+    .each-todo{
+      min-height: 60px;
+    }
     .todo-data-container{
       grid-template-columns: repeat(2,280px);
     }
@@ -317,6 +351,9 @@
     }
     .delete-all-todos-button{
       width: 120px;
+    }
+    .todo-display{
+      font-size: 26px;
     }
     
     .todo-login-button-form{
@@ -357,7 +394,11 @@
 
     @media screen and (min-width:768px){
       .todo-data-container{
-        grid-template-columns: repeat(3,300px);
+        grid-template-columns: repeat(3,320px);
+      }
+
+      .todo-checkbox{
+        margin-right: 10px;
       }
       
     }

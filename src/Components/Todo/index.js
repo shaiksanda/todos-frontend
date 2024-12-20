@@ -4,8 +4,9 @@ import Confetti from 'react-confetti';
 
 
 import Cookies from 'js-cookie';
-import { Oval } from 'react-loader-spinner'
+//import { Oval } from 'react-loader-spinner'
 import Popup from 'reactjs-popup'
+import { L8} from 'react-isloading'
 
 import { FcFilledFilter } from "react-icons/fc";
 import TodosHeader from '../TodosHeader';
@@ -213,7 +214,6 @@ const Todo = () => {
       })
     }
 
-
     const response = await fetch(url, options)
     const url1 = 'https://todos-backend-d9im.onrender.com/todos'
     const options1 = {
@@ -234,9 +234,7 @@ const Todo = () => {
       console.log("Error in updating status", response.statusText)
     }
 
-
   }
-
 
   // Handler for when the selection changes
   const handlePriorityChange = (event) => {
@@ -255,13 +253,7 @@ const Todo = () => {
     setSelectedDate(date);
   };
 
-
-
   const formattedDate = `${selectedDate.getDate()}/${selectedDate.toLocaleString('default', { weekday: 'short' })}/${selectedDate.getFullYear()}`;
-
-
-
-
 
   const handleDeleteTodo = async (id) => {
     const url = `https://todos-backend-d9im.onrender.com/todos/${id}`
@@ -351,6 +343,7 @@ const Todo = () => {
               <option value="default" hidden>Select One</option>
               <option value="Work">Work</option>
               <option value="Education">Education</option>
+              <option value="Education">Revision</option>
               <option value="Health">Health</option>
               <option value="Finance">Finance</option>
               <option value="Household">Household</option>
@@ -397,26 +390,36 @@ const Todo = () => {
 
         <h1 className="fetch-todos-heading">Fetching todos for: <span className="formatted-date-heading">{formattedDate}</span></h1>
         <div style={{ textAlign: 'center' }}>
-          <button onClick={handleDeleteAllTodos} className='delete-all-todos-button'>Delete All Todos</button>
+          <Popup contentStyle={{ backgroundColor: "white", border: "none", borderRadius: "12px", width: "90%", maxWidth: "400px" }} modal trigger={<button className='delete-all-todos-button'>Delete All Todos</button>}>
+            {close => (
+              <div className='logout-container'>
+                <h1 className='popup-heading'>Are you sure? All your todos will be permanently deleted!</h1>
+                <div className='popup-buttons'>
+                  <button className='close-button' onClick={close}>Close</button>
+                  <button className='confirm-button' onClick={() => handleDeleteAllTodos(close)}>Confirm</button>
+                </div>
+              </div>
+            )}
+          </Popup>
         </div>
         <div className="spinner-container">
           <div className="spinner-container">
-            {isLoading && <Oval
-              color="green"
-              height={50}
-              width={50}
-              ariaLabel="loading"
+            {isLoading && <L8
+              style={{
+                height: "10rem",
+                width: "10rem",
+
+              }}
             />}
           </div>
         </div>
+        <div className='confetti-container'>
+          {showConfetti && <Confetti />}
+        </div>
         <div className='todo-bottom-container'>
-
-
-          <div>
+          <div className='filter-container'>
             <h1 className='filter-heading'>Use Filters to Organize Your Data <FcFilledFilter size={20} /></h1>
-            <div className='confetti-container'>
-              {showConfetti && <Confetti />}
-            </div>
+
             <div className='filters-container'>
               <input onChange={handleSearch} value={search} type="search" placeholder='Search...' className='todo-input-element' />
               <label htmlFor='filterTag' className='label'>TAG</label>
@@ -431,6 +434,7 @@ const Todo = () => {
                 <option value="default" hidden>Select One</option>
                 <option value="Work">Work</option>
                 <option value="Education">Education</option>
+                <option value="Education">Revision</option>
                 <option value="Health">Health</option>
                 <option value="Finance">Finance</option>
                 <option value="Household">Household</option>
@@ -474,14 +478,10 @@ const Todo = () => {
               </select>
               <button onClick={handleRemoveFilters} className='remove-filters-button'>Remove Filters</button>
             </div>
-
           </div>
 
           <div className='todo-data-container'>
-
-
             {filteredData.length === 0 ? (<div className='no-todos-container'>
-
               <img className='todo-image-1' alt="todo" src="https://img.freepik.com/free-photo/3d-illustration-calendar-with-checkmarks-pen_107791-15855.jpg" />
               <div>
                 <p className='no-todos-content'>No Todos for this Date: <span className="formatted-date-heading">{formattedDate}</span></p>
@@ -489,8 +489,8 @@ const Todo = () => {
               </div>
             </div>) : (filteredData.map((item) => (
               <div className='each-todo' key={item._id}>
-                <input checked={item.status === "completed"} onChange={() => handleCheckboxStatus(item._id, item.status)} className="checkbox" type="checkbox" />
-                <p>{item.todo}</p>
+                <input checked={item.status === "completed"} onChange={() => handleCheckboxStatus(item._id, item.status)} className="todo-checkbox" type="checkbox" />
+                <p className='todo-display' >{item.todo}</p>
                 {/* <FaEdit className='icon' title="Edit Task" /> */}
 
                 <Popup contentStyle={{
@@ -581,7 +581,7 @@ const Todo = () => {
           </div>
         </div>
       </div>
-      
+
     </div>
   );
 };
