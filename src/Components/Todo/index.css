@@ -1,3 +1,7 @@
+body, html {
+  height: 100%;
+}
+
 /* Customizing the calendar container */
 .react-calendar {
     width: 300px;
@@ -91,7 +95,9 @@
   
 
   .todos-bg-container{
-    padding-top:90px ;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure full viewport height */
   }
 
   .welcome-heading{
@@ -206,7 +212,7 @@
     font-size: 20px;
     background: linear-gradient(135deg, #ff5c5c, #d9534f);
     font-weight: bold;
-    width:300px;
+    width:100%;
   }
 
   .remove-filters-button:hover{
@@ -258,7 +264,7 @@
   font-size: 16px;
   cursor: pointer;
   outline: none !important;
-  width: 300px;
+  width:100%;
   height: 40px;
   padding: 8px;
   border-width: 0px;
@@ -286,7 +292,7 @@
 
 .todo-data-container{
   display: grid;
-  grid-template-columns: repeat(1,300px);
+  grid-template-columns: 1fr;
   gap:10px;
   align-items: stretch;
 }
@@ -300,9 +306,6 @@
   text-align: center;
 }
 
-.main-content{
-  min-height: 100vh;
-}
 
 
 .delete-container{
@@ -337,6 +340,14 @@
   font-weight: 700;
   
 }
+
+
+.main-content{
+  margin-top: 60px; 
+  flex: 1;
+  padding:20px;
+  margin-bottom: 60px;
+}
   
   @media screen and (min-width: 768px){
     .filter-container{
@@ -345,9 +356,7 @@
     .each-todo{
       min-height: 60px;
     }
-    .todo-data-container{
-      grid-template-columns: repeat(2,280px);
-    }
+    
     .todo-image-1{
       width: 100%;
     }

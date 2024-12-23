@@ -4,12 +4,13 @@ import Confetti from 'react-confetti';
 
 
 import Cookies from 'js-cookie';
-//import { Oval } from 'react-loader-spinner'
+
 import Popup from 'reactjs-popup'
 import { L8} from 'react-isloading'
 
 import { FcFilledFilter } from "react-icons/fc";
 import TodosHeader from '../TodosHeader';
+import TodosFooter from '../TodosFooter';
 
 
 import 'reactjs-popup/dist/index.css'
@@ -316,15 +317,22 @@ const Todo = () => {
     <div className="todos-bg-container">
       <TodosHeader />
       <div className='main-content'>
+      <div className="spinner-container">
+          <div className="spinner-container">
+            {isLoading && <L8
+              style={{
+                height: "10rem",
+                width: "10rem",
+
+              }}
+            />}
+          </div>
+        </div>
         <div className="todo-top-container">
           <div className="calendar-container">
             <Calendar onChange={handleDateChange} value={selectedDate} />
           </div>
-          {/* <div>
-          <img className="todo-image-1" alt="todo" src="https://res.cloudinary.com/dq4yjeejc/image/upload/v1732776857/Designer_lucty3.jpg" />
-        </div> */}
-
-
+      
           <form onSubmit={handleAddTask} id="form" className="form-element form-container" >
             <h1 style={{ margin: "0px" }} className='create-task-heading'>Create A Task</h1>
             <label htmlFor="task" className="label">
@@ -385,7 +393,6 @@ const Todo = () => {
             </button>
             {showMsg && <p style={{ color: "Orange", fontWeight: "bold" }}>{msg}</p>}
           </form>
-
         </div>
 
         <h1 className="fetch-todos-heading">Fetching todos for: <span className="formatted-date-heading">{formattedDate}</span></h1>
@@ -402,17 +409,7 @@ const Todo = () => {
             )}
           </Popup>
         </div>
-        <div className="spinner-container">
-          <div className="spinner-container">
-            {isLoading && <L8
-              style={{
-                height: "10rem",
-                width: "10rem",
-
-              }}
-            />}
-          </div>
-        </div>
+        
         <div className='confetti-container'>
           {showConfetti && <Confetti />}
         </div>
@@ -582,6 +579,7 @@ const Todo = () => {
         </div>
       </div>
 
+      <TodosFooter />
     </div>
   );
 };
