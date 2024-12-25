@@ -7,7 +7,7 @@
     background-image: linear-gradient(to right,skyblue,dodgerblue);
     position: fixed;
     top:0px;
-    right:0px;
+    width:100%;
     left:0px
 }
 
@@ -16,6 +16,11 @@
     width: 90px;
     height: 90px;
     cursor: pointer;
+}
+
+
+.todo-logo:hover{
+    transform: scale(1.02);
 }
 
 .buttons-container{
@@ -34,10 +39,13 @@
     outline: none;
     color: white;
     font-weight: bold;
+    font-size: 16px;
 }
 
 .login-button:hover{
     background: linear-gradient(to right, #2ECC71, #00FFB2);
+    transform: scale(1.02);
+    color: #000;
 }
 
 
@@ -52,18 +60,23 @@
     outline: none;
     color: white;
     font-weight: bold;
+    font-size: 16px;
 }
 
 .signup-button:hover{
-    background: linear-gradient(to right, #FF5722, #FF9500); /* Deep Orange to Bright Orange */
+    background: linear-gradient(to right, #FF5722, #FF9500); 
+    transform: scale(1.02);
+    color: #000;
 }
 
 
 @media screen and (min-width: 768px) {
     .login-button{
-        width: 100px;
+        width: 120px;
+        font-size: 22px;
     }
     .signup-button{
-        width: 100px;
+        width: 120px;
+        font-size: 22px;
     }
 }

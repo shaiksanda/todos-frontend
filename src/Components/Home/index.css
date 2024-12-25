@@ -7,13 +7,14 @@ html, body {
   
 }
 .home-container{
-    
     display: flex;
     flex-direction:column;
-    padding: 70px 10px 10px 10px;
     background: linear-gradient(to right,#DB2763,#B0DB43); /* Vibrant blue to aqua to green */
-
-    gap:10px
+    margin-top: 90px;
+    gap:10px;
+    align-items: center;
+    padding: 10px;
+    height: 85vh;
 }
 @media screen and (min-width:768px){
     .home-container{
@@ -26,7 +27,6 @@ html, body {
     flex-direction: column;
     justify-content:center;
     align-items: center;
-    text-align: center;
 }
 
 
@@ -38,35 +38,51 @@ html, body {
 
 
 .home-heading{
-   
     font-family: 'Poppins', sans-serif;
-    color: palegoldenrod;
+    color: black;
     font-weight: bold;
+    font-size: 24px;
+    
 }
 
 .todo-content{
-    color:palegoldenrod;
+    color:yellow;
     font-weight: bold;
+    font-size: 16px;
 }
 
 .start-now-button{
     background-image: linear-gradient(to right,skyblue,dodgerblue);
     border-width:0px;
     border-radius: 8px;
-    width:80px;
+    width:120px;
     height: 40px;
     cursor: pointer;
     outline: none;
     color: white;
     font-weight: bold;
+    font-size: 16px;
 }
 
 @media screen and (min-width:768px){
     .start-now-button{
         width: 120px;
     }
+    .todo-image{
+        width: 85%;
+    }
+    .home-heading{
+        font-size: 30px;
+        color:#B0DB43
+    }
+    .todo-content{
+        color: yellow;
+        font-size: 20px;
+    }
 }
 
 .start-now-button:hover{
     background-image: linear-gradient(to right,dodgerblue,skyblue);
+    transform: scale(1.02);
+    color: #000;
 }

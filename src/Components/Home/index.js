@@ -8,14 +8,14 @@ class Home extends Component {
     render(){
         const jwtToken=Cookies.get("jwt_token")
         if(jwtToken){
-            return <Navigate to="/todo" />  // Redirect to Todo page if JWT token is present.  // Replace "/todo" with your desired route path.  // Import "Navigate" from "react-router-dom" package.  // Import "Cookies" from "js-cookie" package.  // Replace "/todo" with your desired route path.  // Import "Header" component.  // Replace "/Header" with the path of your Header component.  // Import "./index.css" to apply custom styles.  // Replace "./index.css" with the path of your CSS file.  // Import "./index.css" to apply custom styles.  // Replace "./index.css" with the path of your CSS file.  // Import "./index.css" to apply custom styles.  // Replace "./index.css" with the path of your CSS file.  // Import "./index.css" to apply custom styles.  // Replace
+            return <Navigate to="/todo" />  // Redirect to Todo page if JWT token is present.  
         }
         return (
             <div>
                 <Header />
                 <div className='home-container'>
                     <div className='todo-content-container'>
-                        <h1 className='home-heading'>Focus on What Matters.</h1>
+                        <h1 className='home-heading'>Focus On What Matters.</h1>
                         <p className='todo-content'>Life is full of noise, but your goals deserve clarity. With our app, organize your tasks, prioritize what’s important, and achieve more with ease. Simplify your day and make every moment count.</p>
                         <Link to="/login"><button className='start-now-button'>Start Now</button></Link>
                     </div>

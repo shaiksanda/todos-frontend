@@ -60,6 +60,13 @@ const Todo = () => {
     }
   }, [data]);
 
+  if (showMsg){
+    setTimeout(() => {
+      setShowMsg(false)
+      setMsg("")
+    }, 5000)
+  }
+
 
 
   const handleFilterTag = (event) => {
@@ -338,13 +345,13 @@ const Todo = () => {
             <label htmlFor="task" className="label">
               TASK
             </label>
-            <input value={todo} onChange={handleTodoChange} id="task" placeholder="Enter the Task Here" className="todo-input-element" type="text" />
+            <input value={todo} onChange={handleTodoChange} id="task" placeholder="Enter the Task Here" className="input-element" type="text" />
             <label htmlFor="tag" className='label'>TAG</label>
             <select
               name="tag"
               value={tag}
               onChange={handleTagChange}
-              className='todo-input-element'
+              className='dropdown'
               style={{ color: 'black' }}
               id="tag"
             >
@@ -377,7 +384,7 @@ const Todo = () => {
               name="priority"
               value={priority}
               onChange={handlePriorityChange}
-              className='todo-input-element'
+              className='dropdown'
               style={{ color: 'black' }}
             >
               <option value="default" hidden>Select One</option>
@@ -388,10 +395,10 @@ const Todo = () => {
             </select>
 
 
-            <button type="submit" className="todo-login-button-form">
+            <button type="submit" className="login-button-form">
               Add Task
             </button>
-            {showMsg && <p style={{ color: "Orange", fontWeight: "bold" }}>{msg}</p>}
+            {showMsg && <p style={{margin:'2px'}} className='error-message'>*{msg}</p>}
           </form>
         </div>
 
@@ -418,14 +425,14 @@ const Todo = () => {
             <h1 className='filter-heading'>Use Filters to Organize Your Data <FcFilledFilter size={20} /></h1>
 
             <div className='filters-container'>
-              <input onChange={handleSearch} value={search} type="search" placeholder='Search...' className='todo-input-element' />
+              <input onChange={handleSearch} value={search} type="search" placeholder='Search...' className='input-element' style={{backgroundColor:"lavender"}} />
               <label htmlFor='filterTag' className='label'>TAG</label>
               <select
                 id="filterTag"
                 value={filterTag}
                 onChange={handleFilterTag}
-                className='todo-input-element'
-                style={{ color: 'black' }}
+                className='input-element'
+                style={{ color: 'black',backgroundColor:"lavender" }}
 
               >
                 <option value="default" hidden>Select One</option>
@@ -452,8 +459,8 @@ const Todo = () => {
                 id="filterPriority"
                 value={filterPriority}
                 onChange={handleFilterPriority}
-                className='todo-input-element'
-                style={{ color: 'black' }}
+                className='input-element'
+                style={{ color: 'black',backgroundColor:"lavender" }}
               >
                 <option value="default" hidden>Select One</option>
                 <option value="low">low</option>
@@ -464,8 +471,8 @@ const Todo = () => {
               <select
                 value={status}
                 onChange={handleStatus}
-                className='todo-input-element'
-                style={{ color: 'black' }}
+                className='input-element'
+                style={{ color: 'black',backgroundColor:"lavender" }}
                 id='status'
               >
                 <option value="default" hidden>Select One</option>

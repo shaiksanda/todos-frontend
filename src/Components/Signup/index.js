@@ -20,23 +20,18 @@ const Signup =()=>{
     const handleCheckbox=()=>{
         setShowPassword(!showPassword)
     }
-
     const handleGender=(event)=>{
         setGender(event.target.value)
     }
-
     const handleUsername=(event)=>{
         setUsername(event.target.value)
     }
-
     const handleFullName=(event)=>{
         setFullname(event.target.value)
     }
-
     const handlePassword=(event)=>{
         setPassword(event.target.value)
     }
-
     const handleSubmitSuccess=(message)=>{
         setShowSuccessMsg(true)
         setSuccessMsg(message)
@@ -48,7 +43,6 @@ const Signup =()=>{
         setShowErrorMsg(true)
         setErrorMsg(errorMsg)
     }
-
     const handleSubmit=async(event)=>{
         event.preventDefault()
         if (!username || !fullname || !password) {
@@ -77,21 +71,18 @@ const Signup =()=>{
         }
 
     }
-
-
-
     return(
-        <div className="login-container">
+        <div style={{padding:"6px",margin:'6px'}} className="login-container">
             <div className="container">
                 <img className="signup-image" src="https://res.cloudinary.com/dq4yjeejc/image/upload/v1732344145/WhatsApp_Image_2024-11-23_at_12.09.56_PM_bd450l.jpg" alt="login" />
             </div>
-            <form id="form" onSubmit={handleSubmit} className="form-element form-container">
+            <form id="form" onSubmit={handleSubmit} className="form-container">
                 <label id="fullname" className="label">FULLNAME</label>
                 <input name="fullname" id="fullname" onChange={handleFullName} value={fullname} placeholder="FULLNAME" className="input-element" type="text" />
                 <label htmlFor='username' className="label">USERNAME</label>
                 <input name="username" id="username" onChange={handleUsername} value={username} placeholder="USERNAME" className="input-element" type="text" />
                 <label htmlFor='gender' className='label'>GENDER</label>
-                <select name="gender" id="gender" onChange={handleGender} value={gender} className='input-element' style={{color:'black'}}>
+                <select name="gender" id="gender" onChange={handleGender} value={gender} className='dropdown' style={{color:'black'}}>
                     <option value="male">Male</option>
                     <option value="female">Female</option>
                     <option value="others">Others</option>
@@ -106,7 +97,7 @@ const Signup =()=>{
                 <button type="submit" className="signup-button-form">Signup</button>
                 {showSuccessMsg && <p>{successMsg}</p>}
                 {showErrorMsg && <p style={{color:"red",fontWeight:"bold"}}>{errorMsg}</p>}
-                <Link to="/login" style={{textDecoration:"none"}}>Already signed up? Log in</Link>
+                <Link to="/login" style={{textDecoration:"none"}} className='login-text'>Already signed up? Log in</Link>
             </form>
         </div>
     )

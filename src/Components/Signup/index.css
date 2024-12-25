@@ -1,28 +1,50 @@
 .signup-image{
-    width:100%
+    width:100%;
+    border-radius: 10px;
+    cursor: pointer;
 }
-
+.signup-image:hover{
+    transform: scale(1.02);
+}
 
 .signup-button-form{
-    background: linear-gradient(to right, #FF9500, #FF5722); /* Bright Orange to Deep Orange */
+    background: white; /* Bright Orange to Deep Orange */
     border-width:0px;
     border-radius: 8px;
-    width:280px;
-    height: 40px;
+    width:100%;
+    height: 45px;
     cursor: pointer;
     outline: none;
-    color: white;
+    color: magenta;
     font-weight: bold;
+    font-size: 16px;
+}
+
+.dropdown{
+    color:magenta;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    outline: none !important;
+    width: 100%;
+    height: 50px;
+    padding: 6px;
+    border-width: 0px;
+    border-radius: 8px;
+    background-color: white;
 }
 .signup-button-form:hover{
-    background: linear-gradient(to right, #FF5722, #FF9500); /* Deep Orange to Bright Orange */
+ background-color: green;
+ color:orangered;
 }
 @media screen and (min-width: 768px) {
     .signup-image{
-        width:80%;
+        width:75%;
+    }
+    .dropdown{
+        width: 93%;
     }
     .signup-button-form{
-
-        width: 310px;
+        width: 95%;
     }
 }

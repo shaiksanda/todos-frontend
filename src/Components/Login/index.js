@@ -12,6 +12,12 @@ const Login = () => {
   const [showErrorMsg, setShowErrorMsg] = useState(false);
 
   const navigate = useNavigate();
+  if (showErrorMsg) {
+    setTimeout(()=>{
+      setShowErrorMsg(false);
+      setErrorMsg('');
+    },5000)
+  }
 
   const handleCheckbox = () => {
     setShowPassword(!showPassword);
@@ -86,7 +92,7 @@ const Login = () => {
           alt="login"
         />
       </div>
-      <form id="form" className="form-element form-container" onSubmit={handleLogin}>
+      <form id="form" className="form-container" onSubmit={handleLogin}>
         <label htmlFor="username" className="label">
           USERNAME
         </label>
@@ -105,7 +111,7 @@ const Login = () => {
           id="password"
           value={password}
           onChange={handlePassword}
-          placeholder="password"
+          placeholder="PASSWORD"
           className="input-element"
           type={showPassword ? 'text' : 'password'}
         />
@@ -126,7 +132,7 @@ const Login = () => {
           Login
         </button>
         {showErrorMsg && <p className="error-message">*{errorMsg}</p>}
-        <Link to="/signup" style={{ textDecoration: 'none' }}>
+        <Link to="/signup" style={{ textDecoration: 'none' }} className='login-text'>
           Not yet signed up? Sign up here
         </Link>
       </form>

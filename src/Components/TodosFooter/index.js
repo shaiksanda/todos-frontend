@@ -1,11 +1,19 @@
-
+// import { RiTodoFill } from "react-icons/ri";
+// import { MdDashboard } from "react-icons/md";
 import "./index.css"
 const TodosFooter=()=>{
     console.log()
     return (
         <div className="footer">
-            <h1 style={{margin:'4px'}}>Footer</h1>
-            <p style={{margin:'4px'}}>This feature is in progress and will be available soon. Stay tuned </p>
+            <p style={{textAlign:"center"}}>This feature is coming soon! Stay tuned for updates—we can’t wait to share it with you</p>
+            {/* <div>
+                <p>Todos</p>
+                <RiTodoFill />
+            </div>
+            <div>
+                <p>Dashboard</p>
+                <MdDashboard size={25} />
+            </div> */}
         </div>
     )
 }
