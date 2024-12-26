@@ -497,8 +497,6 @@ const Todo = () => {
               <div className='each-todo' key={item._id}>
                 <input checked={item.status === "completed"} onChange={() => handleCheckboxStatus(item._id, item.status)} className="todo-checkbox" type="checkbox" />
                 <p className='todo-display' >{item.todo}</p>
-                {/* <FaEdit className='icon' title="Edit Task" /> */}
-
                 <Popup contentStyle={{
                   backgroundColor: 'white',
                   border: 'none',

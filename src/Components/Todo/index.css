@@ -172,16 +172,16 @@ body, html {
     align-items: center;
     justify-content: flex-start;
     gap:10px;
-    background-color: black;
+    background-color: magenta;
     border-radius: 8px;
     cursor: pointer;
     padding: 0px 10px 0px 10px;
     box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
-    color:white
+    color:black
   }
 
   .each-todo:hover{
-    background-color:yellow;
+    background-color:lavender;
     color:black
   }
 
@@ -212,7 +212,7 @@ body, html {
     font-size: 20px;
     background: linear-gradient(135deg, #ff5c5c, #d9534f);
     font-weight: bold;
-    width:100%;
+    width:90%;
   }
 
   .remove-filters-button:hover{
@@ -262,8 +262,8 @@ body, html {
 }
 
 .todo-checkbox{
-  width: 20px;
-  height: 20px;
+  width: 40px;
+  height: 40px;
 }
 
 .filter-heading{
@@ -296,6 +296,15 @@ body, html {
 }
 .filter-container{
   width:100%;
+  background-color: #32CD32;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  height: 70vh;
+}
+
+.filter-container:hover{
+  transform: scale(1.02);
 }
 
 .todo-display{
@@ -315,10 +324,10 @@ body, html {
   
   @media screen and (min-width: 768px){
     .filter-container{
-      width: 340px;
+      width: 30%;
     }
     .each-todo{
-      min-height: 60px;
+      min-height: 35px;
     }
     
     .todo-image-1{
@@ -369,7 +378,8 @@ body, html {
 
     @media screen and (min-width:768px){
       .todo-data-container{
-        grid-template-columns: repeat(3,320px);
+        width:70%;
+        grid-template-columns: repeat(3,1fr);
       }
 
       .todo-checkbox{
