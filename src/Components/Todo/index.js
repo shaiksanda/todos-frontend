@@ -323,7 +323,11 @@ const Todo = () => {
   return (
     <div className="todos-bg-container">
       <TodosHeader />
+      
       <div className='main-content'>
+      <div className='confetti-container'>
+          {showConfetti && <Confetti />}
+        </div>
       <div className="spinner-container">
           <div className="spinner-container">
             {isLoading && <L8
@@ -417,9 +421,7 @@ const Todo = () => {
           </Popup>
         </div>
         
-        <div className='confetti-container'>
-          {showConfetti && <Confetti />}
-        </div>
+        
         <div className='todo-bottom-container'>
           <div className='filter-container'>
             <h1 className='filter-heading'>Use Filters to Organize Your Data <FcFilledFilter size={20} /></h1>
@@ -517,18 +519,18 @@ const Todo = () => {
 
                       <h1 className='update-heading'>Update Your Task</h1>
 
-                      <form onSubmit={(e) => handleUpdateTask(e, item._id)} id="form" className="form-element form-conainer" >
+                      <form onSubmit={(e) => handleUpdateTask(e, item._id)} id="form" className="form-container" >
                         <label htmlFor="task" className="label">
                           TASK
                         </label>
-                        <input value={todo} onChange={handleTodoChange} id="task" placeholder="Enter the Task Here" className="todo-input-element" type="text" />
+                        <input style={{backgroundColor:"lavender"}} value={todo} onChange={handleTodoChange} id="task" placeholder="Enter the Task Here" className="input-element" type="text" />
                         <label htmlFor="tag" className='label'>TAG</label>
                         <select
                           name="tag"
                           value={tag}
                           onChange={handleTagChange}
-                          className='todo-input-element'
-                          style={{ color: 'black' }}
+                          className='dropdown'
+                          style={{ color: 'black',backgroundColor:"lavender" }}
                           id="tag"
                         >
                           <option value="default" hidden>Select One</option>
@@ -556,8 +558,8 @@ const Todo = () => {
                           name="priority"
                           value={priority}
                           onChange={handlePriorityChange}
-                          className='todo-input-element'
-                          style={{ color: 'black' }}
+                          className='dropdown'
+                          style={{ color: 'black',backgroundColor: "lavender"}}
                         >
                           <option value="default" hidden>Select One</option>
                           <option value="low">low</option>
@@ -565,11 +567,11 @@ const Todo = () => {
                           <option value="high">high</option>
 
                         </select>
-                        <button type="submit" className="todo-login-button-form">
+                        <button  type="submit" className="login-button-form">
                           UPDATE
                         </button>
                         {showUpdatedMsg && <p style={{ color: "green", fontWeight: "bold" }}>Todo Updated Successfully now close this.</p>}
-                        <button style={{ textAlign: "center", width: "300px" }} onClick={close} className='delete-all-todos-button'>Close</button>
+                        <button style={{ textAlign: "center"}} onClick={close} className='login-button-form'>Close</button>
 
                       </form>
                       <div>

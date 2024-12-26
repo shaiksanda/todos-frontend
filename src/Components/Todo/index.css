@@ -234,12 +234,9 @@ body, html {
 
  .update-todo-container{
   display: flex;
-  justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap:10px;
-  margin-top: 20px;
-  
+  gap:6px;
  }
 
  .popup-content {

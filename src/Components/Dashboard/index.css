@@ -1,5 +1,7 @@
 .dashboard-container{
-    padding-top: 80px;
+    margin-top: 120px;
+    min-height:150vh;
+    margin-bottom: 150px;
 }
 
 .dashboard-heading{

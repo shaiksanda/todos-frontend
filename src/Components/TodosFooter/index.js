@@ -1,19 +1,20 @@
-// import { RiTodoFill } from "react-icons/ri";
-// import { MdDashboard } from "react-icons/md";
+import { AiFillHome } from "react-icons/ai";
+import { MdDashboard } from "react-icons/md";
+import { Link } from "react-router-dom";
 import "./index.css"
 const TodosFooter=()=>{
     console.log()
     return (
         <div className="footer">
-            <p style={{textAlign:"center"}}>This feature is coming soon! Stay tuned for updates—we can’t wait to share it with you</p>
-            {/* <div>
-                <p>Todos</p>
-                <RiTodoFill />
+            
+            <div className="navigation-container">
+                <Link to="/todo"><AiFillHome style={{color:"black"}} size={25} /></Link>
+                <Link to="/todo"><p style={{color:"black"}} className="navigation-content">Home</p></Link>
             </div>
-            <div>
-                <p>Dashboard</p>
-                <MdDashboard size={25} />
-            </div> */}
+            <div className="navigation-container">
+                <Link className="remove-styling" to="/dashboard"><MdDashboard style={{color:"black"}} size={25} /></Link>
+                <Link className="remove-styling" to="/dashboard"><p style={{color:"black"}} className="navigation-content">Dashboard</p></Link>
+            </div>
         </div>
     )
 }

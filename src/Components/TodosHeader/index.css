@@ -18,10 +18,8 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-
     padding: 20px;
     border-radius: 8px;
-    
     height: auto;
     width: 300px;
 }
@@ -98,6 +96,24 @@
 
 .username-heading{
     font-size: 20px;
+}
+
+.light-mode{
+    color: black;
+    cursor: pointer;
+}
+
+.light-mode:hover{
+    transform: scale(1.2);
+}
+
+.navigation-heading{
+    cursor: pointer; 
+}
+
+.navigation-heading:hover{
+    transform: scale(1.2);
+    color: magenta;
 }
 
 @media screen and (min-width:768px){
