@@ -11,9 +11,9 @@
     flex-direction: column;
     justify-content:center;
     align-items: center;
-    height: 100vh;
-    gap:10px
-
+    min-height: 100vh;
+    gap:10px;
+    padding: 10px;
 }
 
 .container{
@@ -31,7 +31,8 @@
     padding: 15px; 
     border-radius: 8px; 
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1); 
-    background: orange; 
+    background: orange;
+    cursor: pointer; 
 }
 
 .form-container:hover{
@@ -43,7 +44,7 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: bold;
     align-self: flex-start;
-    font-size: 14px;
+    font-size: 18px;
     color: black;
 }
 
@@ -60,7 +61,7 @@
     font-size: 16px;
     cursor: pointer;
     outline: none !important;
-    width: 100%;
+    width: 90%;
     height: 40px;
     padding: 6px;
     border-width: 0px;
@@ -75,7 +76,7 @@
     font-size: 18px;
     border-width:0px;
     border-radius: 8px;
-    width:100%;
+    width:90%;
     height: 45px;
     cursor: pointer;
     outline: none;

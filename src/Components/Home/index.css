@@ -14,13 +14,9 @@ html, body {
     gap:10px;
     align-items: center;
     padding: 10px;
-    height: 85vh;
+    min-height: 80vh;
 }
-@media screen and (min-width:768px){
-    .home-container{
-        flex-direction: row;
-    }
-}
+
 
 .todo-content-container{
     display: flex;
@@ -39,7 +35,7 @@ html, body {
 
 .home-heading{
     font-family: 'Poppins', sans-serif;
-    color: black;
+    color:white;
     font-weight: bold;
     font-size: 24px;
     
@@ -56,7 +52,7 @@ html, body {
     border-width:0px;
     border-radius: 8px;
     width:120px;
-    height: 40px;
+    height: 50px;
     cursor: pointer;
     outline: none;
     color: white;
@@ -72,12 +68,16 @@ html, body {
         width: 85%;
     }
     .home-heading{
-        font-size: 30px;
+        font-size: 36px;
         color:#B0DB43
     }
     .todo-content{
         color: yellow;
-        font-size: 20px;
+        font-size: 24px;
+    }
+    .home-container{
+        flex-direction: row;
+        height: 75vh;
     }
 }
 
