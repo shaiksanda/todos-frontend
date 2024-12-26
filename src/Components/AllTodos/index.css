@@ -1,4 +1,53 @@
+
+
 .all-todos-container{
     margin-top: 110px;
     height: 50vh;
+    padding: 10px;
+}
+
+.data-container{
+    display: grid;
+    grid-template-columns: repeat(1,1fr);
+    gap:10px;
+    
+}
+
+.each-todo-data{
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    gap:10px;
+    background-color: yellowgreen;
+    border-radius: 8px;
+    padding: 4px;
+    cursor: pointer;
+    
+}
+
+.each-todo-data:hover{
+    transform: scale(1.03);
+    background-color: lavender;
+}
+
+.todo-data-heading{
+    font-size: 20px;
+    margin: 4px;
+    color: brown
+}
+
+.style-item{
+    color: #000;
+    font-style: italic;
+    font-family: "Bree Serif";
+    
+}
+
+@media screen and (min-width: 768px){
+    .data-container{
+        grid-template-columns: repeat(3,1fr);
+    }
+    .todo-data-heading{
+        font-size: 24px;
+    }
 }

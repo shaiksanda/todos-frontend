@@ -297,25 +297,25 @@ const Todo = () => {
 
   }
 
-  const handleDeleteAllTodos = async () => {
-    const url = `https://todos-backend-d9im.onrender.com/todos?selectedDate=${selectedDate.toISOString()}`
-    const options = {
-      method: "DELETE",
-      headers: {
-        'content-type': 'application/json',
-        'Authorization': `Bearer ${Cookies.get('jwt_token')}`, // Authorization header
-      },
-    }
-    const response = await fetch(url, options)
-    if (response.ok) {
-      setData([])
-      setIsLoading(false)
-    }
-    else {
-      console.log("Error in deleting data", response.statusText)
-      setIsLoading(false)
-    }
-  }
+  // const handleDeleteAllTodos = async () => {
+  //   const url = `https://todos-backend-d9im.onrender.com/todos?selectedDate=${selectedDate.toISOString()}`
+  //   const options = {
+  //     method: "DELETE",
+  //     headers: {
+  //       'content-type': 'application/json',
+  //       'Authorization': `Bearer ${Cookies.get('jwt_token')}`, // Authorization header
+  //     },
+  //   }
+  //   const response = await fetch(url, options)
+  //   if (response.ok) {
+  //     setData([])
+  //     setIsLoading(false)
+  //   }
+  //   else {
+  //     console.log("Error in deleting data", response.statusText)
+  //     setIsLoading(false)
+  //   }
+  // }
 
 
   const filteredData = data.filter((each) => each.todo.toLowerCase().includes(search))
@@ -407,7 +407,7 @@ const Todo = () => {
         </div>
 
         <h1 className="fetch-todos-heading">Fetching todos for: <span className="formatted-date-heading">{formattedDate}</span></h1>
-        <div style={{ textAlign: 'center' }}>
+        {/* <div style={{ textAlign: 'center' }}>
           <Popup contentStyle={{ backgroundColor: "white", border: "none", borderRadius: "12px", width: "90%", maxWidth: "400px" }} modal trigger={<button className='delete-all-todos-button'>Delete All Todos</button>}>
             {close => (
               <div className='logout-container'>
@@ -419,7 +419,7 @@ const Todo = () => {
               </div>
             )}
           </Popup>
-        </div>
+        </div> */}
         
         
         <div className='todo-bottom-container'>
