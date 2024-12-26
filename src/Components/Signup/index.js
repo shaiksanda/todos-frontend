@@ -17,6 +17,13 @@ const Signup =()=>{
     const [successMsg,setSuccessMsg]=useState("")
     const [showSuccessMsg,setShowSuccessMsg]=useState(false)
 
+    if (showErrorMsg) {
+        setTimeout(()=>{
+          setShowErrorMsg(false);
+          setErrorMsg('');
+        },5000)
+      }
+
     const handleCheckbox=()=>{
         setShowPassword(!showPassword)
     }
