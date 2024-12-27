@@ -362,7 +362,7 @@ const Todo = () => {
               <option value="default" hidden>Select One</option>
               <option value="Work">Work</option>
               <option value="Education">Education</option>
-              <option value="Education">Revision</option>
+              <option value="Revision">Revision</option>
               <option value="Health">Health</option>
               <option value="Finance">Finance</option>
               <option value="Household">Household</option>
@@ -440,7 +440,7 @@ const Todo = () => {
                 <option value="default" hidden>Select One</option>
                 <option value="Work">Work</option>
                 <option value="Education">Education</option>
-                <option value="Education">Revision</option>
+                <option value="Revision">Revision</option>
                 <option value="Health">Health</option>
                 <option value="Finance">Finance</option>
                 <option value="Household">Household</option>
@@ -534,6 +534,7 @@ const Todo = () => {
                           <option value="default" hidden>Select One</option>
                           <option value="Work">Work</option>
                           <option value="Education">Education</option>
+                          <option value="Revision">Revision</option>
                           <option value="Health">Health</option>
                           <option value="Finance">Finance</option>
                           <option value="Household">Household</option>
