@@ -10,7 +10,7 @@
     display: grid;
     grid-template-columns: repeat(1,1fr);
     gap:10px;
-    
+    align-items: center;
 }
 
 .each-todo-data{
@@ -43,11 +43,111 @@
     
 }
 
+.dropdown-all-todos{
+    color:magenta;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    outline: none !important;
+    width: 92%;
+    height: 50px;
+    padding: 6px;
+    border-width: 0px;
+    border-radius: 8px;
+    background-color: lavender;
+}
+
+.all-todos-input-element{
+    color:magenta;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    outline: none !important;
+    width: 92%;
+    height: 50px;
+    padding: 6px;
+    border-width: 0px;
+    border-radius: 8px;
+    background-color: lavender;
+}
+
+.filter-item{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    
+}
+
+.filter-container-1{
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    background-color: plum;
+    padding: 10px;
+}
+.remove-filters-button-1{
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 4px;
+    margin-top: 10px;
+    border-width: 0px;
+    background-color: red;
+    border-radius: 10px;
+    height: 35px;
+    width: 120px;
+    margin-bottom: 6px;
+}
+
+.remove-filters-button-1:hover{
+color:black;
+transform: scale(1.04);
+background-color: orangered;
+}
+
+.delete-all-todos-button:hover{
+    color:black;
+    background-color: orangered;
+transform: scale(1.04);
+}
+
+.no-data-found-container{  
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+
+}
+.no-data-found{
+    width: 100%;
+}
+
+.heading{
+    font-size: 20px;
+    margin: 4px;
+    color:red;
+}
 @media screen and (min-width: 768px){
     .data-container{
         grid-template-columns: repeat(3,1fr);
     }
     .todo-data-heading{
         font-size: 24px;
+    }
+    .dropdown-all-todos{
+        width: 250px;
+    }
+    .filter-container-1{
+        flex-direction: row;
+    }
+
+    .all-todos-input-element{
+        width: 250px;
+    }
+    .heading{
+        font-size: 30px;
     }
 }

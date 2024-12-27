@@ -151,8 +151,8 @@ body, html {
 
 
   .todo-image-1{
-    width: 280px;
-    border-radius: 8px;
+    width:100%;
+    border-radius: 10px;
   }
 
   .fetch-todos-heading{
@@ -331,7 +331,7 @@ body, html {
     }
     
     .todo-image-1{
-      width: 100%;
+      width: 150%;
     }
     .delete-all-todos-button{
       width: 120px;
