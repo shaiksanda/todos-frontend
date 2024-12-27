@@ -89,7 +89,6 @@ const AllTodos = () => {
             <TodosHeader />
 
             <div className='all-todos-container'>
-
                 <div className='filter-container-1'>
                     <div className='filter-item'>
                         <label htmlFor='search' className='label'>SEARCH</label>
@@ -159,9 +158,9 @@ const AllTodos = () => {
                         </select>
                     </div>
 
-                    <div style={{ textAlign: "right" }}>
+                    <div className='filters-buttons'>
                         <button onClick={handleRemoveFilters} className='remove-filters-button-1'>Remove Filters</button>
-                        <Popup contentStyle={{ backgroundColor: "white", border: "none", borderRadius: "12px", width: "90%", maxWidth: "400px" }} modal trigger={<button style={{ height: "35px" }} className='delete-all-todos-button'>Delete All Todos</button>}>
+                        <Popup contentStyle={{ backgroundColor: "white", border: "none", borderRadius: "12px", width: "90%", maxWidth: "400px" }} modal trigger={<button style={{ height: "50px" }} className='delete-all-todos-button'>Delete All Todos</button>}>
                             {close => (
                                 <div className='logout-container'>
                                     <h1 className='popup-heading'>Are you sure? All your todos will be permanently deleted!</h1>
