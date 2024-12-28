@@ -187,6 +187,7 @@ const AllTodos = () => {
                             <h2 className='todo-data-heading'>Priority: <span className='style-item'>{each.priority}</span></h2>
                             <h2 className='todo-data-heading'>Status: <span className='style-item'>{each.status}</span></h2>
                             <h2 className='todo-data-heading'>Tag: <span className='style-item'>{each.tag}</span></h2>
+                            <h2 className='todo-data-heading'>Date: <span className='style-item'>{new Date(each.selectedDate).toISOString().split('T')[0]}</span></h2>
                         </div>
                     )))}
                 </div>)}

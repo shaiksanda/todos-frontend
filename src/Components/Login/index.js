@@ -33,7 +33,7 @@ const Login = () => {
 
   const onSubmitSuccess = (data) => {
     
-    Cookies.set('jwt_token', data.jwtToken,);
+    Cookies.set('jwt_token', data.jwtToken,{expires:5});
     Cookies.set('username',username,{expires: 30});
     
 
@@ -127,6 +127,7 @@ const Login = () => {
             Show Password
           </label>
         </div>
+        <Link to="/forgot-password"><button className='login-button-form'>Forgot Password</button></Link>
 
         <button type="submit" className="login-button-form">
           Login
