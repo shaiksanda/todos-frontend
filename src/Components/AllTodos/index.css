@@ -143,6 +143,11 @@ transform: scale(1.04);
     align-items: center;
     gap:10px;
 }
+
+.special-input{
+    width: 100%;
+    height: 50px;
+}
 @media screen and (min-width: 768px){
     .data-container{
         grid-template-columns: repeat(3,1fr);
@@ -171,5 +176,9 @@ transform: scale(1.04);
     }
     .delete-all-todos-button{
         width: 150px !important;
+    }
+    .special-input{
+        width: 260px;
+
     }
 }

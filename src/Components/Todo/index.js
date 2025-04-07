@@ -6,7 +6,7 @@ import Confetti from 'react-confetti';
 import Cookies from 'js-cookie';
 
 import Popup from 'reactjs-popup'
-import { L8} from 'react-isloading'
+import { L8 } from 'react-isloading'
 
 import { FcFilledFilter } from "react-icons/fc";
 import TodosHeader from '../TodosHeader';
@@ -25,8 +25,13 @@ const Todo = () => {
   const [tag, setTag] = useState('');
   const [priority, setPriority] = useState('');
   const [todo, setTodo] = useState('');
+  const isValid = tag && todo && priority
+  const validUpdate=todo && priority && tag
   const [msg, setMsg] = useState("")
   const [showMsg, setShowMsg] = useState(false)
+
+  const [successMsg, setSuccessMsg] = useState("")
+  const [showSuccessMsg, setShowSuccessMsg] = useState(false)
 
   const [filterTag, setFilterTag] = useState('');
   const [filterPriority, setFilterPriority] = useState('');
@@ -38,6 +43,7 @@ const Todo = () => {
   const [showUpdatedMsg, setShowUpdatedMsg] = useState(false)
 
   const [showConfetti, setShowConfetti] = useState(false);
+  const [loading, setLoading] = useState(false)
 
 
 
@@ -60,7 +66,7 @@ const Todo = () => {
     }
   }, [data]);
 
-  if (showMsg){
+  if (showMsg) {
     setTimeout(() => {
       setShowMsg(false)
       setMsg("")
@@ -83,6 +89,7 @@ const Todo = () => {
 
   const handleUpdateTask = async (event, id) => {
     event.preventDefault()
+    setLoading(true)
     const url = `https://todos-backend-d9im.onrender.com/todos/${id}`
     const options = {
       method: "PUT",
@@ -97,10 +104,13 @@ const Todo = () => {
       })
     }
     const response = await fetch(url, options)
+    setLoading(false)
     if (response.ok) {
       onSubmitSuccess({ message: "" })
       setTaskUpdated(true);
       setShowUpdatedMsg(true)
+      setTimeout(()=>{setShowUpdatedMsg(false)},5000)
+      
     }
     else {
       console.log("Error in updating todo", response.statusText)
@@ -147,20 +157,21 @@ const Todo = () => {
   }, [selectedDate, filterPriority, filterTag, status, taskAdded, taskUpdated])
 
   const onSubmitSuccess = (data) => {
-    setMsg(data.message)
-    setShowMsg(true)
+    setSuccessMsg(data.message)
+    setShowSuccessMsg(true)
     setTodo("")
     setTag("")
     setPriority("")
 
     setTimeout(() => {
-      setShowMsg(false);
+      setShowSuccessMsg(false);
     }, 5000);
     setTaskAdded(prev => !prev);
   }
 
   const handleAddTask = async (event) => {
     event.preventDefault();
+    setLoading(true)
     const url = 'https://todos-backend-d9im.onrender.com/todos';
     const formattedDate = selectedDate.toISOString();
 
@@ -182,6 +193,7 @@ const Todo = () => {
       if (tag && priority && todo) {
         const response = await fetch(url, options);
         const data = await response.json();
+        setLoading(false)
         if (response.ok) {
           onSubmitSuccess(data)
 
@@ -317,18 +329,18 @@ const Todo = () => {
   //   }
   // }
 
-
+  const validFilters = search || filterTag || filterPriority || status
   const filteredData = data.filter((each) => each.todo.toLowerCase().includes(search))
 
   return (
     <div className="todos-bg-container">
       <TodosHeader />
-      
+
       <div className='main-content'>
-      <div className='confetti-container'>
+        <div className='confetti-container'>
           {showConfetti && <Confetti />}
         </div>
-      <div className="spinner-container">
+        <div className="spinner-container">
           <div className="spinner-container">
             {isLoading && <L8
               style={{
@@ -343,14 +355,16 @@ const Todo = () => {
           <div className="calendar-container">
             <Calendar onChange={handleDateChange} value={selectedDate} />
           </div>
-      
+
           <form onSubmit={handleAddTask} id="form" className="form-element form-container" >
             <h1 style={{ margin: "0px" }} className='create-task-heading'>Create A Task</h1>
-            <label htmlFor="task" className="label">
-              TASK
-            </label>
-            <input value={todo} onChange={handleTodoChange} id="task" placeholder="Enter the Task Here" className="input-element" type="text" />
-            <label htmlFor="tag" className='label'>TAG</label>
+            <div className='input-wrapper'>
+
+              <input required value={todo} onChange={handleTodoChange} id="task" className="input-element" type="text" />
+              <label htmlFor="task" className="label">
+                TASK
+              </label>
+            </div>
             <select
               name="tag"
               value={tag}
@@ -359,7 +373,7 @@ const Todo = () => {
               style={{ color: 'black' }}
               id="tag"
             >
-              <option value="default" hidden>Select One</option>
+              <option value="default" hidden>Select One Tag</option>
               <option value="Work">Work</option>
               <option value="Education">Education</option>
               <option value="Revision">Revision</option>
@@ -381,8 +395,6 @@ const Todo = () => {
               <option value="Chores">Others</option>
 
             </select>
-
-            <label htmlFor="priority" className='label'>PRIORITY</label>
             <select
               id="priority"
               name="priority"
@@ -391,18 +403,17 @@ const Todo = () => {
               className='dropdown'
               style={{ color: 'black' }}
             >
-              <option value="default" hidden>Select One</option>
+              <option value="default" hidden>Select PRIORITY</option>
               <option value="low">low</option>
               <option value="medium">medium</option>
               <option value="high">high</option>
 
             </select>
-
-
-            <button type="submit" className="login-button-form">
+            <button disabled={loading || !isValid} type="submit" className="login-button-form">
               Add Task
             </button>
-            {showMsg && <p style={{margin:'2px'}} className='error-message'>*{msg}</p>}
+            {showSuccessMsg && <p className='success-msg'>✅{successMsg}</p>}
+            {showMsg && <p style={{ margin: '2px' }} className='error-message'>*{msg}</p>}
           </form>
         </div>
 
@@ -420,24 +431,27 @@ const Todo = () => {
             )}
           </Popup>
         </div> */}
-        
-        
+
+
         <div className='todo-bottom-container'>
           <div className='filter-container'>
             <h1 className='filter-heading'>Use Filters to Organize Your Data <FcFilledFilter size={20} /></h1>
 
             <div className='filters-container'>
-              <input onChange={handleSearch} value={search} type="search" placeholder='Search...' className='input-element' style={{backgroundColor:"lavender"}} />
-              <label htmlFor='filterTag' className='label'>TAG</label>
+              <div className='input-wrapper'>
+                <input required id='search' onChange={handleSearch} value={search} type="search" className='input-element todo-input-element' style={{ height: "50px" }} />
+                <label htmlFor='search' className='label'>Search...</label>
+              </div>
+
               <select
                 id="filterTag"
                 value={filterTag}
                 onChange={handleFilterTag}
                 className='input-element'
-                style={{ color: 'black',backgroundColor:"lavender" }}
+                style={{ color: 'black', backgroundColor: "lavender" }}
 
               >
-                <option value="default" hidden>Select One</option>
+                <option value="default" hidden>Filter By Tag</option>
                 <option value="Work">Work</option>
                 <option value="Education">Education</option>
                 <option value="Revision">Revision</option>
@@ -456,33 +470,33 @@ const Todo = () => {
                 <option value="Appointments">Appointments</option>
                 <option value="Maintenance">Maintenance</option>
               </select>
-              <label htmlFor='filterPriority' className='label'>PRIORITY</label>
+
               <select
                 id="filterPriority"
                 value={filterPriority}
                 onChange={handleFilterPriority}
                 className='input-element'
-                style={{ color: 'black',backgroundColor:"lavender" }}
+                style={{ color: 'black', backgroundColor: "lavender" }}
               >
-                <option value="default" hidden>Select One</option>
+                <option value="default" hidden>Filter By Priority</option>
                 <option value="low">low</option>
                 <option value="medium">medium</option>
                 <option value="high">high</option>
               </select>
-              <label htmlFor='status' className='label'>STATUS</label>
+
               <select
                 value={status}
                 onChange={handleStatus}
                 className='input-element'
-                style={{ color: 'black',backgroundColor:"lavender" }}
+                style={{ color: 'black', backgroundColor: "lavender" }}
                 id='status'
               >
-                <option value="default" hidden>Select One</option>
+                <option value="default" hidden>Filter By Status</option>
                 <option value="pending">pending</option>
                 <option value="completed">completed</option>
 
               </select>
-              <button onClick={handleRemoveFilters} className='remove-filters-button'>Remove Filters</button>
+              <button disabled={loading || !validFilters} onClick={handleRemoveFilters} className='remove-filters-button'>Remove Filters</button>
             </div>
           </div>
 
@@ -497,6 +511,8 @@ const Todo = () => {
               <div className='each-todo' key={item._id}>
                 <input checked={item.status === "completed"} onChange={() => handleCheckboxStatus(item._id, item.status)} className="todo-checkbox" type="checkbox" />
                 <p className='todo-display' >{item.todo}</p>
+
+
                 <Popup contentStyle={{
                   backgroundColor: 'white',
                   border: 'none',
@@ -518,20 +534,23 @@ const Todo = () => {
                       <h1 className='update-heading'>Update Your Task</h1>
 
                       <form onSubmit={(e) => handleUpdateTask(e, item._id)} id="form" className="form-container" >
-                        <label htmlFor="task" className="label">
-                          TASK
-                        </label>
-                        <input style={{backgroundColor:"lavender"}} value={todo} onChange={handleTodoChange} id="task" placeholder="Enter the Task Here" className="input-element" type="text" />
-                        <label htmlFor="tag" className='label'>TAG</label>
+                        <div className='input-wrapper'>
+                          <input required value={todo} onChange={handleTodoChange} id="task"  className="input-element" type="text" />
+                          <label htmlFor="task" className="label">
+                            TASK
+                          </label>
+                        </div>
+
+                        
                         <select
                           name="tag"
                           value={tag}
                           onChange={handleTagChange}
                           className='dropdown'
-                          style={{ color: 'black',backgroundColor:"lavender" }}
+                          style={{ color: 'black', backgroundColor: "lavender" }}
                           id="tag"
                         >
-                          <option value="default" hidden>Select One</option>
+                          <option value="default" hidden>Select One Tag</option>
                           <option value="Work">Work</option>
                           <option value="Education">Education</option>
                           <option value="Revision">Revision</option>
@@ -551,26 +570,26 @@ const Todo = () => {
                           <option value="Maintenance">Maintenance</option>
                         </select>
 
-                        <label htmlFor="priority" className='label'>PRIORITY</label>
+                       
                         <select
                           id="priority"
                           name="priority"
                           value={priority}
                           onChange={handlePriorityChange}
                           className='dropdown'
-                          style={{ color: 'black',backgroundColor: "lavender"}}
+                          style={{ color: 'black', backgroundColor: "lavender" }}
                         >
-                          <option value="default" hidden>Select One</option>
+                          <option value="default" hidden>Select Priority</option>
                           <option value="low">low</option>
                           <option value="medium">medium</option>
                           <option value="high">high</option>
 
                         </select>
-                        <button  type="submit" className="login-button-form">
+                        <button disabled={loading || !validUpdate} type="submit" className="login-button-form">
                           UPDATE
                         </button>
                         {showUpdatedMsg && <p style={{ color: "green", fontWeight: "bold" }}>Todo Updated Successfully now close this.</p>}
-                        <button style={{ textAlign: "center"}} onClick={close} className='login-button-form'>Close</button>
+                        <button style={{ textAlign: "center" }} onClick={close} className='login-button-form'>Close</button>
 
                       </form>
                       <div>

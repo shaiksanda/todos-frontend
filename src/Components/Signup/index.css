@@ -8,16 +8,21 @@
 }
 
 .signup-button-form{
-    background: white; /* Bright Orange to Deep Orange */
+    background: mintcream; /* Bright Orange to Deep Orange */
     border-width:0px;
     border-radius: 8px;
     width:90%;
     height: 45px;
     cursor: pointer;
     outline: none;
-    color: magenta;
+    color: balck;
     font-weight: bold;
     font-size: 18px;
+}
+.signup-button-form:disabled{
+    opacity: 0.6;
+    cursor: not-allowed;
+    background-color: lightgrey;
 }
 
 .dropdown{
@@ -33,10 +38,7 @@
     border-radius: 8px;
     background-color: white;
 }
-.signup-button-form:hover{
- background-color: green;
- color:orangered;
-}
+
 @media screen and (min-width: 768px) {
     .signup-image{
         width:75%;

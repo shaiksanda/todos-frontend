@@ -1,6 +1,7 @@
 .login-image{
     width:100%;
     cursor:pointer;
+    border-radius: 10px;
 }
 .login-image:hover{
     transform: scale(1.02);
@@ -11,15 +12,31 @@
     flex-direction: column;
     justify-content:center;
     align-items: center;
-    min-height: 100vh;
+    height: 100vh;
     gap:10px;
+    position: fixed;
+    top:0;
+    left:0;
     padding: 10px;
+    width: 100vw;
+    background-color: black;
+
 }
 
 .container{
     width:100%
 }
 
+.eye{
+    position: absolute;
+    left:85%;
+    bottom:23px;
+    font-size: 20px;
+}
+
+.dropdown{
+    margin-bottom: 10px;
+}
 
 .form-container {
     display: flex;
@@ -30,8 +47,8 @@
     max-width: 340px; 
     padding: 15px; 
     border-radius: 8px; 
-    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1); 
-    background: orange;
+    box-shadow: 5px 5px 10px lightblue; 
+    background: lightblue;
     cursor: pointer; 
 }
 
@@ -39,13 +56,28 @@
     transform: scale(1.02);
 }
 
+.input-wrapper{
+    position: relative;
+}
+
 
 .label{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-weight: bold;
     align-self: flex-start;
-    font-size: 18px;
+    font-size: 16px;
     color: black;
+    position: absolute;
+    left:10px;
+    top:10px;
+    pointer-events: none;
+    transition: 0.3s;
+    background:white;
+    padding: 4px;
+    outline: none;
+    border-radius: 10px;
+    color: magenta;
+    font-weight: 600;
+
 }
 
 .checkbox{
@@ -66,13 +98,19 @@
     padding: 6px;
     border-width: 0px;
     border-radius: 8px;
-    background-color: white;
+    background-color:mintcream;
+    margin-bottom: 10px;
+    /* border: 1px solid black;*/
+} 
+
+.input-element:focus+.label,
+.input-element:valid+.label{
+    top:-16px
 }
 
 
-
 .login-button-form{
-    background-color: white;
+    background-color: mintcream;
     font-size: 18px;
     border-width:0px;
     border-radius: 8px;
@@ -80,14 +118,24 @@
     height: 45px;
     cursor: pointer;
     outline: none;
-    color: green;
+    color: black;
+    background-color: greenyellow;
     font-weight: bold;
 }
 
-.login-button-form:hover{
-    background-color: green;
-    color: white;
+.login-button-form:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background-color: lightgrey;
+  }
+  
+.success-msg{
+    color:green;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
 }
+
 
 .checkbox-container{
     display: flex;

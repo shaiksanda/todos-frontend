@@ -1,8 +1,11 @@
-import { useState } from 'react';
-import { useNavigate, Navigate } from 'react-router-dom';
+import { useState ,} from 'react';
+
+import { useNavigate, } from 'react-router-dom';
+import ClipLoader from "react-spinners/ClipLoader";
 import Cookies from 'js-cookie';
 import { Link } from 'react-router-dom';
 import './index.css';
+import 'remixicon/fonts/remixicon.css';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -10,16 +13,26 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const [showErrorMsg, setShowErrorMsg] = useState(false);
+  const [loading,setLoading]=useState(false)
+  const [showSuccessMsg,setShowSuccessMsg]=useState(false)
+  const [successMsg,setSuccessMsg]=useState("")
 
   const navigate = useNavigate();
   if (showErrorMsg) {
-    setTimeout(()=>{
+    setTimeout(() => {
       setShowErrorMsg(false);
       setErrorMsg('');
-    },5000)
+    }, 5000)
   }
+  if (showSuccessMsg) {
+    setTimeout(() => {
+      navigate("/todo");
+    }, 1500);
+    
+  }
+  
 
-  const handleCheckbox = () => {
+  const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
 
@@ -32,12 +45,18 @@ const Login = () => {
   };
 
   const onSubmitSuccess = (data) => {
-    
-    Cookies.set('jwt_token', data.jwtToken,{expires:5});
-    Cookies.set('username',username,{expires: 30});
-    
 
-    navigate('/todo');
+    Cookies.set('jwt_token', data.jwtToken, { expires: 5 });
+    Cookies.set('username', username, { expires: 5 });
+
+
+    //here popup needs to be shown
+    setShowSuccessMsg(true)
+    setSuccessMsg(data.message)
+
+    setTimeout(()=>{
+      navigate('/todo');
+    },1500)
   };
 
   const onSubmitFailure = (message) => {
@@ -47,6 +66,8 @@ const Login = () => {
 
   const handleLogin = async (event) => {
     event.preventDefault();
+
+    setLoading(true)
 
     if (!username || !password) {
       onSubmitFailure('Please fill in both fields.');
@@ -66,8 +87,11 @@ const Login = () => {
     try {
       const response = await fetch(url, options);
       const data = await response.json();
+      
       console.log(data)
+      setLoading(false)
       if (response.ok === true) {
+        
         onSubmitSuccess(data);
       } else {
         onSubmitFailure(data.message);
@@ -77,11 +101,13 @@ const Login = () => {
     }
   };
 
-  const jwtToken = Cookies.get('jwt_token');
+  // const jwtToken = Cookies.get('jwt_token');
 
-  if (jwtToken) {
-    return <Navigate to="/todo" />;
-  }
+  // if (jwtToken) {
+  //   return <Navigate to="/todo" />;
+  // }
+
+  const isValid=username && password
 
   return (
     <div className="login-container">
@@ -93,29 +119,34 @@ const Login = () => {
         />
       </div>
       <form id="form" className="form-container" onSubmit={handleLogin}>
-        <label htmlFor="username" className="label">
-          USERNAME
-        </label>
-        <input
-          id="username"
-          value={username}
-          onChange={handleUsername}
-          placeholder="USERNAME"
-          className="input-element"
-          type="text"
-        />
-        <label htmlFor="password" className="label">
-          PASSWORD
-        </label>
-        <input
-          id="password"
-          value={password}
-          onChange={handlePassword}
-          placeholder="PASSWORD"
-          className="input-element"
-          type={showPassword ? 'text' : 'password'}
-        />
-        <div className="checkbox-container">
+        <div className="input-wrapper">
+          <input
+            id="username"
+            value={username}
+            onChange={handleUsername}
+            className="input-element"
+            type="text"
+            required
+          />
+          <label htmlFor="username" className="label">
+            USERNAME
+          </label>
+        </div>
+        <div className='input-wrapper'>
+          <input
+            id="password"
+            value={password}
+            onChange={handlePassword}
+            className="input-element"
+            type={showPassword ? 'text' : 'password'}
+            required
+          />
+          <label htmlFor="password" className="label">
+            PASSWORD
+          </label>
+          {showPassword ? (<i onClick={handleShowPassword} className="ri-eye-line eye"></i>) : (<i onClick={handleShowPassword} className="ri-eye-off-line eye"></i>)}
+        </div>
+        {/* <div className="checkbox-container">
           <input
             checked={showPassword}
             onChange={handleCheckbox}
@@ -126,16 +157,21 @@ const Login = () => {
           <label style={{ cursor: 'pointer' }} htmlFor="checkbox" className="label">
             Show Password
           </label>
-        </div>
-        <Link to="/forgot-password"><button className='login-button-form'>Forgot Password</button></Link>
+        </div> */}
+        
 
-        <button type="submit" className="login-button-form">
-          Login
+        <button disabled={loading || !isValid} type="submit" className="login-button-form">
+        {loading ? (<span style={{ display: "flex", alignItems: "center", gap: "8px",justifyContent:"center" }}>
+                    Processing...
+                    <ClipLoader color="#007bff" size={15} />
+                </span>) : ("Login")}
         </button>
         {showErrorMsg && <p className="error-message">*{errorMsg}</p>}
+        {showSuccessMsg && <p className='success-msg'>✅{successMsg} And Redirected To Home Page</p>}
         <Link to="/signup" style={{ textDecoration: 'none' }} className='login-text'>
           Not yet signed up? Sign up here
         </Link>
+        <Link to="/forgot-password"><button className='login-button-form'>Forgot Password</button></Link>
       </form>
     </div>
   );

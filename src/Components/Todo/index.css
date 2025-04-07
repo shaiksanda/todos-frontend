@@ -2,6 +2,10 @@ body, html {
   height: 100%;
 }
 
+.todo-input-element{
+  height: 40px;
+}
+
 /* Customizing the calendar container */
 .react-calendar {
     width: 300px;
@@ -210,15 +214,17 @@ body, html {
     border: none;
     border-radius: 8px;
     font-size: 20px;
-    background: linear-gradient(135deg, #ff5c5c, #d9534f);
+    background-color: lavender;
     font-weight: bold;
     width:90%;
   }
-
-  .remove-filters-button:hover{
-    background: linear-gradient(135deg,  #d9534f,#ff5c5c);
-    color:white
+  .remove-filters-button:disabled{
+    opacity: 0.6;
+    background-color: grey;
+    cursor: not-allowed;
   }
+
+  
 
   .delete-all-todos-button{
     height: 50px;

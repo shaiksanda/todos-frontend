@@ -90,12 +90,12 @@ const AllTodos = () => {
 
             <div className='all-todos-container'>
                 <div className='filter-container-1'>
-                    <div className='filter-item'>
+                    <div className='filter-item input-wrapper'>
+                        <input required onChange={handleSearch} value={search} id="search" type="search"  className='input-element special-input' />
                         <label htmlFor='search' className='label'>SEARCH</label>
-                        <input onChange={handleSearch} value={search} id="search" type="search" placeholder='Search' className='all-todos-input-element' />
                     </div>
                     <div className='filter-item'>
-                        <label htmlFor="tag" className='label'>TAG</label>
+                        
                         <select
                             name="tag"
                             value={filterTag}
@@ -104,7 +104,7 @@ const AllTodos = () => {
                             style={{ color: 'black' }}
                             id="tag"
                         >
-                            <option value="default" hidden>Select One</option>
+                            <option value="default" hidden>Filter By Tag</option>
                             <option value="Work">Work</option>
                             <option value="Education">Education</option>
                             <option value="Revision">Revision</option>
@@ -128,7 +128,7 @@ const AllTodos = () => {
                         </select>
                     </div>
                     <div className='filter-item'>
-                        <label htmlFor='filterPriority' className='label'>PRIORITY</label>
+                        
                         <select
                             id="filterPriority"
                             value={filterPriority}
@@ -136,14 +136,14 @@ const AllTodos = () => {
                             className='dropdown-all-todos'
                             style={{ color: 'black', backgroundColor: "lavender" }}
                         >
-                            <option value="default" hidden>Select One</option>
+                            <option value="default" hidden>Filter By Priority</option>
                             <option value="low">low</option>
                             <option value="medium">medium</option>
                             <option value="high">high</option>
                         </select>
                     </div>
                     <div className='filter-item'>
-                        <label htmlFor='status' className='label'>STATUS</label>
+                       
                         <select
                             value={status}
                             onChange={handleStatus}
@@ -151,7 +151,7 @@ const AllTodos = () => {
                             style={{ color: 'black', }}
                             id='status'
                         >
-                            <option value="default" hidden>Select One</option>
+                            <option value="default" hidden>Filter By Status</option>
                             <option value="pending">pending</option>
                             <option value="completed">completed</option>
 

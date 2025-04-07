@@ -6,15 +6,27 @@ html, body {
     box-sizing: border-box;
   
 }
+
+.home-main-container{
+    height: 90vh;
+    position:fixed;
+    top:0;
+    width: 100vw;
+    height: 100vh;
+    left:0
+    
+}
 .home-container{
     display: flex;
     flex-direction:column;
-    background: linear-gradient(to right,#DB2763,#B0DB43); /* Vibrant blue to aqua to green */
+    background: linear-gradient(45deg,#DB2763,#B0DB43); /* Vibrant blue to aqua to green */
     margin-top: 90px;
     gap:10px;
+    height: 80vh;
+    
     align-items: center;
     padding: 10px;
-    min-height: 80vh;
+
 }
 
 
@@ -77,7 +89,7 @@ html, body {
     }
     .home-container{
         flex-direction: row;
-        height: 75vh;
+        height: 80vh;
     }
 }
 
