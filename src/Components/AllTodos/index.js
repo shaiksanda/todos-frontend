@@ -76,7 +76,8 @@ const AllTodos = () => {
         }
         const response = await fetch(url, options)
         if (response.ok) {
-            console.log("")
+            setData([])
+            close()
         }
         else {
             console.log("")
