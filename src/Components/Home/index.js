@@ -12,7 +12,7 @@ class Home extends Component {
             return <Navigate to="/todo" />  // Redirect to Todo page if JWT token is present.  
         }
         return (
-            <main className='home-main-container'>
+            <main className='app-container'>
                 <Header />
                 <div className='home-container'>
                     <div className='todo-content-container'>
@@ -20,7 +20,7 @@ class Home extends Component {
                         <p className='todo-content'>Life is full of noise, but your goals deserve clarity. With our app, organize your tasks, prioritize what’s important, and achieve more with ease. Simplify your day and make every moment count.</p>
                         <Link to="/login"><motion.button drag whileTap={{scale:1.2}} className='start-now-button'>Start Now</motion.button></Link>
                     </div>
-                    <div>
+                    <div className='todo-image-container'>
                         <img className='todo-image' src="https://res.cloudinary.com/dq4yjeejc/image/upload/v1732187723/968ed86b54a12f62717ab10e15f16a9e_rrjg0b.jpg" alt="todo" />
                     </div>
                 </div>

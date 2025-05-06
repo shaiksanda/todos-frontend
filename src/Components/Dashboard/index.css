@@ -1,7 +1,5 @@
 .dashboard-container{
-    margin-top: 120px;
-    min-height:150vh;
-    margin-bottom: 150px;
+    min-height:50vh;
 }
 
 .dashboard-heading{

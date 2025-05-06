@@ -1,10 +1,7 @@
 
 
 .all-todos-container{
-    margin-top: 110px;
-    padding-bottom: 50px;
     padding: 10px;
-    
 }
 
 .data-container{
@@ -12,7 +9,7 @@
     grid-template-columns: repeat(1,1fr);
     gap:10px;
     align-items: center;
-    margin-bottom: 100px;
+    
 }
 
 .each-todo-data{

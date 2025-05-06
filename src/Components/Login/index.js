@@ -1,6 +1,6 @@
 import { useState ,} from 'react';
 
-import { useNavigate, } from 'react-router-dom';
+import { useNavigate,Navigate } from 'react-router-dom';
 import ClipLoader from "react-spinners/ClipLoader";
 import Cookies from 'js-cookie';
 import { Link } from 'react-router-dom';
@@ -101,11 +101,11 @@ const Login = () => {
     }
   };
 
-  // const jwtToken = Cookies.get('jwt_token');
+  const jwtToken = Cookies.get('jwt_token');
 
-  // if (jwtToken) {
-  //   return <Navigate to="/todo" />;
-  // }
+  if (jwtToken) {
+    return <Navigate to="/todo" />;
+  }
 
   const isValid=username && password
 

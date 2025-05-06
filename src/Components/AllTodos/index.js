@@ -85,9 +85,8 @@ const AllTodos = () => {
     const filteredData = data.filter((each) => each.todo.toLowerCase().includes(search))
 
     return (
-        <div>
+        <div style={{background:"lightblue"}} className='app-container'>
             <TodosHeader />
-
             <div className='all-todos-container'>
                 <div className='filter-container-1'>
                     <div className='filter-item input-wrapper'>
@@ -95,7 +94,6 @@ const AllTodos = () => {
                         <label htmlFor='search' className='label'>SEARCH</label>
                     </div>
                     <div className='filter-item'>
-                        
                         <select
                             name="tag"
                             value={filterTag}

@@ -5,13 +5,15 @@ import Popup from 'reactjs-popup'
 // import { MdDashboard } from "react-icons/md";
 import { MdOutlineLightMode } from "react-icons/md";
 
-import { LuLogOut } from "react-icons/lu";
+
 import 'reactjs-popup/dist/index.css'
 import "./index.css"
 const TodosHeader = () => {
   const navigate = useNavigate();
+
   const username = Cookies.get('username');
-  const letters = username.toUpperCase().split("")
+  
+
 
   const handleLogout = () => {
     Cookies.remove('jwt_token')
@@ -19,32 +21,16 @@ const TodosHeader = () => {
     navigate('/')
   }
 
-  const colors = [
-    "#FF5733", "#FF8D1A", "#FFB300", "#FFDC00", "#FF4081", "#F50057", "#D500F9", "#6200EA", "#03A9F4", "#00BCD4",
-    "#009688", "#4CAF50", "#8BC34A", "#CDDC39", "#FFEB3B", "#FFC107", "#FF9800", "#FF5722", "#795548", "#9E9E9E",
-    "#607D8B", "#26C6DA", "#00E5FF", "#00C853", "#76FF03", "#1DE9B6", "#FF4D4D", "#FF7F50", "#FFD700", "#C71585",
-    "#FF6347", "#FF1493", "#DC143C", "#9932CC", "#8A2BE2", "#00FFFF", "#ADFF2F", "#32CD32", "#FF4500", "#DAA520",
-    "#D2691E", "#FF69B4", "#FF1493", "#FF00FF", "#C71585", "#F0E68C", "#98FB98", "#00BFFF", "#1E90FF", "#FFFF00",
-    "#8B008B", "#800080", "#FF6347", "#FF6A00", "#8B0000", "#800000", "#9ACD32", "#32CD32", "#8FBC8F", "#FFB6C1"
-  ];
 
 
-  const getRandomColor = () => {
-    return colors[Math.floor(Math.random() * colors.length)];
-  };
-
+  
   return (
-    <div className='todo-header-container'>
+    <header className='todo-header-container'>
       <div>
         <Link to="/all-todos"><img className="todo-logo-1" alt="logo" src="https://res.cloudinary.com/dq4yjeejc/image/upload/v1732187200/Screenshot_2024-11-21_162706-removebg-preview_jpwc5d.png" /></Link>
       </div>
       <div>
-        <h1 className='username-heading'> <span style={{ color: 'black' }}>Welcome </span>
-          {letters.map((letter, index) => (
-            <span key={index} style={{ color: getRandomColor() }}>
-              {letter}
-            </span>
-          ))}</h1>
+        <h1 className='username-heading'>Welcome {(username || 'User').toUpperCase()}</h1>
       </div>
       <div className='dashboard'>
         <Link to="/todo" className='remove-styling'><h1 className='navigation-heading'>Home</h1></Link>
@@ -52,7 +38,7 @@ const TodosHeader = () => {
       <div className='dashboard'>
         <Link to="/dashboard" className='remove-styling' ><h1 className='navigation-heading'>Dashboard</h1></Link>
       </div>
-   
+
       <div>
         <MdOutlineLightMode className='light-mode' size={25} />
       </div>
@@ -71,10 +57,6 @@ const TodosHeader = () => {
               <button type="button" className="logout-button">
                 Logout
               </button>
-              <LuLogOut
-                size={25}
-                className="small-device-icon"
-              />
             </div>
           }>
           {close => (
@@ -92,7 +74,7 @@ const TodosHeader = () => {
           )}
         </Popup>
       </div>
-    </div>
+    </header>
   )
 }
 

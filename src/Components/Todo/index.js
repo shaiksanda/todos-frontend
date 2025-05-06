@@ -26,7 +26,7 @@ const Todo = () => {
   const [priority, setPriority] = useState('');
   const [todo, setTodo] = useState('');
   const isValid = tag && todo && priority
-  const validUpdate=todo && priority && tag
+  const validUpdate = todo && priority && tag
   const [msg, setMsg] = useState("")
   const [showMsg, setShowMsg] = useState(false)
 
@@ -43,8 +43,8 @@ const Todo = () => {
   const [showUpdatedMsg, setShowUpdatedMsg] = useState(false)
 
   const [showConfetti, setShowConfetti] = useState(false);
+  // const [confettiShown, setConfettiShown] = useState(false);
   const [loading, setLoading] = useState(false)
-
 
 
 
@@ -65,6 +65,7 @@ const Todo = () => {
       }
     }
   }, [data]);
+
 
   if (showMsg) {
     setTimeout(() => {
@@ -109,8 +110,8 @@ const Todo = () => {
       onSubmitSuccess({ message: "" })
       setTaskUpdated(true);
       setShowUpdatedMsg(true)
-      setTimeout(()=>{setShowUpdatedMsg(false)},5000)
-      
+      setTimeout(() => { setShowUpdatedMsg(false) }, 5000)
+
     }
     else {
       console.log("Error in updating todo", response.statusText)
@@ -309,54 +310,34 @@ const Todo = () => {
 
   }
 
-  // const handleDeleteAllTodos = async () => {
-  //   const url = `https://todos-backend-d9im.onrender.com/todos?selectedDate=${selectedDate.toISOString()}`
-  //   const options = {
-  //     method: "DELETE",
-  //     headers: {
-  //       'content-type': 'application/json',
-  //       'Authorization': `Bearer ${Cookies.get('jwt_token')}`, // Authorization header
-  //     },
-  //   }
-  //   const response = await fetch(url, options)
-  //   if (response.ok) {
-  //     setData([])
-  //     setIsLoading(false)
-  //   }
-  //   else {
-  //     console.log("Error in deleting data", response.statusText)
-  //     setIsLoading(false)
-  //   }
-  // }
 
   const validFilters = search || filterTag || filterPriority || status
   const filteredData = data.filter((each) => each.todo.toLowerCase().includes(search))
 
   return (
-    <div className="todos-bg-container">
+    <div style={{ background: "lavender" }} className="app-container">
       <TodosHeader />
 
       <div className='main-content'>
         <div className='confetti-container'>
           {showConfetti && <Confetti />}
         </div>
-        <div className="spinner-container">
-          <div className="spinner-container">
-            {isLoading && <L8
-              style={{
-                height: "10rem",
-                width: "10rem",
 
-              }}
-            />}
-          </div>
+        <div className="spinner-container">
+          {isLoading && <L8
+            style={{
+              height: "10rem",
+              width: "10rem",
+            }}
+          />}
         </div>
+
         <div className="todo-top-container">
           <div className="calendar-container">
             <Calendar onChange={handleDateChange} value={selectedDate} />
           </div>
 
-          <form onSubmit={handleAddTask} id="form" className="form-element form-container" >
+          <form onSubmit={handleAddTask} id="form" className="form-container" >
             <h1 style={{ margin: "0px" }} className='create-task-heading'>Create A Task</h1>
             <div className='input-wrapper'>
 
@@ -415,31 +396,11 @@ const Todo = () => {
             {showSuccessMsg && <p className='success-msg'>✅{successMsg}</p>}
             {showMsg && <p style={{ margin: '2px' }} className='error-message'>*{msg}</p>}
           </form>
-        </div>
-
-        <h1 className="fetch-todos-heading">Fetching todos for: <span className="formatted-date-heading">{formattedDate}</span></h1>
-        {/* <div style={{ textAlign: 'center' }}>
-          <Popup contentStyle={{ backgroundColor: "white", border: "none", borderRadius: "12px", width: "90%", maxWidth: "400px" }} modal trigger={<button className='delete-all-todos-button'>Delete All Todos</button>}>
-            {close => (
-              <div className='logout-container'>
-                <h1 className='popup-heading'>Are you sure? All your todos will be permanently deleted!</h1>
-                <div className='popup-buttons'>
-                  <button className='close-button' onClick={close}>Close</button>
-                  <button className='confirm-button' onClick={() => handleDeleteAllTodos(close)}>Confirm</button>
-                </div>
-              </div>
-            )}
-          </Popup>
-        </div> */}
-
-
-        <div className='todo-bottom-container'>
           <div className='filter-container'>
             <h1 className='filter-heading'>Use Filters to Organize Your Data <FcFilledFilter size={20} /></h1>
-
             <div className='filters-container'>
               <div className='input-wrapper'>
-                <input required id='search' onChange={handleSearch} value={search} type="search" className='input-element todo-input-element' style={{ height: "50px" }} />
+                <input required id='search' onChange={handleSearch} value={search} type="search" className='input-element' style={{ height: "50px" }} />
                 <label htmlFor='search' className='label'>Search...</label>
               </div>
 
@@ -499,9 +460,14 @@ const Todo = () => {
               <button disabled={loading || !validFilters} onClick={handleRemoveFilters} className='remove-filters-button'>Remove Filters</button>
             </div>
           </div>
+        </div>
 
-          <div className='todo-data-container'>
-            {filteredData.length === 0 ? (<div className='no-todos-container'>
+        <h1 className="fetch-todos-heading">Fetching todos for: <span className="formatted-date-heading">{formattedDate}</span></h1>
+
+
+        <div className='todo-data-container'>
+          {filteredData.length === 0 ?
+            (<div className='no-todos-container'>
               <img className='todo-image-1' alt="todo" src="https://img.freepik.com/free-photo/3d-illustration-calendar-with-checkmarks-pen_107791-15855.jpg" />
               <div>
                 <p className='no-todos-content'>No Todos for this Date: <span className="formatted-date-heading">{formattedDate}</span></p>
@@ -511,8 +477,6 @@ const Todo = () => {
               <div className='each-todo' key={item._id}>
                 <input checked={item.status === "completed"} onChange={() => handleCheckboxStatus(item._id, item.status)} className="todo-checkbox" type="checkbox" />
                 <p className='todo-display' >{item.todo}</p>
-
-
                 <Popup contentStyle={{
                   backgroundColor: 'white',
                   border: 'none',
@@ -535,13 +499,13 @@ const Todo = () => {
 
                       <form onSubmit={(e) => handleUpdateTask(e, item._id)} id="form" className="form-container" >
                         <div className='input-wrapper'>
-                          <input required value={todo} onChange={handleTodoChange} id="task"  className="input-element" type="text" />
+                          <input required value={todo} onChange={handleTodoChange} id="task" className="input-element" type="text" />
                           <label htmlFor="task" className="label">
                             TASK
                           </label>
                         </div>
 
-                        
+
                         <select
                           name="tag"
                           value={tag}
@@ -570,7 +534,7 @@ const Todo = () => {
                           <option value="Maintenance">Maintenance</option>
                         </select>
 
-                       
+
                         <select
                           id="priority"
                           name="priority"
@@ -597,13 +561,12 @@ const Todo = () => {
                     </div>
                   )}
                 </Popup>
-
                 <button onClick={() => handleDeleteTodo(item._id)} className="icon" title="Delete Task" style={{ color: 'red' }}>🗑️</button>
               </div>
             )))}
 
-          </div>
         </div>
+
       </div>
 
       <TodosFooter />

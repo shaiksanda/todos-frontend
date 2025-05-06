@@ -2,107 +2,67 @@ body, html {
   height: 100%;
 }
 
-.todo-input-element{
-  height: 40px;
+.react-calendar {
+  border: none;
+  border-radius: 16px;
+  max-width: 290px;
+  width: 100% !important;
+  background-color: #ffffff;
+  padding: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+  font-family: 'Inter', sans-serif;
 }
 
-/* Customizing the calendar container */
-.react-calendar {
-    width: 300px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: left;
-  }
-  
-  /* Customizing the navigation buttons (arrows and month navigation) */
-  .react-calendar__navigation {
-    background-color: dodgerblue;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
-    cursor: pointer;
-    transition: none; /* No transition on hover for navigation buttons */
-  }
-  
-  /* Remove hover effect on the navigation buttons (arrows) */
-  .react-calendar__navigation button {
-    background-color: dodgerblue;  /* Keep the same color on hover */
-    color: white;
-  }
-  .react-calendar__navigation button:hover {
-    background-color: dodgerblue !important;  /* Keep the same color on hover */
-    color: white;
-  }
-  /* Customizing the month-year label */
-  .react-calendar__navigation__label {
-    font-size: 18px;
-    font-weight: bold;
-    color: black;
-  }
-  
-  /* Weekdays header styling */
-  .react-calendar__month-view__weekdays {
-    background-color: #f0f0f0;
-  }
-  
-  .react-calendar__month-view__weekdays__weekday {
-    text-align: center;
-    font-weight: bold;
-    color: #333;
-    padding: 10px;
-  }
-  
-  /* Tile (day) customization */
-  .react-calendar__tile {
-    border-radius: 50%;
-    font-size: 18px;
-    padding: 10px;
-    text-align: center;
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
-  
-  /* Hover effect for days */
-  .react-calendar__tile:hover {
-    background-color: #3f51b5;
-    color: white;
-  }
-  
-  /* Styling the active day */
-  .react-calendar__tile--active {
-    background-color: #ff5722;
-    color: white;
-    font-weight: bold;
-  }
-  
-  /* Styling the selected day */
-  .react-calendar__tile--selected {
-    background-color: #3f51b5;
-    color: white;
-    font-weight: bold;
-  }
-  
-  /* Optional: Customizing the disabled days (e.g., previous month's dates) */
-  .react-calendar__tile--disabled {
-    background-color: #e0e0e0;
-    color: #9e9e9e;
-    pointer-events: none;  /* Disable clicks on disabled days */
-  }
-  
-  /* Optional: Styling the today’s date */
-  .react-calendar__tile--now {
-    background-color: #4caf50;
-    color: white;
-    font-weight: bold;
-  }
-  
+.react-calendar__navigation {
+  margin-bottom: 12px;
+  background-color: lightblue;
+  border-radius: 10px;
+  padding: 3px;
+}
 
-  .todos-bg-container{
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh; /* Ensure full viewport height */
-  }
+.react-calendar__navigation button {
+  background: none;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  color: black;
+  font-size: 18px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.react-calendar__month-view__weekdays {
+  text-transform: uppercase;
+  font-size: 16px;
+  color: blue;
+  text-align: center;
+  cursor: pointer; 
+}
+
+.react-calendar__tile {
+  padding: 12px 0;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.react-calendar__tile:enabled:hover {
+  background-color: orange;
+}
+
+.react-calendar__tile--now {
+  background: #a9c0cf;
+  color: #0369a1;
+}
+
+.react-calendar__tile--active {
+  background: #3b82f6 !important;
+  color: white !important;
+  font-weight: bold;
+  border-radius: 50%;
+}
+
+
 
   .welcome-heading{
     font-size: 24px;
@@ -119,20 +79,19 @@ body, html {
   }
 
   .todo-top-container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    gap:15px;
-    height: 100vh;
-    margin: 8px;
-
+    display: grid;
+    grid-template-columns: repeat(1,1fr);
+    grid-gap:10px;
+    margin: 10px 0px;
+   
   }
+
   .calendar-container{
     display: flex;
+    align-items: center;
     justify-content: center;
-    width: 100%;
   }
+  
 
   
   .task-container{
@@ -142,16 +101,11 @@ body, html {
   
   }
 
+  .confetti-container{
+    position: relative;
+    z-index: 1000;
+  }
   
-  
-  .confetti-container {
-    position: fixed; /* Fixed so it stays on screen */
-    top: 50%; /* 50% from the top of the page */
-     /* 50% from the left */
-    /* This moves it exactly to the center */
-    z-index: 9999; /* Ensure it appears on top of other elements */
-    pointer-events: none; /* Optional: To allow clicks through the confetti */
-}
 
 
   .todo-image-1{
@@ -174,12 +128,11 @@ body, html {
   .each-todo{
     display: flex;
     align-items: center;
-    justify-content: flex-start;
     gap:10px;
+    padding: 0px 4px;
     background-color: magenta;
     border-radius: 8px;
     cursor: pointer;
-    padding: 0px 10px 0px 10px;
     box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
     color:black
   }
@@ -189,12 +142,7 @@ body, html {
     color:black
   }
 
-  .no-todos-container{
-    display: flex;
-    justify-content:center;
-    flex-direction: column;
-    text-align: center;
-  }
+ 
 
   .no-todos-content{
     font-weight: bold;
@@ -208,7 +156,7 @@ body, html {
   }
 
   .remove-filters-button{
-    height: 40px;
+    height: 50px;
     cursor: pointer;
     outline: none;
     border: none;
@@ -216,7 +164,7 @@ body, html {
     font-size: 20px;
     background-color: lavender;
     font-weight: bold;
-    width:90%;
+    width:100%;
   }
   .remove-filters-button:disabled{
     opacity: 0.6;
@@ -264,19 +212,24 @@ body, html {
   display: grid;
   grid-template-columns: 1fr;
   gap:10px;
-  align-items: stretch;
+  margin: 10px;
 }
 
 .todo-checkbox{
-  width: 40px;
-  height: 40px;
+  width: 20px ;
+  height: 20px ;
+  max-width: 40px;
+  max-height: 40px;
+  flex-shrink: 0;
+  flex-grow: 0;
 }
 
 .filter-heading{
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap:10px
 }
-
-
 
 .delete-container{
   display: flex;
@@ -287,13 +240,7 @@ body, html {
   
 }
 
-.todo-bottom-container{
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin: 8px;
 
-}
 
 .filters-container{
   display: flex;
@@ -306,7 +253,6 @@ body, html {
   padding: 10px;
   border-radius: 8px;
   cursor: pointer;
-  height: 70vh;
 }
 
 .filter-container:hover{
@@ -322,15 +268,14 @@ body, html {
 
 
 .main-content{
-  margin-top: 70px; 
   flex: 1;
-  padding:20px;
-  margin-bottom: 70px;
 }
-  
+
+
   @media screen and (min-width: 768px){
-    .filter-container{
-      width: 30%;
+    
+    .react-calendar{
+      max-width: 350px;
     }
     .each-todo{
       min-height: 35px;
@@ -349,22 +294,12 @@ body, html {
     .todo-login-button-form{
       width: 90%;
     }
-    .todo-input-element{
-      width: 90%;
-    }
     
-
+    
     .create-task-container{
       width: 50%;
     }
 
-    .calendar-container{
-      width: 50%;
-    }
-    
-    .todo-bottom-container{
-      flex-direction: row;
-    }
     .react-calendar{
       width: 55%;
     }
@@ -373,8 +308,7 @@ body, html {
     }
 
     .todo-top-container{
-      flex-direction: row;
-      height: 80vh;
+      grid-template-columns: repeat(3,1fr);
     }
     .fetch-todos-heading{
       font-size: 30px;
@@ -384,7 +318,6 @@ body, html {
 
     @media screen and (min-width:768px){
       .todo-data-container{
-        width:70%;
         grid-template-columns: repeat(3,1fr);
       }
 

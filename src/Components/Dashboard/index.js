@@ -9,7 +9,7 @@ import "./index.css"
 const Dashboard = () => {
     const username=Cookies.get("username").toUpperCase()
     return (
-        <div>
+        <div style={{background:"lavender"}} className="app-container">
             <TodosHeader />
             <div className="dashboard-container">
                 <h1 className="dashboard-heading">Hey {username}, Welcome to Your Dashboard</h1>

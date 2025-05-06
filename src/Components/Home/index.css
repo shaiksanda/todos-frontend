@@ -1,30 +1,20 @@
-html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
+*{
     box-sizing: border-box;
-  
+}
+.app-container{
+    background: linear-gradient(45deg,#DB2763,#B0DB43);
+    border-radius: 10px;
+    padding: 10px;
+    min-height: calc(100vh - 10px);
 }
 
-/* .home-main-container{
-    position:fixed;
-    top:0;
-    width: 100vw;
-    height: 110vh;
-    left:0
-    
-} */
 .home-container{
-    display: flex;
-    flex-direction:column;
-    background: linear-gradient(45deg,#DB2763,#B0DB43); /* Vibrant blue to aqua to green */
-    margin-top: 90px;
-    gap:10px;
-    min-height: 90vh;
-    align-items: center;
-    padding: 10px;
-
+    display: grid;
+    grid-template-columns: repeat(1,1fr);
+    grid-gap:10px;
+    border-radius: 10px;
+    margin: 10px 0px;
+    place-items: center;
 }
 
 
@@ -34,6 +24,7 @@ html, body {
     justify-content:center;
     align-items: center;
 }
+
 
 
 .todo-image{
@@ -54,7 +45,7 @@ html, body {
 .todo-content{
     color:yellow;
     font-weight: bold;
-    font-size: 16px;
+    font-size: 20px;
 }
 
 .start-now-button{
@@ -75,19 +66,23 @@ html, body {
         width: 120px;
     }
     .todo-image{
-        width: 85%;
+        width: 50%;
     }
     .home-heading{
         font-size: 36px;
         color:#B0DB43
+    }
+    .todo-image-container{
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     .todo-content{
         color: yellow;
         font-size: 24px;
     }
     .home-container{
-        flex-direction: row;
-        height: 80vh;
+        grid-template-columns: repeat(2,1fr);
     }
 }
 

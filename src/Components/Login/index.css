@@ -1,31 +1,40 @@
 .login-image{
-    width:93%;
+    width:100%;
     cursor:pointer;
     border-radius: 10px;
-}
-.login-image:hover{
-    transform: scale(1.02);
+    transition: 0.6s all ease;
 }
 
 .login-container{
+    display: grid;
+    grid-template-columns: repeat(1,1fr);
+    grid-gap: 20px;
+    padding: 10px;
+    background-color: black;
+    place-items: center;
+    min-height: calc(100vh - 10px);
+    border-radius: 10px;
+}
+
+/* .login-container{
     display: flex;
     flex-direction: column;
     justify-content:center;
     align-items: center;
     height: 100vh;
     gap:10px;
-    
     background-color: black;
 
-}
+} */
 
 .container{
-    width:100%
+    width:100%;
 }
 
 .eye{
     position: absolute;
-    left:85%;
+    left:90%;
+    top:15px;
     bottom:23px;
     font-size: 20px;
 }
@@ -35,23 +44,19 @@
 }
 
 .form-container {
+    width: 100%;
+    min-height: 350px;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    justify-content: center;
-    
-    width: 82%; 
-    margin-right: 15px;
+    justify-content: center; 
     padding: 8px; 
     border-radius: 8px; 
-    box-shadow: 5px 5px 10px lightblue; 
     background: lightblue;
     cursor: pointer; 
 }
 
-.form-container:hover{
-    transform: scale(1.02);
-}
+
 
 .input-wrapper{
     position: relative;
@@ -67,7 +72,7 @@
     left:10px;
     top:10px;
     pointer-events: none;
-    transition: 0.3s;
+    transition: 0.6s;
     background:white;
     padding: 4px;
     outline: none;
@@ -87,16 +92,16 @@
 .input-element{
     color:magenta;
     font-weight: bold;
-    font-size: 16px;
+    font-size: 18px;
     cursor: pointer;
     outline: none !important;
-    width: 90%;
-    height: 40px;
+    width: 100%;
+    height: 50px;
     padding: 6px;
     border-width: 0px;
     border-radius: 8px;
     background-color:mintcream;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     /* border: 1px solid black;*/
 } 
 
@@ -111,7 +116,7 @@
     font-size: 18px;
     border-width:0px;
     border-radius: 8px;
-    width:90%;
+    width:100%;
     height: 45px;
     cursor: pointer;
     outline: none;
@@ -162,21 +167,15 @@
 
 
 @media screen and (min-width: 768px){
-    .login-image{
-        width:80%;
-    }
+    
     .login-container{
-        flex-direction: row;
+        grid-template-columns: repeat(2,1fr);
     }
+
     .form-container{
-        width: 300px;
+        min-height: 390px;
     }
-    .login-button-form{
-        width: 94%;
-    }
-    .container{
-        width: 50%;
-    }
+
     .error-message{
         font-size: 18px;
     }
@@ -185,8 +184,8 @@
         font-size: 18px;
     }
 
-    .input-element{
-        width: 90%;
+    .eye{
+       left:95%
     }
     
     

@@ -1,11 +1,12 @@
 .footer {
-    position: fixed;
+    position: sticky;
     bottom: 0;
     left: 0;
-    width: 100%;
-    background-color: lavender;
+    right:0;
+    background-color: white;
+    border-radius: 10px;
     color: white;
-    z-index: 5; 
+    z-index: 90; 
     display: flex;
     justify-content: space-around;
     align-items: center;

@@ -1,11 +1,9 @@
 .signup-image{
-    width:90%;
+    width:100%;
     border-radius: 10px;
     cursor: pointer;
 }
-.signup-image:hover{
-    transform: scale(1.02);
-}
+
 
 .signup-button-form{
     background: mintcream; /* Bright Orange to Deep Orange */
@@ -31,7 +29,7 @@
     font-size: 16px;
     cursor: pointer;
     outline: none !important;
-    width: 92%;
+    width: 100%;
     height: 50px;
     padding: 6px;
     border-width: 0px;
@@ -40,13 +38,14 @@
 }
 
 @media screen and (min-width: 768px) {
-    .signup-image{
-        width:65%;
-    }
+   .signup-image{
+
+    width: 70%;
+   }
     .dropdown{
-        width: 93%;
+        width: 100%;
     }
     .signup-button-form{
-        width: 95%;
+        width: 100%;
     }
 }
