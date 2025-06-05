@@ -11,7 +11,7 @@
     justify-content: center;
     align-items: center;
     gap:10px;
-    background-color: lavender;
+    background:linear-gradient(to right, lightblue,dodgerblue);
     min-height:calc(100vh - 10px);
     border-radius: 10px;
     padding: 10px;
@@ -168,8 +168,8 @@
     }
 
     .form-container{
-        min-height: 390px;
-        width: 40%;
+        min-height: 420px;
+        width: 350px;
     }
 
     .error-message{
