@@ -46,7 +46,7 @@
     justify-content: center; 
     padding: 8px; 
     border-radius: 8px; 
-    background: lightblue;
+    background-color: magenta;
     cursor: pointer; 
 }
 
@@ -168,8 +168,10 @@
     }
 
     .form-container{
-        min-height: 420px;
-        width: 350px;
+        min-height: 440px;
+        width: 400px;
+        align-self: center;
+        
     }
 
     .error-message{
