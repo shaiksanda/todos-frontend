@@ -1,4 +1,4 @@
-import { BrowserRouter,Route,Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import Home from "./Components/Home"
 import Login from "./Components/Login"
@@ -8,11 +8,15 @@ import Dashboard from "./Components/Dashboard"
 import AllTodos from "./Components/AllTodos"
 import ForgotPassword from "./Components/ForgotPassword"
 import ProtectedRoute from "./Components/ProtectedRoute";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import './App.css';
 
 function App() {
   return (
     <BrowserRouter>
+      <ToastContainer position="top-right" autoClose={3000} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />

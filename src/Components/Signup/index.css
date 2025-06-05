@@ -1,10 +1,7 @@
+
 .signup-image{
-    width:100%;
-    border-radius: 10px;
-    cursor: pointer;
+    width: 100px;
 }
-
-
 .signup-button-form{
     background: mintcream; /* Bright Orange to Deep Orange */
     border-width:0px;
@@ -38,14 +35,15 @@
 }
 
 @media screen and (min-width: 768px) {
-   .signup-image{
-
-    width: 70%;
-   }
+    .signup{
+        width: 70% !important;
+    }
+   
     .dropdown{
         width: 100%;
     }
     .signup-button-form{
         width: 100%;
     }
+    
 }

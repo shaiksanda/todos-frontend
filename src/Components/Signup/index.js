@@ -89,9 +89,9 @@ const Signup = () => {
 
     const isValid=fullname && username && password && gender
     return (
-        <div style={{ padding: "6px", margin: '6px' }} className="login-container">
-            <div className="todo-image-container">
-                <img className="signup-image" src="https://res.cloudinary.com/dq4yjeejc/image/upload/v1749119094/todo-sign-up-image_mowue0.webp" alt="login" />
+        <div  className="login-container">
+            <div className="container">
+                <img className="login-image signup" src="https://res.cloudinary.com/dq4yjeejc/image/upload/v1749119094/todo-sign-up-image_mowue0.webp" alt="sing-up" />
             </div>
             <form id="form" onSubmit={handleSubmit} className="form-container">
                 <div className="input-wrapper">

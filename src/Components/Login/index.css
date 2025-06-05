@@ -6,29 +6,24 @@
 }
 
 .login-container{
-    display: grid;
-    grid-template-columns: repeat(1,1fr);
-    grid-gap: 20px;
-    padding: 10px;
-    background-color: black;
-    place-items: center;
-    min-height: calc(100vh - 10px);
-    border-radius: 10px;
-}
-
-/* .login-container{
     display: flex;
     flex-direction: column;
-    justify-content:center;
+    justify-content: center;
     align-items: center;
-    height: 100vh;
     gap:10px;
-    background-color: black;
-
-} */
+    background-color: lavender;
+    min-height:calc(100vh - 10px);
+    border-radius: 10px;
+    padding: 10px;
+    
+}
 
 .container{
     width:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
 }
 
 .eye{
@@ -45,7 +40,6 @@
 
 .form-container {
     width: 100%;
-    min-height: 350px;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -169,15 +163,21 @@
 @media screen and (min-width: 768px){
     
     .login-container{
-        grid-template-columns: repeat(2,1fr);
+        flex-direction: row;
+        justify-content: space-around;
     }
 
     .form-container{
         min-height: 390px;
+        width: 40%;
     }
 
     .error-message{
         font-size: 18px;
+    }
+    .container{
+        width: 48%;
+        min-height: 400px;
     }
 
     .label{
@@ -185,7 +185,7 @@
     }
 
     .eye{
-       left:95%
+       left:92%
     }
     
     

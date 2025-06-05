@@ -1,37 +1,21 @@
-import { useState ,} from 'react';
+import { useState, } from 'react';
+import { toast } from 'react-toastify';
 
-import { useNavigate,Navigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 import ClipLoader from "react-spinners/ClipLoader";
 import Cookies from 'js-cookie';
 import { Link } from 'react-router-dom';
 import './index.css';
 import 'remixicon/fonts/remixicon.css';
+import { useUserLoginMutation } from '../../services/todoService';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [errorMsg, setErrorMsg] = useState('');
-  const [showErrorMsg, setShowErrorMsg] = useState(false);
-  const [loading,setLoading]=useState(false)
-  const [showSuccessMsg,setShowSuccessMsg]=useState(false)
-  const [successMsg,setSuccessMsg]=useState("")
 
+  const [userLogin, { isLoading }] = useUserLoginMutation()
   const navigate = useNavigate();
-  if (showErrorMsg) {
-    setTimeout(() => {
-      setShowErrorMsg(false);
-      setErrorMsg('');
-    }, 5000)
-  }
-  if (showSuccessMsg) {
-    setTimeout(() => {
-      navigate("/todo");
-    }, 1500);
-    
-  }
-  
-
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -45,59 +29,27 @@ const Login = () => {
   };
 
   const onSubmitSuccess = (data) => {
-
-    Cookies.set('jwt_token', data.jwtToken, { expires: 5 });
-    Cookies.set('username', username, { expires: 5 });
-
-
-    //here popup needs to be shown
-    setShowSuccessMsg(true)
-    setSuccessMsg(data.message)
-
-    setTimeout(()=>{
-      navigate('/todo');
-    },1500)
+    Cookies.set('jwt_token', data.jwtToken, { expires: 1 });
+    Cookies.set('username', username, { expires: 1 });
+    navigate("/todo")
+    toast.success("Login Successful")
   };
 
-  const onSubmitFailure = (message) => {
-    setErrorMsg(message);
-    setShowErrorMsg(true);
-  };
 
   const handleLogin = async (event) => {
     event.preventDefault();
-
-    setLoading(true)
-
     if (!username || !password) {
-      onSubmitFailure('Please fill in both fields.');
+      toast.error('Please fill in both fields.');
       return;
     }
 
     const userDetails = { username, password };
-    const url = 'https://todos-backend-d9im.onrender.com/login';
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(userDetails),
-    };
-
     try {
-      const response = await fetch(url, options);
-      const data = await response.json();
-      
-      console.log(data)
-      setLoading(false)
-      if (response.ok === true) {
-        
-        onSubmitSuccess(data);
-      } else {
-        onSubmitFailure(data.message);
-      }
+      const data = await userLogin(userDetails).unwrap();
+      onSubmitSuccess(data)
     } catch (error) {
-      onSubmitFailure('An error occurred. Please try again later.');
+      const message = error?.data?.message || 'Login failed. Please try again.';
+      toast.error(message);
     }
   };
 
@@ -107,7 +59,7 @@ const Login = () => {
     return <Navigate to="/todo" />;
   }
 
-  const isValid=username && password
+  const isValid = username && password
 
   return (
     <div className="login-container">
@@ -146,28 +98,13 @@ const Login = () => {
           </label>
           {showPassword ? (<i onClick={handleShowPassword} className="ri-eye-line eye"></i>) : (<i onClick={handleShowPassword} className="ri-eye-off-line eye"></i>)}
         </div>
-        {/* <div className="checkbox-container">
-          <input
-            checked={showPassword}
-            onChange={handleCheckbox}
-            id="checkbox"
-            type="checkbox"
-            className="checkbox"
-          />
-          <label style={{ cursor: 'pointer' }} htmlFor="checkbox" className="label">
-            Show Password
-          </label>
-        </div> */}
-        
 
-        <button disabled={loading || !isValid} type="submit" className="login-button-form">
-        {loading ? (<span style={{ display: "flex", alignItems: "center", gap: "8px",justifyContent:"center" }}>
-                    Processing...
-                    <ClipLoader color="#007bff" size={15} />
-                </span>) : ("Login")}
+        <button disabled={isLoading || !isValid} type="submit" className="login-button-form">
+          {isLoading ? (<span style={{ display: "flex", alignItems: "center", gap: "8px", justifyContent: "center" }}>
+            Processing...
+            <ClipLoader color="#007bff" size={15} />
+          </span>) : ("Login")}
         </button>
-        {showErrorMsg && <p className="error-message">*{errorMsg}</p>}
-        {showSuccessMsg && <p className='success-msg'>✅{successMsg} And Redirected To Home Page</p>}
         <Link to="/signup" style={{ textDecoration: 'none' }} className='login-text'>
           Not yet signed up? Sign up here
         </Link>
