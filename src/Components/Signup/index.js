@@ -91,7 +91,7 @@ const Signup = () => {
     return (
         <div style={{ padding: "6px", margin: '6px' }} className="login-container">
             <div className="todo-image-container">
-                <img className="signup-image" src="https://res.cloudinary.com/dq4yjeejc/image/upload/v1732344145/WhatsApp_Image_2024-11-23_at_12.09.56_PM_bd450l.jpg" alt="login" />
+                <img className="signup-image" src="https://res.cloudinary.com/dq4yjeejc/image/upload/v1749119094/todo-sign-up-image_mowue0.webp" alt="login" />
             </div>
             <form id="form" onSubmit={handleSubmit} className="form-container">
                 <div className="input-wrapper">

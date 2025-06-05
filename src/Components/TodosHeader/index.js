@@ -27,7 +27,7 @@ const TodosHeader = () => {
   return (
     <header className='todo-header-container'>
       <div>
-        <Link to="/all-todos"><img className="todo-logo-1" alt="logo" src="https://res.cloudinary.com/dq4yjeejc/image/upload/v1732187200/Screenshot_2024-11-21_162706-removebg-preview_jpwc5d.png" /></Link>
+        <Link to="/all-todos"><img className="todo-logo-1" alt="logo" src="https://res.cloudinary.com/dq4yjeejc/image/upload/v1749119305/todo-logo_xwljwp.webp" /></Link>
       </div>
       <div>
         <h1 className='username-heading'>Welcome {(username || 'User').toUpperCase()}</h1>

@@ -114,7 +114,7 @@ const Login = () => {
       <div className="container">
         <img
           className="login-image"
-          src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.vecteezy.com%2Fsystem%2Fresources%2Fpreviews%2F005%2F879%2F539%2Foriginal%2Fcloud-computing-modern-flat-concept-for-web-banner-design-man-enters-password-and-login-to-access-cloud-storage-for-uploading-and-processing-files-illustration-with-isolated-people-scene-free-vector.jpg&f=1&nofb=1&ipt=f4a0b722da0bcc8980f4847046fde79e0a553bb0dcdd64ea970e0ac6623bc09a&ipo=images"
+          src="https://res.cloudinary.com/dq4yjeejc/image/upload/v1749119001/todo-login-image_lbfx0u.webp"
           alt="login"
         />
       </div>

@@ -468,7 +468,7 @@ const Todo = () => {
         <div className='todo-data-container'>
           {filteredData.length === 0 ?
             (<div className='no-todos-container'>
-              <img className='todo-image-1' alt="todo" src="https://img.freepik.com/free-photo/3d-illustration-calendar-with-checkmarks-pen_107791-15855.jpg" />
+              <img className='todo-image-1' alt="todo" src="https://res.cloudinary.com/dq4yjeejc/image/upload/v1749119752/no-todos-image_g38jaf.webp" />
               <div>
                 <p className='no-todos-content'>No Todos for this Date: <span className="formatted-date-heading">{formattedDate}</span></p>
                 <h3 style={{ fontWeight: "bold", color: "green" }}>Please Try to Add Tasks</h3>

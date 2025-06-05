@@ -21,7 +21,7 @@ class Home extends Component {
                         <Link to="/login"><motion.button drag whileTap={{scale:1.2}} className='start-now-button'>Start Now</motion.button></Link>
                     </div>
                     <div className='todo-image-container'>
-                        <img className='todo-image' src="https://res.cloudinary.com/dq4yjeejc/image/upload/v1732187723/968ed86b54a12f62717ab10e15f16a9e_rrjg0b.jpg" alt="todo" />
+                        <img className='todo-image' src="https://res.cloudinary.com/dq4yjeejc/image/upload/v1749118861/todo-images_ehns3k.webp" alt="todo" />
                     </div>
                 </div>
             </main>

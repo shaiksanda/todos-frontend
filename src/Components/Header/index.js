@@ -6,7 +6,7 @@ const Header=()=>{
     return(
         <div className="header-container">
             <div>
-                <img className="todo-logo" alt="logo" src="https://res.cloudinary.com/dq4yjeejc/image/upload/v1732187200/Screenshot_2024-11-21_162706-removebg-preview_jpwc5d.png" />
+                <img className="todo-logo" alt="logo" src="https://res.cloudinary.com/dq4yjeejc/image/upload/v1749119305/todo-logo_xwljwp.webp" />
             </div>
             <div className="buttons-container">
                 <Link to="/login"><motion.button drag whileTap={{scale:0.6}} className="login-button">Login</motion.button></Link>
