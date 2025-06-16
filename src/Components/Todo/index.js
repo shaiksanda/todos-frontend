@@ -1,9 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, } from 'react';
 import Calendar from 'react-calendar';
 import Confetti from 'react-confetti';
-
-
-import Cookies from 'js-cookie';
 
 import Popup from 'reactjs-popup'
 import { L8 } from 'react-isloading'
@@ -11,45 +8,44 @@ import { L8 } from 'react-isloading'
 import { FcFilledFilter } from "react-icons/fc";
 import TodosHeader from '../TodosHeader';
 import TodosFooter from '../TodosFooter';
-
+import { toast } from 'react-toastify';
 
 import 'reactjs-popup/dist/index.css'
 import 'react-calendar/dist/Calendar.css';
 
 import "./index.css"
-
+import { useUpdateTodoMutation, useAddTodoMutation, useDeleteTodoMutation, useGetTodosQuery, useUpdateTodoStatusMutation } from '../../services/todoService';
+const tagOptions = ["Work", "Coding Practice", "Revision", "Learning", "English Speaking Practice", "Entertainment", "Family", "Finance",
+  "Fitness", "Groceries", "Health", "Hobbies", "Household", "Maintenance",
+  "Personal", "Shopping", "Spiritual", "Travel"]
 const Todo = () => {
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const [data, setData] = useState([])
 
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const [tag, setTag] = useState('');
   const [priority, setPriority] = useState('');
   const [todo, setTodo] = useState('');
-  const isValid = tag && todo && priority
-  const validUpdate = todo && priority && tag
-  const [msg, setMsg] = useState("")
-  const [showMsg, setShowMsg] = useState(false)
+  const [editTodo, setEditTodo] = useState("")
+  const [editTag, setEditTag] = useState("")
+  const [editPriority, setEditPriority] = useState("")
 
-  const [successMsg, setSuccessMsg] = useState("")
-  const [showSuccessMsg, setShowSuccessMsg] = useState(false)
+  const [status, setStatus] = useState('');
+  const { data, isLoading, } = useGetTodosQuery({ tag, status, priority, selectedDate: selectedDate.toISOString() })
+  const [deleteTodo] = useDeleteTodoMutation()
+  const [updateTodoStatus] = useUpdateTodoStatusMutation()
+  const [addTodo] = useAddTodoMutation()
+  const [updateTodo] = useUpdateTodoMutation()
+
+  const isValid = tag && todo && priority
+  const validUpdate = editTodo && editPriority && editTag
 
   const [filterTag, setFilterTag] = useState('');
   const [filterPriority, setFilterPriority] = useState('');
   const [search, setSearch] = useState('');
-  const [status, setStatus] = useState('');
-  const [isLoading, setIsLoading] = useState(true)
-  const [taskAdded, setTaskAdded] = useState(false);
-  const [taskUpdated, setTaskUpdated] = useState(false)
-  const [showUpdatedMsg, setShowUpdatedMsg] = useState(false)
 
   const [showConfetti, setShowConfetti] = useState(false);
-  // const [confettiShown, setConfettiShown] = useState(false);
-  const [loading, setLoading] = useState(false)
-
-
 
   useEffect(() => {
-    if (data.length > 0) {
+    if (data && data.length > 0) {
       const allCompleted = data.every(todo => todo.status === 'completed');
 
       if (allCompleted) {
@@ -66,16 +62,6 @@ const Todo = () => {
     }
   }, [data]);
 
-
-  if (showMsg) {
-    setTimeout(() => {
-      setShowMsg(false)
-      setMsg("")
-    }, 5000)
-  }
-
-
-
   const handleFilterTag = (event) => {
     setFilterTag(event.target.value)
   }
@@ -88,34 +74,22 @@ const Todo = () => {
     setSearch(event.target.value)
   }
 
-  const handleUpdateTask = async (event, id) => {
+  const handleUpdateTask = async (event, id, close) => {
     event.preventDefault()
-    setLoading(true)
-    const url = `https://todos-backend-d9im.onrender.com/todos/${id}`
-    const options = {
-      method: "PUT",
-      headers: {
-        'content-type': "application/json",
-        'Authorization': `Bearer ${Cookies.get('jwt_token')}`, // Authorization header
-      },
-      body: JSON.stringify({
-        todo: todo,
-        priority: priority,
-        tag: tag
-      })
+    if (!id) {
+      toast.error("Todo ID is missing.");
+      return;
     }
-    const response = await fetch(url, options)
-    setLoading(false)
-    if (response.ok) {
-      onSubmitSuccess({ message: "" })
-      setTaskUpdated(true);
-      setShowUpdatedMsg(true)
-      setTimeout(() => { setShowUpdatedMsg(false) }, 5000)
 
+    const updatedTodo = { todo: editTodo, tag: editTag, priority: editPriority }
+
+    try {
+      await updateTodo({ id, ...updatedTodo }).unwrap()
+      toast.success("Todo Updated Successfully")
+      close()
     }
-    else {
-      console.log("Error in updating todo", response.statusText)
-      setTaskUpdated(false)
+    catch (error) {
+      toast.error(error?.data?.message || "Failed to Update Todo")
     }
   }
 
@@ -130,131 +104,46 @@ const Todo = () => {
     setStatus("")
   }
 
-  useEffect(() => {
-    const getTodos = async () => {
-      setIsLoading(true)
-      const url = `https://todos-backend-d9im.onrender.com/todos?selectedDate=${selectedDate.toISOString()}&tag=${filterTag}&priority=${filterPriority}&status=${status}`;
-      const options = {
-        method: "GET",
-        headers: {
-          'content-type': "application/json",
-          'Authorization': `Bearer ${Cookies.get('jwt_token')}`, // Authorization header
-        },
-      };
-      const response = await fetch(url, options)
-      const jsonData = await response.json()
-      if (response.ok) {
-        setData(jsonData)
-        setIsLoading(false)
-      }
-      else {
-        console.log("Error in fetching data", response.statusText)
-        setIsLoading(false)
-      }
-
-    }
-
-    getTodos()
-  }, [selectedDate, filterPriority, filterTag, status, taskAdded, taskUpdated])
-
-  const onSubmitSuccess = (data) => {
-    setSuccessMsg(data.message)
-    setShowSuccessMsg(true)
-    setTodo("")
-    setTag("")
-    setPriority("")
-
-    setTimeout(() => {
-      setShowSuccessMsg(false);
-    }, 5000);
-    setTaskAdded(prev => !prev);
-  }
-
   const handleAddTask = async (event) => {
     event.preventDefault();
-    setLoading(true)
-    const url = 'https://todos-backend-d9im.onrender.com/todos';
-    const formattedDate = selectedDate.toISOString();
-
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${Cookies.get('jwt_token')}`, // Authorization header
-      },
-      body: JSON.stringify({
-        todo,
-        tag,
-        priority,
-        selectedDate: formattedDate,
-      }),
-    };
-
-    try {
-      if (tag && priority && todo) {
-        const response = await fetch(url, options);
-        const data = await response.json();
-        setLoading(false)
-        if (response.ok) {
-          onSubmitSuccess(data)
-
-        } else {
-          setMsg(data.message)
-          setShowMsg(true)
-
-          setTimeout(() => {
-            setShowMsg(false);
-          }, 5000);
-        }
-
-
-
-      }
-      else {
-        setMsg("Please fill out all required fields!")
-        setShowMsg(true)
-      }
-    } catch (error) {
-      console.error('Error adding task:', error);
+    if (!tag || !priority || !todo) {
+      toast.error("Please fill out all required fields!");
+      return;
     }
+    try {
+      const formattedDate = selectedDate.toISOString();
+      const newTodo = { todo, tag, priority, selectedDate: formattedDate };
+
+      await addTodo(newTodo).unwrap();
+      toast.success("Task added successfully!");
+      setTag("")
+      setTodo("")
+      setPriority("")
+
+
+    }
+    catch (error) {
+      toast.error(error?.data?.message || "Failed to Add Task")
+    }
+
+
+
+
+
+
   };
 
-  const handleCheckboxStatus = async (id, currentStatus) => {
-    setIsLoading(true)
+  const handleCheckboxStatus = async (todo) => {
 
-    const newStatus = currentStatus === 'completed' ? 'pending' : 'completed';
-    const url = `https://todos-backend-d9im.onrender.com/todos/${id}`
-    const options = {
-      method: "PUT",
-      headers: {
-        'content-type': 'application/json',
-        'Authorization': `Bearer ${Cookies.get('jwt_token')}`, // Authorization header
-      },
-      body: JSON.stringify({
-        status: newStatus,
-      })
-    }
+    const updatedTodo = { ...todo, status: todo.status === "completed" ? "pending" : "completed" }
 
-    const response = await fetch(url, options)
-    const url1 = `https://todos-backend-d9im.onrender.com/todos?selectedDate=${selectedDate.toISOString()}`
-    const options1 = {
-      method: "GET",
-      headers: {
-        'content-type': 'application/json',
-        'Authorization': `Bearer ${Cookies.get('jwt_token')}`, // Authorization header
-      },
+    try {
+      await updateTodoStatus(updatedTodo).unwrap()
+      toast.success("Todo Status Changed Successfully")
     }
-    const response1 = await fetch(url1, options1)
-    const jsonData = await response1.json()
-    if (response.ok) {
-      setData(jsonData)
-      setIsLoading(false)
+    catch (error) {
+      toast.error("Failed to Update the todo status")
     }
-    else {
-      setIsLoading(false)
-      console.log("Error in updating status", response.statusText)
-    }
-
   }
 
   // Handler for when the selection changes
@@ -277,42 +166,27 @@ const Todo = () => {
   const formattedDate = `${selectedDate.getDate()}/${selectedDate.toLocaleString('default', { weekday: 'short' })}/${selectedDate.getFullYear()}`;
 
   const handleDeleteTodo = async (id) => {
-    const url = `https://todos-backend-d9im.onrender.com/todos/${id}`
-    const options = {
-      method: "DELETE",
-      headers: {
-        'content-type': 'application/json',
-        'Authorization': `Bearer ${Cookies.get('jwt_token')}`, // Authorization header
-      },
+    try {
+      await deleteTodo(id).unwrap()
+      toast.success("Todo deleted Successfully")
     }
-    const response = await fetch(url, options)
-    const url1 = `https://todos-backend-d9im.onrender.com/todos?selectedDate=${selectedDate.toISOString()}`
-    const options1 = {
-      method: "GET",
-      headers: {
-        'content-type': 'application/json',
-        'Authorization': `Bearer ${Cookies.get('jwt_token')}`,
-      },
-    }
-
-
-
-    const response1 = await fetch(url1, options1)
-    const jsonData1 = await response1.json()
-    if (response1.ok) {
-      setData(jsonData1)
-      setIsLoading(false)
-    }
-    else {
-      console.log("Error in fetching data", response.statusText)
-      setIsLoading(false)
+    catch (error) {
+      toast.error(error?.data?.error || "Error While Deleting Todo")
     }
 
   }
 
-
   const validFilters = search || filterTag || filterPriority || status
-  const filteredData = data.filter((each) => each.todo.toLowerCase().includes(search))
+  const filteredData = data?.filter((each) => {
+    return (
+      (!search || each.todo.toLowerCase().includes(search.toLowerCase())) &&
+      (!filterTag || each.tag === filterTag) &&
+      (!filterPriority || each.priority === filterPriority) &&
+      (!status || each.status === status)
+    );
+  });
+
+  if (isLoading) return <L8 style={{ height: "10rem", width: "10rem" }} />;
 
   return (
     <div style={{ background: "lavender" }} className="app-container">
@@ -321,15 +195,6 @@ const Todo = () => {
       <div className='main-content'>
         <div className='confetti-container'>
           {showConfetti && <Confetti />}
-        </div>
-
-        <div className="spinner-container">
-          {isLoading && <L8
-            style={{
-              height: "10rem",
-              width: "10rem",
-            }}
-          />}
         </div>
 
         <div className="todo-top-container">
@@ -354,26 +219,11 @@ const Todo = () => {
               style={{ color: 'black' }}
               id="tag"
             >
-              <option value="default" hidden>Select One Tag</option>
-              <option value="Work">Work</option>
-              <option value="Education">Education</option>
-              <option value="Revision">Revision</option>
-              <option value="Health">Health</option>
-              <option value="Finance">Finance</option>
-              <option value="Household">Household</option>
-              <option value="Family">Family</option>
-              <option value="Travel">Travel</option>
-              <option value="Personal">Personal</option>
-              <option value="Shopping">Shopping</option>
-              <option value="Fitness">Fitness</option>
-              <option value="Hobbies">Hobbies</option>
-              <option value="Groceries">Groceries</option>
-              <option value="Social">Spiritual</option>
-              <option value="Entertainment">Entertainment</option>
-              <option value="Appointments">Appointments</option>
-              <option value="Maintenance">Maintenance</option>
+              <option value="" hidden>Select One Tag</option>
 
-              <option value="Chores">Others</option>
+              {tagOptions.map((tag) => (
+                <option key={tag} value={tag}>{tag}</option>
+              ))}
 
             </select>
             <select
@@ -390,11 +240,10 @@ const Todo = () => {
               <option value="high">high</option>
 
             </select>
-            <button disabled={loading || !isValid} type="submit" className="login-button-form">
+            <button disabled={isLoading || !isValid} type="submit" className="login-button-form">
               Add Task
             </button>
-            {showSuccessMsg && <p className='success-msg'>✅{successMsg}</p>}
-            {showMsg && <p style={{ margin: '2px' }} className='error-message'>*{msg}</p>}
+
           </form>
           <div className='filter-container'>
             <h1 className='filter-heading'>Use Filters to Organize Your Data <FcFilledFilter size={20} /></h1>
@@ -412,24 +261,10 @@ const Todo = () => {
                 style={{ color: 'black', backgroundColor: "lavender" }}
 
               >
-                <option value="default" hidden>Filter By Tag</option>
-                <option value="Work">Work</option>
-                <option value="Education">Education</option>
-                <option value="Revision">Revision</option>
-                <option value="Health">Health</option>
-                <option value="Finance">Finance</option>
-                <option value="Household">Household</option>
-                <option value="Family">Family</option>
-                <option value="Travel">Travel</option>
-                <option value="Personal">Personal</option>
-                <option value="Shopping">Shopping</option>
-                <option value="Fitness">Fitness</option>
-                <option value="Hobbies">Hobbies</option>
-                <option value="Groceries">Groceries</option>
-                <option value="Social">Spiritual</option>
-                <option value="Entertainment">Entertainment</option>
-                <option value="Appointments">Appointments</option>
-                <option value="Maintenance">Maintenance</option>
+                <option value="" hidden>Filter By Tag</option>
+                {tagOptions.map((tag) => (
+                  <option key={tag} value={tag}>{tag}</option>
+                ))}
               </select>
 
               <select
@@ -439,7 +274,7 @@ const Todo = () => {
                 className='input-element'
                 style={{ color: 'black', backgroundColor: "lavender" }}
               >
-                <option value="default" hidden>Filter By Priority</option>
+                <option value="" hidden>Filter By Priority</option>
                 <option value="low">low</option>
                 <option value="medium">medium</option>
                 <option value="high">high</option>
@@ -452,21 +287,20 @@ const Todo = () => {
                 style={{ color: 'black', backgroundColor: "lavender" }}
                 id='status'
               >
-                <option value="default" hidden>Filter By Status</option>
+                <option value="" hidden>Filter By Status</option>
                 <option value="pending">pending</option>
                 <option value="completed">completed</option>
 
               </select>
-              <button disabled={loading || !validFilters} onClick={handleRemoveFilters} className='remove-filters-button'>Remove Filters</button>
+              <button disabled={isLoading || !validFilters} onClick={handleRemoveFilters} className='remove-filters-button'>Remove Filters</button>
             </div>
           </div>
         </div>
 
         <h1 className="fetch-todos-heading">Fetching todos for: <span className="formatted-date-heading">{formattedDate}</span></h1>
 
-
         <div className='todo-data-container'>
-          {filteredData.length === 0 ?
+          {filteredData?.length === 0 ?
             (<div className='no-todos-container'>
               <img className='todo-image-1' alt="todo" src="https://res.cloudinary.com/dq4yjeejc/image/upload/v1749119752/no-todos-image_g38jaf.webp" />
               <div>
@@ -475,9 +309,17 @@ const Todo = () => {
               </div>
             </div>) : (filteredData.map((item) => (
               <div className='each-todo' key={item._id}>
-                <input checked={item.status === "completed"} onChange={() => handleCheckboxStatus(item._id, item.status)} className="todo-checkbox" type="checkbox" />
+                <input checked={item.status === "completed"} onChange={() => handleCheckboxStatus(item)} className="todo-checkbox" type="checkbox" />
                 <p className='todo-display' >{item.todo}</p>
-                <Popup contentStyle={{
+                <Popup onOpen={() => {
+                  const todoToEdit = data.find(todo => todo._id === item._id);
+                  if (todoToEdit) {
+                    setEditTodo(todoToEdit.todo);
+                    setEditTag(todoToEdit.tag);
+                    setEditPriority(todoToEdit.priority);
+
+                  }
+                }} contentStyle={{
                   backgroundColor: 'white',
                   border: 'none',
                   borderRadius: '12px',
@@ -489,7 +331,9 @@ const Todo = () => {
                 }}
                   className='popup-content'
                   position="right center" modal
-                  trigger={<button className="icon" title="Edit Task" style={{ color: 'black' }}>
+                  trigger={<button
+
+                    className="icon" title="Edit Task" style={{ color: 'black' }}>
                     📝</button>}>
 
                   {close => (
@@ -497,63 +341,49 @@ const Todo = () => {
 
                       <h1 className='update-heading'>Update Your Task</h1>
 
-                      <form onSubmit={(e) => handleUpdateTask(e, item._id)} id="form" className="form-container" >
+                      <form onSubmit={(e) => {
+                        handleUpdateTask(e, item._id, close);
+
+                      }} id="form" className="form-container" >
                         <div className='input-wrapper'>
-                          <input required value={todo} onChange={handleTodoChange} id="task" className="input-element" type="text" />
+                          <input required value={editTodo} onChange={(e) => setEditTodo(e.target.value)} id="task" className="input-element" type="text" />
                           <label htmlFor="task" className="label">
                             TASK
                           </label>
                         </div>
-
-
                         <select
                           name="tag"
-                          value={tag}
-                          onChange={handleTagChange}
+                          value={editTag}
+                          onChange={(e) => setEditTag(e.target.value)}
                           className='dropdown'
                           style={{ color: 'black', backgroundColor: "lavender" }}
                           id="tag"
                         >
-                          <option value="default" hidden>Select One Tag</option>
-                          <option value="Work">Work</option>
-                          <option value="Education">Education</option>
-                          <option value="Revision">Revision</option>
-                          <option value="Health">Health</option>
-                          <option value="Finance">Finance</option>
-                          <option value="Household">Household</option>
-                          <option value="Family">Family</option>
-                          <option value="Travel">Travel</option>
-                          <option value="Personal">Personal</option>
-                          <option value="Shopping">Shopping</option>
-                          <option value="Fitness">Fitness</option>
-                          <option value="Hobbies">Hobbies</option>
-                          <option value="Groceries">Groceries</option>
-                          <option value="Social">Spiritual</option>
-                          <option value="Entertainment">Entertainment</option>
-                          <option value="Appointments">Appointments</option>
-                          <option value="Maintenance">Maintenance</option>
+                          <option value="" hidden>Select One Tag</option>
+                          {tagOptions.map((tag) => (
+                            <option key={tag} value={tag}>{tag}</option>
+                          ))}
                         </select>
-
 
                         <select
                           id="priority"
                           name="priority"
-                          value={priority}
-                          onChange={handlePriorityChange}
+                          value={editPriority}
+                          onChange={(e) => setEditPriority(e.target.value)}
                           className='dropdown'
                           style={{ color: 'black', backgroundColor: "lavender" }}
                         >
-                          <option value="default" hidden>Select Priority</option>
+                          <option value="" hidden>Select Priority</option>
                           <option value="low">low</option>
                           <option value="medium">medium</option>
                           <option value="high">high</option>
 
                         </select>
-                        <button disabled={loading || !validUpdate} type="submit" className="login-button-form">
+                        <button disabled={isLoading || !validUpdate} type="submit" className="login-button-form">
                           UPDATE
                         </button>
-                        {showUpdatedMsg && <p style={{ color: "green", fontWeight: "bold" }}>Todo Updated Successfully now close this.</p>}
-                        <button style={{ textAlign: "center" }} onClick={close} className='login-button-form'>Close</button>
+
+                        <button style={{ textAlign: "center" }} onClick={() => { close(); }} className='login-button-form'>Close</button>
 
                       </form>
                       <div>

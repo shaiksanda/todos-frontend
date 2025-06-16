@@ -72,7 +72,7 @@ const Signup = () => {
                     <label htmlFor='username' className="label">USERNAME</label>
                 </div>
                 <div>
-                    <select  name="gender" id="gender" onChange={handleGender} value={gender} className='dropdown' required style={{ color: gender===""?"gray":"magenta" }}>
+                    <select  name="gender" id="gender" onChange={handleGender} value={gender} className='dropdown' required style={{ color: "magenta" }}>
                         <option value="" hidden>Choose Gender</option>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
