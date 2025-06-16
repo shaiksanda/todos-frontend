@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 import Cookies from 'js-cookie';
+
 export const todoService = createApi({
     reducerPath: "todoApi",
     baseQuery: fetchBaseQuery({
@@ -29,6 +30,15 @@ export const todoService = createApi({
                 body: data
             }),
             invalidatesTags: ["Todos"]
+        }),
+        forgotPassword:builder.mutation({
+            query:(data)=>({
+                url:"/forgotPassword",
+                method:"POST",
+                body:data,
+                headers:{}
+            }),
+            invalidatesTags:["Todos"]
         }),
         getTodos: builder.query({
             query: (filters) => ({
@@ -73,4 +83,4 @@ export const todoService = createApi({
     })
 })
 
-export const { useUserLoginMutation, useUserRegisterMutation, useGetTodosQuery, useDeleteTodoMutation,useUpdateTodoStatusMutation,useAddTodoMutation,useUpdateTodoMutation } = todoService
+export const { useUserLoginMutation, useUserRegisterMutation, useGetTodosQuery, useDeleteTodoMutation,useUpdateTodoStatusMutation,useAddTodoMutation,useUpdateTodoMutation,useForgotPasswordMutation} = todoService
