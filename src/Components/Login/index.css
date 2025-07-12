@@ -96,7 +96,6 @@
     border-radius: 8px;
     background-color:mintcream;
     margin-bottom: 15px;
-    /* border: 1px solid black;*/
 } 
 
 .input-element:focus+.label,
@@ -131,7 +130,6 @@
     font-weight: bold;
     text-align: center;
 }
-
 
 .checkbox-container{
     display: flex;
@@ -170,16 +168,18 @@
     .form-container{
         min-height: 450px;
         width: 450px;
-        align-self: center;
-        
+        align-self: center; 
     }
-
     .error-message{
         font-size: 18px;
     }
     .container{
         width: 48%;
         min-height: 400px;
+    }
+
+    .input-element{
+        font-size:22px
     }
 
     .label{
@@ -189,8 +189,6 @@
     .eye{
        left:92%
     }
-    
-    
 }
 
 

@@ -94,95 +94,80 @@ const AllTodos = () => {
             <Sidebar />
             <main className='main-container'>
                 <div className='filter-container'>
-                    <h1>Use Filters To Organize Your Data</h1>
+                    <h1 className='filter-heading'>Use Filters To Organize Your Data</h1>
                     <div className='filters-container all-todos'>
-                        <div style={{width:"100%"}} className='filter-item input-wrapper'>
-                            <input required onChange={handleSearch} value={search} id="search" type="search" className='input-element special-input' />
-                            <label htmlFor='search' className='label'>SEARCH</label>
+                        <div style={{ width: "100%" }} className='input-wrapper'>
+                            <input required onChange={handleSearch} value={search} id="search" type="search" className='input-element' />
+                            <label htmlFor='search' className='label'>Search...</label>
                         </div>
-                        <div className='filter-item'>
-                            <select
-                                name="tag"
-                                value={filterTag}
-                                onChange={handleFilterTag}
-                                className='dropdown-all-todos'
-                                style={{ color: 'black' }}
-                                id="tag"
-                            >
-                                <option value="default" hidden>Filter By Tag</option>
-                                <option value="Work">Work</option>
-                                <option value="Education">Education</option>
-                                <option value="Revision">Revision</option>
-                                <option value="Health">Health</option>
-                                <option value="Finance">Finance</option>
-                                <option value="Household">Household</option>
-                                <option value="Family">Family</option>
-                                <option value="Travel">Travel</option>
-                                <option value="Personal">Personal</option>
-                                <option value="Shopping">Shopping</option>
-                                <option value="Fitness">Fitness</option>
-                                <option value="Hobbies">Hobbies</option>
-                                <option value="Groceries">Groceries</option>
-                                <option value="Social">Spiritual</option>
-                                <option value="Entertainment">Entertainment</option>
-                                <option value="Appointments">Appointments</option>
-                                <option value="Maintenance">Maintenance</option>
+                        <select
+                            name="tag"
+                            value={filterTag}
+                            onChange={handleFilterTag}
+                            className='todo-input input-element'
+                            style={{ color: 'black', backgroundColor: "lavender" }}
+                            id="tag"
+                        >
+                            <option value="default" hidden>Filter By Tag</option>
+                            <option value="Work">Work</option>
+                            <option value="Education">Education</option>
+                            <option value="Revision">Revision</option>
+                            <option value="Health">Health</option>
+                            <option value="Finance">Finance</option>
+                            <option value="Household">Household</option>
+                            <option value="Family">Family</option>
+                            <option value="Travel">Travel</option>
+                            <option value="Personal">Personal</option>
+                            <option value="Shopping">Shopping</option>
+                            <option value="Fitness">Fitness</option>
+                            <option value="Hobbies">Hobbies</option>
+                            <option value="Groceries">Groceries</option>
+                            <option value="Social">Spiritual</option>
+                            <option value="Entertainment">Entertainment</option>
+                            <option value="Appointments">Appointments</option>
+                            <option value="Maintenance">Maintenance</option>
 
-                                <option value="Chores">Others</option>
+                            <option value="Chores">Others</option>
 
-                            </select>
-                        </div>
-                        <div className='filter-item'>
+                        </select>
+                        <select
+                            id="filterPriority"
+                            value={filterPriority}
+                            onChange={handleFilterPriority}
+                            className='todo-input input-element'
+                            style={{ color: 'black', backgroundColor: "lavender" }}
+                        >
+                            <option value="default" hidden>Filter By Priority</option>
+                            <option value="low">low</option>
+                            <option value="medium">medium</option>
+                            <option value="high">high</option>
+                        </select>
+                        <select
+                            value={status}
+                            onChange={handleStatus}
+                            className='todo-input input-element'
+                            style={{ color: 'black', backgroundColor: "lavender" }}
+                            id='status'
+                        >
+                            <option value="default" hidden>Filter By Status</option>
+                            <option value="pending">pending</option>
+                            <option value="completed">completed</option>
 
-                            <select
-                                id="filterPriority"
-                                value={filterPriority}
-                                onChange={handleFilterPriority}
-                                className='dropdown-all-todos'
-                                style={{ color: 'black', backgroundColor: "lavender" }}
-                            >
-                                <option value="default" hidden>Filter By Priority</option>
-                                <option value="low">low</option>
-                                <option value="medium">medium</option>
-                                <option value="high">high</option>
-                            </select>
-                        </div>
-                        <div className='filter-item'>
-
-                            <select
-                                value={status}
-                                onChange={handleStatus}
-                                className='dropdown-all-todos'
-                                style={{ color: 'black', }}
-                                id='status'
-                            >
-                                <option value="default" hidden>Filter By Status</option>
-                                <option value="pending">pending</option>
-                                <option value="completed">completed</option>
-
-                            </select>
-                        </div>
-
-
-                        <div className='filter-item'>
-                            <button style={{backgroundColor:'red',color:"white",width:'100%'}} disabled={isLoading || !validFilters} onClick={handleRemoveFilters} className='remove-filters-button btn1'>Remove Filters</button>
-                        </div>
-                        <div className='filter-item'>
-                            <Popup contentStyle={{ backgroundColor: "white", border: "none", borderRadius: "12px", width: "90%", maxWidth: "400px" }} modal trigger={<button style={{ height: "50px" }} className='delete-all-todos-button'>Delete All Todos</button>}>
-                                {close => (
-                                    <div className='logout-container'>
-                                        <h1 className='popup-heading'>Are you sure? All your todos will be permanently deleted!</h1>
-                                        <div className='popup-buttons'>
-                                            <button className='close-button' onClick={close}>Close</button>
-                                            <button className='confirm-button' onClick={() => handleDeleteAllTodos(close)}>Confirm</button>
-                                        </div>
+                        </select>
+                        <button style={{ backgroundColor: 'red', color: "white", width: '100%' }} disabled={isLoading || !validFilters} onClick={handleRemoveFilters} className='remove-filters-button btn1'>Remove Filters</button>
+                        <Popup contentStyle={{ backgroundColor: "white", border: "none", borderRadius: "12px", width: "90%", maxWidth: "400px" }} modal trigger={<button style={{ height: "50px" }} className='delete-all-todos-button'>Delete All Todos</button>}>
+                            {close => (
+                                <div className='logout-container'>
+                                    <h1 className='popup-heading'>Are you sure? All your todos will be permanently deleted!</h1>
+                                    <div className='popup-buttons'>
+                                        <button className='close-button' onClick={close}>Close</button>
+                                        <button className='confirm-button' onClick={() => handleDeleteAllTodos(close)}>Confirm</button>
                                     </div>
-                                )}
-                            </Popup>
-                        </div>
-
-
+                                </div>
+                            )}
+                        </Popup>
                     </div>
+                </div>
                     {isLoading ? (<L8 style={{
                         height: "10rem",
                         width: "10rem",
@@ -200,7 +185,7 @@ const AllTodos = () => {
                             </div>
                         )))}
                     </div>)}
-                </div>
+                
             </main>
             <AddTodoIcon />
             <TodosFooter />

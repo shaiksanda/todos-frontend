@@ -26,20 +26,7 @@ html {
 }
 
 .formatted-date-heading {
-  color: orange;
-}
-
-.calendar-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.task-container {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-
+  color: blue;
 }
 
 .confetti-container {
@@ -56,12 +43,7 @@ html {
   font-size: 24px;
   font-weight: bold;
   text-align: center;
-}
-
-.spinner-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin:10px 0px;
 }
 
 .each-todo {
@@ -69,7 +51,7 @@ html {
   align-items: center;
   gap: 10px;
   padding: 4px;
-  background-color: #FF7A00;
+  background: linear-gradient(130deg, #FADADD, #FFF2CC, #D9EAD3, #CFE2F3, #EAD1DC);
   border-radius: 8px;
   cursor: pointer;
   color: black;
@@ -83,8 +65,9 @@ html {
 
 .filter-heading {
   font-weight: bold;
-  font-size: 18px;
+  font-size: 24px;
   text-align: center;
+  color:magenta
 }
 
 .remove-filters-button {
@@ -96,7 +79,6 @@ html {
   font-size: 20px;
   background-color: lavender;
   font-weight: bold;
-  width: 100%;
 }
 
 .remove-filters-button:disabled {
@@ -114,7 +96,6 @@ html {
   background-color: red;
   font-weight: bold;
   color: white;
-  width: 160px;
 }
 
 .update-todo-container {
@@ -168,7 +149,7 @@ html {
 
 .filters-container {
   display: grid;
-  grid-template-columns: repeat(2,1fr);
+  grid-template-columns: repeat(2,130px);
   gap: 4px;
   width: 100%;
 }
@@ -189,21 +170,13 @@ html {
 
 .todo-input {
   width: 100%;
+  font-size: 12px;
 }
 
 .todo-display {
   font-size: 20px;
   font-style: italic;
   font-weight: 700;
-
-}
-
-.main-content {
-  display: grid;
-  grid-template-columns: 250px 1fr;
-  grid-gap: 10px;
-  margin-top: 120px;
-
 }
 
 .no-todos-container {
@@ -233,6 +206,9 @@ html {
     left: 250px;
     margin-bottom: 0px;
   }
+  .todo-input{
+    font-size: 22px;
+  }
 }
 
 .skeleton {
@@ -259,25 +235,23 @@ html {
   }
 }
 
-.date-wrapper {
-  display: flex;
-  align-items: center;
-  background-color: lavender;
-  gap: 4px;
-  margin-bottom: 12px;
-  padding: 4px;
+.date-wrapper{
+  width: 100%;
+  height: 50px;
   border-radius: 6px;
-
+  box-sizing: border-box;
 }
 
 .date-element {
   padding: 8px 12px;
-  font-size: 16px;
+  font-size: 12px;
   border: 2px solid #ccc;
   border-radius: 6px;
   background-color: white;
   color: black;
   outline: none;
+  height: 50px;
+  width: 100%;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -304,12 +278,16 @@ html {
   .floating-plus-btn{
     bottom:20px
   }
+  .date-element{
+    font-size: 22px;
+  }
 }
 
 .todo-grid-container {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   grid-gap: 10px;
+  margin-top: 10px;
 }
 
 .icon {
@@ -333,24 +311,8 @@ html {
     width: 400px;
   }
 
-  .delete-all-todos-button {
-    width: 120px;
-  }
-
   .todo-display {
     font-size: 26px;
-  }
-
-  .todo-login-button-form {
-    width: 90%;
-  }
-
-  .create-task-container {
-    width: 50%;
-  }
-
-  .formatted-date-heading {
-    color: dodgerblue;
   }
 
   .fetch-todos-heading {
@@ -367,5 +329,8 @@ html {
 @media screen and (min-width:768px) {
   .todo-checkbox {
     margin-right: 10px;
+  }
+  .welcome-heading{
+    font-size: 40px;
   }
 }

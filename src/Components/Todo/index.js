@@ -8,7 +8,6 @@ import AddTodoIcon from '../AddTodoIcon';
 import Confetti from 'react-confetti';
 import { useMediaQuery } from 'react-responsive';
 
-import { FcFilledFilter } from "react-icons/fc";
 import { toast } from 'react-toastify';
 
 import Skeleton from 'react-loading-skeleton';
@@ -132,9 +131,9 @@ const Todo = () => {
   const validFilters = search || filterTag || filterPriority || filterStatus
   const filteredData = (data || [])?.filter((each) => (!search || each.todo.toLowerCase().includes(search.toLowerCase()))
   );
-  
+
   const isSmallScreen = useMediaQuery({ maxWidth: 767 });
-  const skeletonCount=isSmallScreen?3:6
+  const skeletonCount = isSmallScreen ? 3 : 6
 
   return (
     <div>
@@ -145,10 +144,10 @@ const Todo = () => {
       <Sidebar />
       <main className="main-container">
         <div className='filter-container'>
-          <h1 className='filter-heading'>Use Filters to Organize Your Data <FcFilledFilter size={20} /></h1>
-          <div className='filters-container'>
-            <div className='input-wrapper'>
-              <input required id='search' onChange={handleSearch} value={search} type="search" className='input-element' />
+          <h1 className='filter-heading'>Use Filters to Organize Your Data </h1>
+          <div className='filters-container all-todos'>
+            <div style={{ width: "100%" }} className='input-wrapper'>
+              <input required onChange={handleSearch} value={search} id="search" type="search" className='input-element' />
               <label htmlFor='search' className='label'>Search...</label>
             </div>
 
@@ -193,23 +192,21 @@ const Todo = () => {
             </select>
 
             <div className='date-wrapper'>
-              <label htmlFor="date">Pick Date</label>
               <input onChange={(e) => setSelectedDate(new Date(e.target.value))} value={selectedDate.toISOString().split("T")[0]} required className='date-element' id="date" type="date" />
             </div>
 
             <button disabled={isLoading || !validFilters} onClick={handleRemoveFilters} className='remove-filters-button'>Remove Filters</button>
 
           </div>
-          
         </div>
-        <h1 className="fetch-todos-heading">Fetching todos for: <span className="formatted-date-heading">{formattedDate}</span></h1>
 
+        <h1 className="fetch-todos-heading">Fetching todos for: <span className="formatted-date-heading">{formattedDate}</span></h1>
         <div>
           {isLoading ? (
             <div className='todo-grid-container'>
               {[...Array(skeletonCount)].map((_, i) => (
                 <div key={i} className='skeleton'>
-                  
+
                   <Skeleton height={100} />
                 </div>
               ))}

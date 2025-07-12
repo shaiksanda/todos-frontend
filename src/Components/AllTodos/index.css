@@ -6,14 +6,6 @@
     margin-bottom: 10px;
 }
 
-.data-container{
-    display: grid;
-    grid-template-columns: repeat(1,1fr);
-    gap:10px;
-    align-items: center;
-    
-}
-
 .column{
     flex-direction: column !important;
     align-items: normal !important;
@@ -113,15 +105,7 @@
     height: 50px;
 }
 @media screen and (min-width: 768px){
-    .data-container{
-        grid-template-columns: repeat(3,1fr);
-    }
-    .delete-all-todos-button{
-        width: 85%;
-    }
-    .btn1{
-        width: 85% !important;
-    }
+    
     .todo-data-heading{
         font-size: 24px;
     }
@@ -139,9 +123,4 @@
         font-size: 30px;
     }
     
-    
-    .special-input{
-        width: 260px;
-
-    }
 }
