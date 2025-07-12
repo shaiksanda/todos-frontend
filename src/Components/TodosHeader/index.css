@@ -1,16 +1,18 @@
 
-
 .todo-header-container{
     display: flex;
     justify-content: space-around;
     align-items: center;
-    position: sticky;
+    position: fixed;
     top:0;
     left:0;
     right: 0;
+    height: 80px;
     z-index: 100;  /* Ensure it stays above other content */
     background-color: white;
-    padding:10px 5px;
+    padding:10px;
+    background: linear-gradient(90deg,  #D9EAD3,lavender);
+
 }
 
 .logout-container{

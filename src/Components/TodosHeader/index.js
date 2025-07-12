@@ -1,9 +1,10 @@
 import Cookies from 'js-cookie'
+import { setSelectedIndex } from "../../features/selectedSlice";
+import { useDispatch} from "react-redux";
 
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, } from 'react-router-dom';
 import Popup from 'reactjs-popup'
-// import { MdDashboard } from "react-icons/md";
-import { MdOutlineLightMode } from "react-icons/md";
+
 
 
 import 'reactjs-popup/dist/index.css'
@@ -12,36 +13,29 @@ const TodosHeader = () => {
   const navigate = useNavigate();
 
   const username = Cookies.get('username');
+
+  const dispatch = useDispatch();
+   
+    const handleClick = (path, idx) => {
+      dispatch(setSelectedIndex(idx));
+      navigate(path);
+    };
   
-
-
   const handleLogout = () => {
     Cookies.remove('jwt_token')
     Cookies.remove('username')
     navigate('/')
   }
 
-
-
-  
   return (
     <header className='todo-header-container'>
       <div>
-        <Link to="/all-todos"><img className="todo-logo-1" alt="logo" src="https://res.cloudinary.com/dq4yjeejc/image/upload/v1749119305/todo-logo_xwljwp.webp" /></Link>
+        <img onClick={()=>handleClick("/all-todos",1)} className="todo-logo-1" alt="logo" src="https://res.cloudinary.com/dq4yjeejc/image/upload/v1749119305/todo-logo_xwljwp.webp" />
       </div>
       <div>
         <h1 className='username-heading'>Welcome {(username || 'User').toUpperCase()}</h1>
       </div>
-      <div className='dashboard'>
-        <Link to="/todo" className='remove-styling'><h1 className='navigation-heading'>Home</h1></Link>
-      </div>
-      <div className='dashboard'>
-        <Link to="/dashboard" className='remove-styling' ><h1 className='navigation-heading'>Dashboard</h1></Link>
-      </div>
-
-      <div>
-        <MdOutlineLightMode className='light-mode' size={25} />
-      </div>
+      
       <div>
         <Popup contentStyle={{
           backgroundColor: 'white',

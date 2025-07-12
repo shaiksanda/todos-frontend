@@ -36,7 +36,7 @@ export const todoService = createApi({
                 url:"/forgotPassword",
                 method:"POST",
                 body:data,
-                headers:{}
+                headers:{}  // clears any default headers
             }),
             invalidatesTags:["Todos"]
         }),

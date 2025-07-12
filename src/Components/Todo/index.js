@@ -1,46 +1,48 @@
 import { useState, useEffect, } from 'react';
-import Calendar from 'react-calendar';
-import Confetti from 'react-confetti';
 
-import Popup from 'reactjs-popup'
-import { L8 } from 'react-isloading'
-
-import { FcFilledFilter } from "react-icons/fc";
+import Sidebar from '../Sidebar';
 import TodosHeader from '../TodosHeader';
 import TodosFooter from '../TodosFooter';
+import AddTodoIcon from '../AddTodoIcon';
+
+import Confetti from 'react-confetti';
+import { useMediaQuery } from 'react-responsive';
+
+import { FcFilledFilter } from "react-icons/fc";
 import { toast } from 'react-toastify';
 
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+import Popup from 'reactjs-popup'
 import 'reactjs-popup/dist/index.css'
-import 'react-calendar/dist/Calendar.css';
 
 import "./index.css"
-import { useUpdateTodoMutation, useAddTodoMutation, useDeleteTodoMutation, useGetTodosQuery, useUpdateTodoStatusMutation } from '../../services/todoService';
+import { useUpdateTodoMutation, useDeleteTodoMutation, useGetTodosQuery, useUpdateTodoStatusMutation } from '../../services/todoService';
 const tagOptions = ["Work", "Coding Practice", "Revision", "Learning", "English Speaking Practice", "Entertainment", "Family", "Finance",
   "Fitness", "Groceries", "Health", "Hobbies", "Household", "Maintenance",
   "Personal", "Shopping", "Spiritual", "Travel"]
 const Todo = () => {
 
+  //used for filtering the data
+  const [filterTag, setFilterTag] = useState('');
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [tag, setTag] = useState('');
-  const [priority, setPriority] = useState('');
-  const [todo, setTodo] = useState('');
+  const [filterStatus, setFilterStatus] = useState('');
+  const [filterPriority, setFilterPriority] = useState('');
+  //search based filtering happens on the frontend
+  const [search, setSearch] = useState('');
+
+  //for updating the todo
   const [editTodo, setEditTodo] = useState("")
   const [editTag, setEditTag] = useState("")
   const [editPriority, setEditPriority] = useState("")
 
-  const [status, setStatus] = useState('');
-  const { data, isLoading, } = useGetTodosQuery({ tag, status, priority, selectedDate: selectedDate.toISOString() })
+  //these are api calling hooks from rtk query for network calls
+  const { data, isLoading, } = useGetTodosQuery({ tag: filterTag, status: filterStatus, priority: filterPriority, selectedDate: selectedDate.toISOString().split('T')[0] })
   const [deleteTodo] = useDeleteTodoMutation()
   const [updateTodoStatus] = useUpdateTodoStatusMutation()
-  const [addTodo] = useAddTodoMutation()
   const [updateTodo] = useUpdateTodoMutation()
 
-  const isValid = tag && todo && priority
   const validUpdate = editTodo && editPriority && editTag
-
-  const [filterTag, setFilterTag] = useState('');
-  const [filterPriority, setFilterPriority] = useState('');
-  const [search, setSearch] = useState('');
 
   const [showConfetti, setShowConfetti] = useState(false);
 
@@ -93,45 +95,13 @@ const Todo = () => {
     }
   }
 
-  const handleStatus = (event) => {
-    setStatus(event.target.value)
-  }
-
   const handleRemoveFilters = () => {
     setFilterTag("")
     setFilterPriority("")
     setSearch("")
-    setStatus("")
+    setFilterStatus("")
+    setSelectedDate(new Date())
   }
-
-  const handleAddTask = async (event) => {
-    event.preventDefault();
-    if (!tag || !priority || !todo) {
-      toast.error("Please fill out all required fields!");
-      return;
-    }
-    try {
-      const formattedDate = selectedDate.toISOString();
-      const newTodo = { todo, tag, priority, selectedDate: formattedDate };
-
-      await addTodo(newTodo).unwrap();
-      toast.success("Task added successfully!");
-      setTag("")
-      setTodo("")
-      setPriority("")
-
-
-    }
-    catch (error) {
-      toast.error(error?.data?.message || "Failed to Add Task")
-    }
-
-
-
-
-
-
-  };
 
   const handleCheckboxStatus = async (todo) => {
 
@@ -146,24 +116,7 @@ const Todo = () => {
     }
   }
 
-  // Handler for when the selection changes
-  const handlePriorityChange = (event) => {
-    setPriority(event.target.value);
-  };
-
-  const handleTagChange = (event) => {
-    setTag(event.target.value);
-  };
-
-  const handleTodoChange = (event) => {
-    setTodo(event.target.value);
-  };
-
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-  };
-
-  const formattedDate = `${selectedDate.getDate()}/${selectedDate.toLocaleString('default', { weekday: 'short' })}/${selectedDate.getFullYear()}`;
+  const formattedDate = `${selectedDate.toLocaleString('default', { weekday: 'long' })}, ${selectedDate.getDate()} ${selectedDate.toLocaleString('default', { month: 'long' })} ${selectedDate.getFullYear()}`;
 
   const handleDeleteTodo = async (id) => {
     try {
@@ -176,229 +129,222 @@ const Todo = () => {
 
   }
 
-  const validFilters = search || filterTag || filterPriority || status
-  const filteredData = data?.filter((each) => {
-    return (
-      (!search || each.todo.toLowerCase().includes(search.toLowerCase())) &&
-      (!filterTag || each.tag === filterTag) &&
-      (!filterPriority || each.priority === filterPriority) &&
-      (!status || each.status === status)
-    );
-  });
-
-  if (isLoading) return <L8 style={{ height: "10rem", width: "10rem" }} />;
+  const validFilters = search || filterTag || filterPriority || filterStatus
+  const filteredData = (data || [])?.filter((each) => (!search || each.todo.toLowerCase().includes(search.toLowerCase()))
+  );
+  
+  const isSmallScreen = useMediaQuery({ maxWidth: 767 });
+  const skeletonCount=isSmallScreen?3:6
 
   return (
-    <div style={{ background: "lavender" }} className="app-container">
+    <div>
       <TodosHeader />
-
-      <div className='main-content'>
-        <div className='confetti-container'>
-          {showConfetti && <Confetti />}
-        </div>
-
-        <div className="todo-top-container">
-          <div className="calendar-container">
-            <Calendar onChange={handleDateChange} value={selectedDate} />
-          </div>
-
-          <form onSubmit={handleAddTask} id="form" className="form-container" >
-            <h1 style={{ margin: "0px" }} className='create-task-heading'>Create A Task</h1>
+      <div className='confetti-container'>
+        {showConfetti && <Confetti />}
+      </div>
+      <Sidebar />
+      <main className="main-container">
+        <div className='filter-container'>
+          <h1 className='filter-heading'>Use Filters to Organize Your Data <FcFilledFilter size={20} /></h1>
+          <div className='filters-container'>
             <div className='input-wrapper'>
-
-              <input required value={todo} onChange={handleTodoChange} id="task" className="input-element" type="text" />
-              <label htmlFor="task" className="label">
-                TASK
-              </label>
+              <input required id='search' onChange={handleSearch} value={search} type="search" className='input-element' />
+              <label htmlFor='search' className='label'>Search...</label>
             </div>
-            <select
-              name="tag"
-              value={tag}
-              onChange={handleTagChange}
-              className='dropdown'
-              style={{ color: 'black' }}
-              id="tag"
-            >
-              <option value="" hidden>Select One Tag</option>
 
+            <select
+              id="filterTag"
+              value={filterTag}
+              onChange={handleFilterTag}
+              className='todo-input input-element'
+              style={{ color: 'black', backgroundColor: "lavender" }}
+
+            >
+              <option value="" hidden>Filter By Tag</option>
               {tagOptions.map((tag) => (
                 <option key={tag} value={tag}>{tag}</option>
               ))}
-
             </select>
+
             <select
-              id="priority"
-              name="priority"
-              value={priority}
-              onChange={handlePriorityChange}
-              className='dropdown'
-              style={{ color: 'black' }}
+              id="filterPriority"
+              value={filterPriority}
+              onChange={handleFilterPriority}
+              className='todo-input input-element'
+              style={{ color: 'black', backgroundColor: "lavender" }}
             >
-              <option value="default" hidden>Select PRIORITY</option>
+              <option value="" hidden>Filter By Priority</option>
               <option value="low">low</option>
               <option value="medium">medium</option>
               <option value="high">high</option>
+            </select>
+
+            <select
+              value={filterStatus}
+              onChange={(e) => setFilterStatus(e.target.value)}
+              className='todo-input input-element'
+              style={{ color: 'black', backgroundColor: "lavender" }}
+              id='status'
+            >
+              <option value="" hidden>Filter By Status</option>
+              <option value="pending">pending</option>
+              <option value="completed">completed</option>
 
             </select>
-            <button disabled={isLoading || !isValid} type="submit" className="login-button-form">
-              Add Task
-            </button>
 
-          </form>
-          <div className='filter-container'>
-            <h1 className='filter-heading'>Use Filters to Organize Your Data <FcFilledFilter size={20} /></h1>
-            <div className='filters-container'>
-              <div className='input-wrapper'>
-                <input required id='search' onChange={handleSearch} value={search} type="search" className='input-element' style={{ height: "50px" }} />
-                <label htmlFor='search' className='label'>Search...</label>
-              </div>
-
-              <select
-                id="filterTag"
-                value={filterTag}
-                onChange={handleFilterTag}
-                className='input-element'
-                style={{ color: 'black', backgroundColor: "lavender" }}
-
-              >
-                <option value="" hidden>Filter By Tag</option>
-                {tagOptions.map((tag) => (
-                  <option key={tag} value={tag}>{tag}</option>
-                ))}
-              </select>
-
-              <select
-                id="filterPriority"
-                value={filterPriority}
-                onChange={handleFilterPriority}
-                className='input-element'
-                style={{ color: 'black', backgroundColor: "lavender" }}
-              >
-                <option value="" hidden>Filter By Priority</option>
-                <option value="low">low</option>
-                <option value="medium">medium</option>
-                <option value="high">high</option>
-              </select>
-
-              <select
-                value={status}
-                onChange={handleStatus}
-                className='input-element'
-                style={{ color: 'black', backgroundColor: "lavender" }}
-                id='status'
-              >
-                <option value="" hidden>Filter By Status</option>
-                <option value="pending">pending</option>
-                <option value="completed">completed</option>
-
-              </select>
-              <button disabled={isLoading || !validFilters} onClick={handleRemoveFilters} className='remove-filters-button'>Remove Filters</button>
+            <div className='date-wrapper'>
+              <label htmlFor="date">Pick Date</label>
+              <input onChange={(e) => setSelectedDate(new Date(e.target.value))} value={selectedDate.toISOString().split("T")[0]} required className='date-element' id="date" type="date" />
             </div>
-          </div>
-        </div>
 
+            <button disabled={isLoading || !validFilters} onClick={handleRemoveFilters} className='remove-filters-button'>Remove Filters</button>
+
+          </div>
+          
+        </div>
         <h1 className="fetch-todos-heading">Fetching todos for: <span className="formatted-date-heading">{formattedDate}</span></h1>
 
-        <div className='todo-data-container'>
-          {filteredData?.length === 0 ?
-            (<div className='no-todos-container'>
-              <img className='todo-image-1' alt="todo" src="https://res.cloudinary.com/dq4yjeejc/image/upload/v1749119752/no-todos-image_g38jaf.webp" />
+        <div>
+          {isLoading ? (
+            <div className='todo-grid-container'>
+              {[...Array(skeletonCount)].map((_, i) => (
+                <div key={i} className='skeleton'>
+                  
+                  <Skeleton height={100} />
+                </div>
+              ))}
+            </div>
+          ) : filteredData?.length === 0 ? (
+            <div className='no-todos-container'>
+              <img
+                className='todo-image-1'
+                alt="todo"
+                src="https://res.cloudinary.com/dq4yjeejc/image/upload/v1749119752/no-todos-image_g38jaf.webp"
+              />
               <div>
-                <p className='no-todos-content'>No Todos for this Date: <span className="formatted-date-heading">{formattedDate}</span></p>
+                <p className='no-todos-content'>
+                  No Todos for this Date: <span className="formatted-date-heading">{formattedDate}</span>
+                </p>
                 <h3 style={{ fontWeight: "bold", color: "green" }}>Please Try to Add Tasks</h3>
               </div>
-            </div>) : (filteredData.map((item) => (
-              <div className='each-todo' key={item._id}>
-                <input checked={item.status === "completed"} onChange={() => handleCheckboxStatus(item)} className="todo-checkbox" type="checkbox" />
-                <p className='todo-display' >{item.todo}</p>
-                <Popup onOpen={() => {
-                  const todoToEdit = data.find(todo => todo._id === item._id);
-                  if (todoToEdit) {
-                    setEditTodo(todoToEdit.todo);
-                    setEditTag(todoToEdit.tag);
-                    setEditPriority(todoToEdit.priority);
-
-                  }
-                }} contentStyle={{
-                  backgroundColor: 'white',
-                  border: 'none',
-                  borderRadius: '12px',
-                  width: '90%', // Full width for small devices
-                  maxWidth: '400px',
-                  marginTop: "60px", // Optional: Limit max width for larger devices
-                  zIndex: '2500'
-
-                }}
-                  className='popup-content'
-                  position="right center" modal
-                  trigger={<button
-
-                    className="icon" title="Edit Task" style={{ color: 'black' }}>
-                    📝</button>}>
-
-                  {close => (
-                    <div className="update-todo-container">
-
-                      <h1 className='update-heading'>Update Your Task</h1>
-
-                      <form onSubmit={(e) => {
-                        handleUpdateTask(e, item._id, close);
-
-                      }} id="form" className="form-container" >
-                        <div className='input-wrapper'>
-                          <input required value={editTodo} onChange={(e) => setEditTodo(e.target.value)} id="task" className="input-element" type="text" />
-                          <label htmlFor="task" className="label">
-                            TASK
-                          </label>
-                        </div>
-                        <select
-                          name="tag"
-                          value={editTag}
-                          onChange={(e) => setEditTag(e.target.value)}
-                          className='dropdown'
-                          style={{ color: 'black', backgroundColor: "lavender" }}
-                          id="tag"
+            </div>
+          ) : (
+            <div className='todo-grid-container'>
+              {filteredData.map((item) => (
+                <div className='each-todo' key={item._id}>
+                  <input
+                    checked={item.status === "completed"}
+                    onChange={() => handleCheckboxStatus(item)}
+                    className="todo-checkbox"
+                    type="checkbox"
+                  />
+                  <p className='todo-display'>{item.todo}</p>
+                  <Popup
+                    onOpen={() => {
+                      const todoToEdit = data.find(todo => todo._id === item._id);
+                      if (todoToEdit) {
+                        setEditTodo(todoToEdit.todo);
+                        setEditTag(todoToEdit.tag);
+                        setEditPriority(todoToEdit.priority);
+                      }
+                    }}
+                    contentStyle={{
+                      backgroundColor: 'white',
+                      border: 'none',
+                      borderRadius: '12px',
+                      width: '90%',
+                      maxWidth: '400px',
+                      marginTop: "60px",
+                      zIndex: '2500'
+                    }}
+                    className='popup-content'
+                    position="right center"
+                    modal
+                    trigger={
+                      <button className="icon" title="Edit Task" style={{ color: 'black' }}>
+                        📝
+                      </button>
+                    }
+                  >
+                    {close => (
+                      <div className="update-todo-container">
+                        <h1 className='update-heading'>Update Your Task</h1>
+                        <form
+                          onSubmit={(e) => handleUpdateTask(e, item._id, close)}
+                          id="form"
+                          className="form-container"
                         >
-                          <option value="" hidden>Select One Tag</option>
-                          {tagOptions.map((tag) => (
-                            <option key={tag} value={tag}>{tag}</option>
-                          ))}
-                        </select>
-
-                        <select
-                          id="priority"
-                          name="priority"
-                          value={editPriority}
-                          onChange={(e) => setEditPriority(e.target.value)}
-                          className='dropdown'
-                          style={{ color: 'black', backgroundColor: "lavender" }}
-                        >
-                          <option value="" hidden>Select Priority</option>
-                          <option value="low">low</option>
-                          <option value="medium">medium</option>
-                          <option value="high">high</option>
-
-                        </select>
-                        <button disabled={isLoading || !validUpdate} type="submit" className="login-button-form">
-                          UPDATE
-                        </button>
-
-                        <button style={{ textAlign: "center" }} onClick={() => { close(); }} className='login-button-form'>Close</button>
-
-                      </form>
-                      <div>
+                          <div className='input-wrapper'>
+                            <input
+                              required
+                              value={editTodo}
+                              onChange={(e) => setEditTodo(e.target.value)}
+                              id="task"
+                              className="input-element"
+                              type="text"
+                            />
+                            <label htmlFor="task" className="label">TASK</label>
+                          </div>
+                          <select
+                            name="tag"
+                            value={editTag}
+                            onChange={(e) => setEditTag(e.target.value)}
+                            className='dropdown'
+                            style={{ color: 'black', backgroundColor: "lavender" }}
+                            id="tag"
+                          >
+                            <option value="" hidden>Select One Tag</option>
+                            {tagOptions.map((tag) => (
+                              <option key={tag} value={tag}>{tag}</option>
+                            ))}
+                          </select>
+                          <select
+                            id="priority"
+                            name="priority"
+                            value={editPriority}
+                            onChange={(e) => setEditPriority(e.target.value)}
+                            className='dropdown'
+                            style={{ color: 'black', backgroundColor: "lavender" }}
+                          >
+                            <option value="" hidden>Select Priority</option>
+                            <option value="low">low</option>
+                            <option value="medium">medium</option>
+                            <option value="high">high</option>
+                          </select>
+                          <button
+                            disabled={isLoading || !validUpdate}
+                            type="submit"
+                            className="login-button-form"
+                          >
+                            UPDATE
+                          </button>
+                          <button
+                            style={{ textAlign: "center" }}
+                            onClick={() => { close(); }}
+                            className='login-button-form'
+                          >
+                            Close
+                          </button>
+                        </form>
                       </div>
-                    </div>
-                  )}
-                </Popup>
-                <button onClick={() => handleDeleteTodo(item._id)} className="icon" title="Delete Task" style={{ color: 'red' }}>🗑️</button>
-              </div>
-            )))}
-
+                    )}
+                  </Popup>
+                  <button
+                    onClick={() => handleDeleteTodo(item._id)}
+                    className="icon"
+                    title="Delete Task"
+                    style={{ color: 'red' }}
+                  >
+                    🗑️
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
-      </div>
-
+      </main>
+      <AddTodoIcon />
       <TodosFooter />
     </div>
   );

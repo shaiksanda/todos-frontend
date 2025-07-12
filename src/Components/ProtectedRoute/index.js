@@ -4,7 +4,7 @@ import { Navigate} from "react-router-dom"
 const ProtectedRoute = ({ element }) => {
     const token = Cookies.get("jwt_token");
     if (!token) {
-      return <Navigate to="/login" />;
+      return <Navigate to="/" />;
     }
     return element;
   };

@@ -1,12 +1,12 @@
 .footer {
-    position: sticky;
+    position: fixed;
     bottom: 0;
     left: 0;
     right:0;
     background-color: white;
     border-radius: 10px;
     color: white;
-    z-index: 90; 
+    z-index: 900; 
     display: flex;
     justify-content: space-around;
     align-items: center;

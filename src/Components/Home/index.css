@@ -4,7 +4,7 @@
 .app-container{
     background: linear-gradient(45deg,#DB2763,#B0DB43);
     border-radius: 10px;
-    min-height: calc(100vh - 10px);
+    min-height: calc(100vh - 10px) !important;
 }
 
 .home-container{

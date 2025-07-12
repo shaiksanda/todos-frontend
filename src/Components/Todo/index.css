@@ -1,369 +1,371 @@
-body, html {
+body,
+html {
   height: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.react-calendar {
-  border: none;
-  border-radius: 16px;
-  max-width: 290px;
-  width: 100% !important;
-  background-color: #ffffff;
-  padding: 16px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
-  font-family: 'Inter', sans-serif;
-}
-
-.react-calendar__navigation {
-  margin-bottom: 12px;
-  background-color: lightblue;
+.todo-form-container {
+  width: 100%;
+  padding: 10px;
+  background-color: lavender;
   border-radius: 10px;
-  padding: 3px;
+
 }
 
-.react-calendar__navigation button {
-  background: none;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 8px;
-  color: black;
-  font-size: 18px;
-  font-weight: 600;
-  transition: all 0.2s ease;
+.welcome-heading {
+  font-size: 24px;
 }
 
-.react-calendar__month-view__weekdays {
-  text-transform: uppercase;
-  font-size: 16px;
-  color: blue;
+.create-task-heading {
+  font-size: 24px;
   text-align: center;
-  cursor: pointer; 
-}
-
-.react-calendar__tile {
-  padding: 12px 0;
-  border-radius: 50%;
-  transition: all 0.2s ease;
-  text-align: center;
-}
-
-.react-calendar__tile:enabled:hover {
-  background-color: orange;
-}
-
-.react-calendar__tile--now {
-  background: #a9c0cf;
-  color: #0369a1;
-}
-
-.react-calendar__tile--active {
-  background: #3b82f6 !important;
-  color: white !important;
+  color: #FF1493;
   font-weight: bold;
-  border-radius: 50%;
 }
 
+.formatted-date-heading {
+  color: orange;
+}
 
+.calendar-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  .welcome-heading{
-    font-size: 24px;
-  }
+.task-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 
-  .create-task-heading{
-    font-size: 24px;
-    text-align: center;
-    color: #FF1493;
-    font-weight: bold;
-  }
-  .formatted-date-heading{
-    color: orange;
-  }
+}
 
-  .todo-top-container{
-    display: grid;
-    grid-template-columns: repeat(1,1fr);
-    grid-gap:10px;
-    margin: 10px 0px;
-   
-  }
+.confetti-container {
+  position: relative;
+  z-index: 1000;
+}
 
-  .calendar-container{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
+.todo-image-1 {
+  width: 100%;
+  border-radius: 10px;
+}
 
-  
-  .task-container{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  
-  }
+.fetch-todos-heading {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
 
-  .confetti-container{
-    position: relative;
-    z-index: 1000;
-  }
-  
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+.each-todo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px;
+  background-color: #FF7A00;
+  border-radius: 8px;
+  cursor: pointer;
+  color: black;
+  transition: all 0.5s ease;
+}
 
-  .todo-image-1{
-    width:100%;
-    border-radius: 10px;
-  }
+.no-todos-content {
+  font-weight: bold;
+  font-size: 20px;
+}
 
-  .fetch-todos-heading{
-    font-size: 24px;
-    font-weight: bold;
-    text-align: center;
-  }
-  .spinner-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+.filter-heading {
+  font-weight: bold;
+  font-size: 18px;
+  text-align: center;
+}
 
-  
-  .each-todo{
-    display: flex;
-    align-items: center;
-    gap:10px;
-    padding: 0px 4px;
-    background-color: magenta;
-    border-radius: 8px;
-    cursor: pointer;
-    box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
-    color:black
-  }
+.remove-filters-button {
+  height: 50px;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  border-radius: 8px;
+  font-size: 20px;
+  background-color: lavender;
+  font-weight: bold;
+  width: 100%;
+}
 
-  .each-todo:hover{
-    background-color:lavender;
-    color:black
-  }
+.remove-filters-button:disabled {
+  opacity: 0.6;
+  background-color: grey;
+  cursor: not-allowed;
+}
 
- 
+.delete-all-todos-button {
+  height: 50px;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  border-radius: 8px;
+  background-color: red;
+  font-weight: bold;
+  color: white;
+  width: 160px;
+}
 
-  .no-todos-content{
-    font-weight: bold;
-  }
-
-  
-  .filter-heading{
-    font-weight: bold;
-    font-size: 18px;
-    text-align: center;
-  }
-
-  .remove-filters-button{
-    height: 50px;
-    cursor: pointer;
-    outline: none;
-    border: none;
-    border-radius: 8px;
-    font-size: 20px;
-    background-color: lavender;
-    font-weight: bold;
-    width:100%;
-  }
-  .remove-filters-button:disabled{
-    opacity: 0.6;
-    background-color: grey;
-    cursor: not-allowed;
-  }
-
-  
-
-  .delete-all-todos-button{
-    height: 50px;
-    cursor: pointer;
-    outline: none;
-    border: none;
-    border-radius: 8px;
-    background-color:red;
-    font-weight: bold;
-    color:white;
-    width: 160px;
-  }
-
- .update-todo-container{
+.update-todo-container {
   display: flex;
   align-items: center;
   flex-direction: column;
-  gap:6px;
- }
-
- .popup-content {
-  z-index: 2000 !important; /* Ensure it's above the header */
-  position: relative; /* Maintain correct placement */
-  bottom: 0;
-  left:0;
-  right:0;
+  gap: 6px;
 }
 
+.popup-content {
+  z-index: 2000 !important;
+  /* Ensure it's above the header */
+  position: relative;
+  /* Maintain correct placement */
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
 
- .update-heading{
+.update-heading {
   font-size: 24px;
   color: #FF9800;
   font-weight: bold;
- }
-
-.todo-data-container{
-  display: grid;
-  grid-template-columns: 1fr;
-  gap:10px;
-  margin: 10px;
 }
 
-.todo-checkbox{
-  width: 20px ;
-  height: 20px ;
+.todo-checkbox {
+  width: 20px;
+  height: 20px;
   max-width: 40px;
   max-height: 40px;
   flex-shrink: 0;
   flex-grow: 0;
+  cursor: pointer;
 }
 
-.filter-heading{
+.filter-heading {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap:10px
+  gap: 10px
 }
 
-.delete-container{
+.delete-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 10px;
-  
+
 }
 
-
-
-.filters-container{
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.filters-container {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 4px;
+  width: 100%;
 }
-.filter-container{
-  width:100%;
-  background-color: #32CD32;
+
+@media screen and (min-width:768px){
+  .filters-container{
+    grid-template-columns: repeat(3,1fr);
+  }
+}
+
+.filter-container {
+  width: 100%;
+  background-color: #E8F5E3;
   padding: 10px;
   border-radius: 8px;
   cursor: pointer;
 }
 
-.filter-container:hover{
-  transform: scale(1.02);
+.todo-input {
+  width: 100%;
 }
 
-.todo-display{
+.todo-display {
   font-size: 20px;
   font-style: italic;
   font-weight: 700;
-  
+
 }
 
+.main-content {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  grid-gap: 10px;
+  margin-top: 120px;
 
-.main-content{
-  flex: 1;
 }
 
+.no-todos-container {
+  display: grid;
+  place-items: center;
+  margin-top: 50px;
+  text-align: center;
 
-  @media screen and (min-width: 768px){
-    
-    .react-calendar{
-      max-width: 350px;
-    }
-    .each-todo{
-      min-height: 35px;
-    }
-    
-    .todo-image-1{
-      width: 150%;
-    }
-    .delete-all-todos-button{
-      width: 120px;
-    }
-    .todo-display{
-      font-size: 26px;
-    }
-    
-    .todo-login-button-form{
-      width: 90%;
-    }
-    
-    
-    .create-task-container{
-      width: 50%;
-    }
+}
 
-    .react-calendar{
-      width: 55%;
-    }
-    .formatted-date-heading{
-      color:dodgerblue;
-    }
+.main-container {
+  position: absolute;
+  top: 80px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: auto;
+  scrollbar-width: none;
+  padding: 10px;
+  margin-bottom: 80px;
+  background-color: #FFDAB9 ;
 
-    .todo-top-container{
-      grid-template-columns: repeat(3,1fr);
-    }
-    .fetch-todos-heading{
-      font-size: 30px;
-    }
-   
-    }
+}
 
-    @media screen and (min-width:768px){
-      .todo-data-container{
-        grid-template-columns: repeat(3,1fr);
-      }
+@media screen and (min-width:768px) {
+  .main-container {
+    left: 250px;
+    margin-bottom: 0px;
+  }
+}
 
-      .todo-checkbox{
-        margin-right: 10px;
-      }
-      
-    }
+.skeleton {
+  height: 100px; 
+  width: 100%; 
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  background: linear-gradient(
+    90deg,
+    #eee 0px,
+    #f5f5f5 40px,
+    #eee 80px
+  );
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite ease;
+}
 
-    
-    
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
 
-    .icon {
-      position: relative; 
-      cursor: pointer;   
-      outline: none;
-      border: none;
-      background-color: transparent;
-      font-size: 25px;
-    }
-    
-    /* Show the tooltip when hovering over the icon */
-    .icon:hover::after {
-      content: attr(title);  /* Show the title text */
-      position: absolute;
-      bottom: 160%;  /* Position the tooltip above the icon */
-      left: 50%;
-      transform: translateX(-50%);  /* Center the tooltip horizontally */
-      background-color: purple;  /* Tooltip background color */
-      color: white;  /* Tooltip text color */
-      padding: 5px;
-      border-radius: 5px;
-      font-size: 12px;
-      visibility: visible;
-      width: 70px;
-      height: 35px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 1;
-      transition: opacity 0.3s ease;
-    }
-    
-    /* Initially, the tooltip is hidden */
-    .icon::after {
-      visibility: hidden;
-      opacity: 0;
-    }
-    
+.date-wrapper {
+  display: flex;
+  align-items: center;
+  background-color: lavender;
+  gap: 4px;
+  margin-bottom: 12px;
+  padding: 4px;
+  border-radius: 6px;
+
+}
+
+.date-element {
+  padding: 8px 12px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  background-color: white;
+  color: black;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.date-element:focus {
+  border-color: orangered;
+  box-shadow: 0 0 0 2px rgba(255, 69, 0, 0.2);
+}
+
+.floating-plus-btn {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  cursor: pointer;
+  z-index: 999;
+  border-radius: 50%;
+  transition: all 0.8s ease;
+}
+
+.floating-plus-btn:hover {
+  transform: scale(1.1);
+}
+
+@media screen and (min-width:992px){
+  .floating-plus-btn{
+    bottom:20px
+  }
+}
+
+.todo-grid-container {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-gap: 10px;
+}
+
+.icon {
+  border: none;
+  background-color: transparent;
+  font-size: 24px;
+  outline: none;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 768px) {
+  .todo-grid-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .each-todo {
+    min-height: 35px;
+  }
+
+  .todo-image-1 {
+    width: 400px;
+  }
+
+  .delete-all-todos-button {
+    width: 120px;
+  }
+
+  .todo-display {
+    font-size: 26px;
+  }
+
+  .todo-login-button-form {
+    width: 90%;
+  }
+
+  .create-task-container {
+    width: 50%;
+  }
+
+  .formatted-date-heading {
+    color: dodgerblue;
+  }
+
+  .fetch-todos-heading {
+    font-size: 30px;
+  }
+}
+
+@media screen and (min-width:1200px) {
+  .todo-grid-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (min-width:768px) {
+  .todo-checkbox {
+    margin-right: 10px;
+  }
+}

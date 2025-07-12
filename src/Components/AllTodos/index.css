@@ -1,7 +1,9 @@
 
-
-.all-todos-container{
+.all-todos{
+    background-color: lightgreen;
     padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
 }
 
 .data-container{
@@ -12,34 +14,22 @@
     
 }
 
-.each-todo-data{
-    display: flex;
-    flex-direction: column;
-    width: 95%;
-    gap:10px;
-    background-color: yellowgreen;
-    border-radius: 8px;
-    padding: 4px;
-    cursor: pointer;
-    
+.column{
+    flex-direction: column !important;
+    align-items: normal !important;
 }
 
-.each-todo-data:hover{
-    transform: scale(1.03);
-    background-color: lavender;
-}
 
 .todo-data-heading{
     font-size: 20px;
     margin: 4px;
-    color: brown
+    color: black
 }
 
 .style-item{
-    color: #000;
+    color:black;
     font-style: italic;
-    font-family: "Bree Serif";
-    
+    font-weight: bold;
 }
 
 .dropdown-all-todos{
@@ -74,6 +64,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    width:100%
     
 }
 
@@ -86,36 +77,17 @@
     background-color: plum;
     padding: 10px;
 }
-.remove-filters-button-1{
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    padding: 4px;
-    margin-top: 10px;
-    border-width: 0px;
-    background-color: red;
-    border-radius: 10px;
-    height: 50px;
-    width: 100%;
-    margin-bottom: 6px;
-}
 
-.remove-filters-button-1:hover{
-color:black;
-transform: scale(1.04);
-background-color: orangered;
+.btn1{
+    width:100% !important;
 }
 
 
 .delete-all-todos-button{
-    width:100% !important;
+    width:100%;
+    box-sizing: border-box;
 }
 
-.delete-all-todos-button:hover{
-    color:black;
-    background-color: orangered;
-transform: scale(1.04);
-}
 
 .no-data-found-container{  
     display: flex;
@@ -134,12 +106,7 @@ transform: scale(1.04);
     margin: 4px;
     color:red;
 }
-.filters-buttons{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap:10px;
-}
+
 
 .special-input{
     width: 100%;
@@ -148,6 +115,12 @@ transform: scale(1.04);
 @media screen and (min-width: 768px){
     .data-container{
         grid-template-columns: repeat(3,1fr);
+    }
+    .delete-all-todos-button{
+        width: 85%;
+    }
+    .btn1{
+        width: 85% !important;
     }
     .todo-data-heading{
         font-size: 24px;
@@ -165,15 +138,8 @@ transform: scale(1.04);
     .heading{
         font-size: 30px;
     }
-    .filters-buttons{
-        flex-direction: row;
-    }
-    .remove-filters-button-1{
-        width:150px !important;
-    }
-    .delete-all-todos-button{
-        width: 150px !important;
-    }
+    
+    
     .special-input{
         width: 260px;
 
