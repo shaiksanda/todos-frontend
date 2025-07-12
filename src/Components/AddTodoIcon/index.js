@@ -116,14 +116,14 @@ const AddTodoIcon = () => {
 
                         </select>
 
-                        <div style={{ backgroundColor: "white" }} className='date-wrapper'>
+                        <div style={{ backgroundColor: "white" }} className='add-date-wrapper'>
                             <label htmlFor="date">Pick Date</label>
-                            <input onChange={(e) => setAddTodoDate(new Date(e.target.value))} value={addTodoDate.toISOString().split("T")[0]} required className='date-element' id="date" type="date" />
+                            <input onChange={(e) => setAddTodoDate(new Date(e.target.value))} value={addTodoDate.toISOString().split("T")[0]} required className='add-date-element' id="date" type="date" />
                         </div>
                         <button disabled={isLoading || !isValid} type="submit" className="login-button-form">
                             Add Task
                         </button>
-                        <button style={{ width: "100%", marginTop: "10px" }} className='close-button' onClick={close}>Close</button>
+                        <button style={{backgroundColor:"black", width: "100%", marginTop: "10px" }} className='close-button' onClick={close}>Close</button>
 
                     </form>
                 )}
