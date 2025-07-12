@@ -7,9 +7,9 @@ html {
 }
 
 .todo-form-container {
-  width: 100%;
+  width:100%;
   padding: 10px;
-  background-color: lavender;
+  background-color: magenta;
   border-radius: 10px;
 
 }
@@ -23,6 +23,9 @@ html {
   text-align: center;
   color: #FF1493;
   font-weight: bold;
+}
+.btn{
+  margin:10px 0px;
 }
 
 .formatted-date-heading {

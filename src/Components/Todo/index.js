@@ -269,7 +269,7 @@ const Todo = () => {
                         <form
                           onSubmit={(e) => handleUpdateTask(e, item._id, close)}
                           id="form"
-                          className="form-container"
+                          className="todo-form-container"
                         >
                           <div className='input-wrapper'>
                             <input
@@ -311,7 +311,7 @@ const Todo = () => {
                           <button
                             disabled={isLoading || !validUpdate}
                             type="submit"
-                            className="login-button-form"
+                            className="login-button-form btn"
                           >
                             UPDATE
                           </button>
