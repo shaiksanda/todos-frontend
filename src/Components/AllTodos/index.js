@@ -1,8 +1,12 @@
 import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 
+import { useMediaQuery } from 'react-responsive';
+
 import Popup from 'reactjs-popup'
-import { L8 } from 'react-isloading'
+import 'reactjs-popup/dist/index.css'
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 import Sidebar from '../Sidebar';
 import TodosHeader from '../TodosHeader';
@@ -87,7 +91,8 @@ const AllTodos = () => {
     }
     const validFilters = search || filterTag || filterPriority || status
     const filteredData = data.filter((each) => each.todo.toLowerCase().includes(search))
-
+    const isSmallScreen=useMediaQuery({maxWidth:767})
+    const skeletonCount=isSmallScreen?3:6
     return (
         <div>
             <TodosHeader />
@@ -168,24 +173,29 @@ const AllTodos = () => {
                         </Popup>
                     </div>
                 </div>
-                    {isLoading ? (<L8 style={{
-                        height: "10rem",
-                        width: "10rem",
-                    }} />) : (<div className='todo-grid-container'>
-                        {filteredData.length === 0 ? (<div className='no-data-found-container'>
-                            <img className='no-data-found' alt="no-data-found" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.vecteezy.com%2Fsystem%2Fresources%2Fpreviews%2F027%2F998%2F019%2Foriginal%2Ffolder-concept-no-data-data-folder-is-corrupt-missing-files-confused-characters-with-missing-or-non-existent-files-illustration-for-website-landing-page-mobile-app-poster-and-banner-vector.jpg&f=1&nofb=1&ipt=28df7806b768e304e8df698ab5d7a4e134faafeb110d17c1e37568630f896cf3&ipo=images" />
-                            <h1 className='heading'>OOPS! No Data Found</h1>
-                        </div>) : (filteredData.map((each) => (
-                            <div className='each-todo column' key={each._id}>
-                                <h2 className='todo-data-heading'>Todo: <span className='style-item'>{each.todo}</span></h2>
-                                <h2 className='todo-data-heading'>Priority: <span className='style-item'>{each.priority}</span></h2>
-                                <h2 className='todo-data-heading'>Status: <span className='style-item'>{each.status}</span></h2>
-                                <h2 className='todo-data-heading'>Tag: <span className='style-item'>{each.tag}</span></h2>
-                                <h2 className='todo-data-heading'>Date: <span className='style-item'>{new Date(each.selectedDate).toISOString().split('T')[0]}</span></h2>
+                {isLoading ? (
+                    <div className='todo-grid-container'>
+                        {[...Array(skeletonCount)].map((_, i) => (
+                            <div key={i} className='skeleton'>
+                                <Skeleton height={120} />
                             </div>
-                        )))}
-                    </div>)}
-                
+                        ))}
+                    </div>
+                ) : (<div className='todo-grid-container'>
+                    {filteredData.length === 0 ? (<div className='no-data-found-container'>
+                        <img className='no-data-found' alt="no-data-found" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.vecteezy.com%2Fsystem%2Fresources%2Fpreviews%2F027%2F998%2F019%2Foriginal%2Ffolder-concept-no-data-data-folder-is-corrupt-missing-files-confused-characters-with-missing-or-non-existent-files-illustration-for-website-landing-page-mobile-app-poster-and-banner-vector.jpg&f=1&nofb=1&ipt=28df7806b768e304e8df698ab5d7a4e134faafeb110d17c1e37568630f896cf3&ipo=images" />
+                        <h1 className='heading'>OOPS! No Data Found</h1>
+                    </div>) : (filteredData.map((each) => (
+                        <div className='each-todo column' key={each._id}>
+                            <h2 className='todo-data-heading'>Todo: <span className='style-item'>{each.todo}</span></h2>
+                            <h2 className='todo-data-heading'>Priority: <span className='style-item'>{each.priority}</span></h2>
+                            <h2 className='todo-data-heading'>Status: <span className='style-item'>{each.status}</span></h2>
+                            <h2 className='todo-data-heading'>Tag: <span className='style-item'>{each.tag}</span></h2>
+                            <h2 className='todo-data-heading'>Date: <span className='style-item'>{new Date(each.selectedDate).toISOString().split('T')[0]}</span></h2>
+                        </div>
+                    )))}
+                </div>)}
+
             </main>
             <AddTodoIcon />
             <TodosFooter />

@@ -1,4 +1,5 @@
 import Popup from 'reactjs-popup'
+import { useMediaQuery } from 'react-responsive';
 import { useAddTodoMutation } from '../../services/todoService';
 import { toast } from 'react-toastify';
 import { FaSeedling } from "react-icons/fa6";
@@ -54,6 +55,9 @@ const AddTodoIcon = () => {
 
     const isValid = addTag && todo && addPriority
 
+    const isSmallScreen=useMediaQuery({maxWidth:767})
+    const size=isSmallScreen?50:60
+
     return (
 
         <div className='floating-plus-btn'>
@@ -70,13 +74,13 @@ const AddTodoIcon = () => {
                 position="right center" modal trigger={
                     <div>
                         <button type="button" className='icon plus-icon' >
-                            <FaSeedling size={50} color="green" />
+                            <FaSeedling size={size} color="green" />
                         </button>
                     </div>
                 }>
                 {close => (
                     <form onSubmit={(e) => handleAddTask(e, close)} id="form" className="todo-form-container" >
-                        <h1 style={{ margin: "0px" }} className='create-task-heading'>Create A Task</h1>
+                        <h1 style={{ margin: "0px",color:"black" }} className='create-task-heading'>Create A Task</h1>
 
                         <div className='input-wrapper'>
                             <input required value={todo} onChange={handleTodoChange} id="task" className="input-element" type="text" />
@@ -89,8 +93,8 @@ const AddTodoIcon = () => {
                             name="tag"
                             value={addTag}
                             onChange={handleTagChange}
-                            className='dropdown'
-                            style={{ color: 'black' }}
+                            className='dropdown edit-mode'
+                            style={{ color: 'magenta' }}
                             id="tag"
                         >
                             <option value="default" hidden>Select One Tag</option>
@@ -106,8 +110,8 @@ const AddTodoIcon = () => {
                             name="priority"
                             value={addPriority}
                             onChange={handlePriorityChange}
-                            className='dropdown'
-                            style={{ color: 'black' }}
+                            className='dropdown edit-mode'
+                            style={{ color: 'magenta' }}
                         >
                             <option value="default" hidden>Select PRIORITY</option>
                             <option value="low">low</option>
@@ -116,8 +120,8 @@ const AddTodoIcon = () => {
 
                         </select>
 
-                        <div style={{ backgroundColor: "white" }} className='add-date-wrapper'>
-                            <label htmlFor="date">Pick Date</label>
+                        <div style={{ backgroundColor: "white" }} className='add-date-wrapper edit-mode'>
+                            <label className="date-label" htmlFor="date">Pick Date</label>
                             <input onChange={(e) => setAddTodoDate(new Date(e.target.value))} value={addTodoDate.toISOString().split("T")[0]} required className='add-date-element' id="date" type="date" />
                         </div>
                         <button disabled={isLoading || !isValid} type="submit" className="login-button-form">

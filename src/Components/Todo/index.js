@@ -34,6 +34,7 @@ const Todo = () => {
   const [editTodo, setEditTodo] = useState("")
   const [editTag, setEditTag] = useState("")
   const [editPriority, setEditPriority] = useState("")
+  const [editSelectedDate,setEditSelectedDate]=useState("")
 
   //these are api calling hooks from rtk query for network calls
   const { data, isLoading, } = useGetTodosQuery({ tag: filterTag, status: filterStatus, priority: filterPriority, selectedDate: selectedDate.toISOString().split('T')[0] })
@@ -41,7 +42,7 @@ const Todo = () => {
   const [updateTodoStatus] = useUpdateTodoStatusMutation()
   const [updateTodo] = useUpdateTodoMutation()
 
-  const validUpdate = editTodo && editPriority && editTag
+  const validUpdate = editTodo && editPriority && editTag && editSelectedDate
 
   const [showConfetti, setShowConfetti] = useState(false);
 
@@ -82,7 +83,7 @@ const Todo = () => {
       return;
     }
 
-    const updatedTodo = { todo: editTodo, tag: editTag, priority: editPriority }
+    const updatedTodo = { todo: editTodo, tag: editTag, priority: editPriority,selectedDate:editSelectedDate }
 
     try {
       await updateTodo({ id, ...updatedTodo }).unwrap()
@@ -206,8 +207,7 @@ const Todo = () => {
             <div className='todo-grid-container'>
               {[...Array(skeletonCount)].map((_, i) => (
                 <div key={i} className='skeleton'>
-
-                  <Skeleton height={100} />
+                  <Skeleton height={120} />
                 </div>
               ))}
             </div>
@@ -243,6 +243,7 @@ const Todo = () => {
                         setEditTodo(todoToEdit.todo);
                         setEditTag(todoToEdit.tag);
                         setEditPriority(todoToEdit.priority);
+                        setEditSelectedDate(todoToEdit.selectedDate.split("T")[0])
                       }
                     }}
                     contentStyle={{
@@ -286,7 +287,7 @@ const Todo = () => {
                             name="tag"
                             value={editTag}
                             onChange={(e) => setEditTag(e.target.value)}
-                            className='dropdown'
+                            className='dropdown edit-mode'
                             style={{ color: 'black', backgroundColor: "lavender" }}
                             id="tag"
                           >
@@ -300,7 +301,7 @@ const Todo = () => {
                             name="priority"
                             value={editPriority}
                             onChange={(e) => setEditPriority(e.target.value)}
-                            className='dropdown'
+                            className='dropdown edit-mode'
                             style={{ color: 'black', backgroundColor: "lavender" }}
                           >
                             <option value="" hidden>Select Priority</option>
@@ -308,6 +309,10 @@ const Todo = () => {
                             <option value="medium">medium</option>
                             <option value="high">high</option>
                           </select>
+                          <div className='update-date-wrapper edit-mode'>
+                            <label className='date-label' htmlFor="date">Update Date</label>
+                            <input style={{color:"magenta",fontWeight:"600"}} value={editSelectedDate} onChange={(e)=>setEditSelectedDate(e.target.value)} required className='date-element' id="date" type="date" />
+                          </div>
                           <button
                             disabled={isLoading || !validUpdate}
                             type="submit"

@@ -15,9 +15,26 @@
   border: 2px solid #ccc;
   border-radius: 6px;
   background-color: white;
-  color: black;
+  color: magenta;
   outline: none;
   height: 50px;
   width: 100%;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.date-label{
+  font-size: 12px;
+  font-weight: 400;
+  color: magenta;
+}
+
+@media screen and (min-width:768px){
+  .add-date-element{
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .date-label{
+    font-size: 18px;
+    font-weight: 600;
+  }
 }

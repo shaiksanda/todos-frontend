@@ -100,6 +100,7 @@
 
 .username-heading{
     font-size: 24px;
+    font-weight: bold;
     background-image:url("https://res.cloudinary.com/dq4yjeejc/image/upload/v1749119651/todo-username-heading_ch3mmo.webp");
     background-size: cover;
     background-position: center;
