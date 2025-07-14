@@ -10,6 +10,7 @@ import Feedback from "./Components/Feedback"
 import About from "./Components/About"
 import Theme from "./Components/Theme"
 import Streak from "./Components/Streak"
+import Menu from "./Components/Menu";
 import ForgotPassword from "./Components/ForgotPassword"
 import ProtectedRoute from "./Components/ProtectedRoute";
 import { ToastContainer } from 'react-toastify';
@@ -28,6 +29,7 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/dashboard" element={<ProtectedRoute element={<Dashboard />} />} />
         <Route path="/todo" element={<ProtectedRoute element={<Todo />} />} />
+        <Route path="/menu" element={<ProtectedRoute element={<Menu />} />} />
         <Route path="/all-todos" element={<ProtectedRoute element={<AllTodos />} />} />
         <Route path='/feedback' element={<ProtectedRoute element={<Feedback />} />} />
         <Route path='/about' element={<ProtectedRoute element={<About />} />} />

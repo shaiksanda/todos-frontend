@@ -1,8 +1,8 @@
 import { AiFillHome } from "react-icons/ai";
-import { MdDashboard } from "react-icons/md";
 import { Link } from "react-router-dom";
 import Cookies from 'js-cookie'
 import { LuLogOut } from "react-icons/lu";
+import { IoMdMenu } from "react-icons/io";
 
 import { useNavigate, } from 'react-router-dom';
 import Popup from 'reactjs-popup'
@@ -25,8 +25,8 @@ const TodosFooter = () => {
                 <Link className="remove-styling" to="/todo"><p style={{ color: "black" }} className="navigation-content">Home</p></Link>
             </div>
             <div className="navigation-container">
-                <Link className="remove-styling" to="/dashboard"><MdDashboard style={{ color: "black" }} size={25} /></Link>
-                <Link className="remove-styling" to="/dashboard"><p style={{ color: "black" }} className="navigation-content">Dashboard</p></Link>
+                <Link className="remove-styling" to="/menu"><IoMdMenu style={{ color: "black" }} size={25} /></Link>
+                <Link className="remove-styling" to="/menu"><p style={{ color: "black" }} className="navigation-content">Menu</p></Link>
             </div>
             <div className="navigation-container">
                 <Popup contentStyle={{

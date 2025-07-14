@@ -1,6 +1,3 @@
-import { setSelectedIndex } from "../../features/selectedSlice";
-import { useDispatch, useSelector } from "react-redux";
-
 import { IoMdHome } from "react-icons/io";
 import { TbLayoutDashboardFilled } from "react-icons/tb";
 import { FaInfoCircle } from "react-icons/fa";
@@ -8,9 +5,12 @@ import { FaTasks } from "react-icons/fa";
 import { FaFire } from "react-icons/fa";
 import { FaAffiliatetheme } from "react-icons/fa";
 import { MdFeedback } from "react-icons/md";
-
+import TodosHeader from "../TodosHeader"
+import { useDispatch, useSelector } from "react-redux";
+import { setSelectedIndex } from "../../features/selectedSlice";
 import { useNavigate } from "react-router-dom";
 import "./index.css"
+import TodosFooter from "../TodosFooter";
 
 const sidebarItems = [
   { label: "Home", icon: <IoMdHome size={30} />, path: "/" },
@@ -22,7 +22,7 @@ const sidebarItems = [
   { label: "Feedback", icon: <MdFeedback size={28} />, path: "/feedback" },
 ];
 
-const Sidebar = () => {
+const Menu = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch();
   const selected = useSelector((state) => state.selected.selectedIdx);
@@ -30,26 +30,25 @@ const Sidebar = () => {
     dispatch(setSelectedIndex(idx));
     navigate(path);
   };
-  
   return (
-    <aside>
-      {sidebarItems.map((item, idx) => (
-        <div
-          key={idx}
-          className={`flex-container ${selected === idx ? "selected" : ""}`}
-          onClick={() => handleClick(item.path, idx)}
-          style={{ cursor: "pointer" }}
-        >
-          {item.icon}
-          <h1>{item.label}</h1>
-        </div>
-      ))}
-
-
-
-
-    </aside>
+    <div>
+      <TodosHeader />
+      <div className="main-container menu-container">
+        {sidebarItems.map((item, idx) => (
+          <div
+            key={idx}
+            className={`flex-container ${selected === idx ? "selected" : ""}`}
+            onClick={() => handleClick(item.path, idx)}
+            style={{ cursor: "pointer" }}
+          >
+            {item.icon}
+            <h1>{item.label}</h1>
+          </div>
+        ))}
+      </div>
+      <TodosFooter />
+    </div>
   )
 }
 
-export default Sidebar
+export default Menu
