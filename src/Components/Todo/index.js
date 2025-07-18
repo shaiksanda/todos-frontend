@@ -198,7 +198,8 @@ const Todo = () => {
             </select>
 
             <div className='date-wrapper'>
-              <input onChange={(e) => setSelectedDate(new Date(e.target.value))} value={formatDateTimeLocal(addTodoDate)} required className='date-element' id="date" type="datetime-local" />
+              <input onChange={(e) => setSelectedDate(new Date(e.target.value))} value={formatDateTimeLocal(selectedDate)}
+ required className='date-element' id="date" type="datetime-local" />
             </div>
 
             <button disabled={isLoading || !validFilters} onClick={handleRemoveFilters} className='remove-filters-button'>Remove Filters</button>
