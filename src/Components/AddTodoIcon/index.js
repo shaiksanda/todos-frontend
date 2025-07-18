@@ -58,12 +58,6 @@ const AddTodoIcon = () => {
     const isSmallScreen=useMediaQuery({maxWidth:767})
     const size=isSmallScreen?50:60
 
-    const formatDateTimeLocal = (date) => {
-  const d = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
-  return d.toISOString().slice(0, 16);
-};
-
-
     return (
 
         <div className='floating-plus-btn'>
@@ -127,8 +121,8 @@ const AddTodoIcon = () => {
                         </select>
 
                         <div style={{ backgroundColor: "white" }} className='add-date-wrapper edit-mode'>
-                            <label className="date-label" htmlFor="date">Pick Date & Time</label>
-                            <input onChange={(e) => setAddTodoDate(new Date(e.target.value))} value={formatDateTimeLocal(addTodoDate)} required className='add-date-element' id="date" type="datetime-local" />
+                            <label className="date-label" htmlFor="date">Pick Date</label>
+                            <input onChange={(e) => setAddTodoDate(new Date(e.target.value))} value={addTodoDate.toISOString().split("T")[0]} required className='add-date-element' id="date" type="datet" />
                         </div>
                         <button disabled={isLoading || !isValid} type="submit" className="login-button-form">
                             Add Task
