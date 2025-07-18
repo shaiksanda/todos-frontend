@@ -136,10 +136,7 @@ const Todo = () => {
   const isSmallScreen = useMediaQuery({ maxWidth: 767 });
   const skeletonCount = isSmallScreen ? 3 : 6
 
-  const formatDateTimeLocal = (date) => {
-  const d = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
-  return d.toISOString().slice(0, 16);
-};
+
 
   return (
     <div>
@@ -198,8 +195,8 @@ const Todo = () => {
             </select>
 
             <div className='date-wrapper'>
-              <input onChange={(e) => setSelectedDate(new Date(e.target.value))} value={formatDateTimeLocal(selectedDate)}
- required className='date-element' id="date" type="datetime-local" />
+              <input onChange={(e) => setSelectedDate(new Date(e.target.value))} value={selectedDate.toISOString().split("T")[0]}
+ required className='date-element' id="date" type="date" />
             </div>
 
             <button disabled={isLoading || !validFilters} onClick={handleRemoveFilters} className='remove-filters-button'>Remove Filters</button>
