@@ -11,6 +11,7 @@ import About from "./Components/About"
 import Theme from "./Components/Theme"
 import Streak from "./Components/Streak"
 import Menu from "./Components/Menu";
+import Goals from "./Components/Goals"
 import ForgotPassword from "./Components/ForgotPassword"
 import ProtectedRoute from "./Components/ProtectedRoute";
 import { ToastContainer } from 'react-toastify';
@@ -35,6 +36,7 @@ function App() {
         <Route path='/about' element={<ProtectedRoute element={<About />} />} />
         <Route path='/theme' element={<ProtectedRoute element={<Theme />} />} />
         <Route path='/streak' element={<ProtectedRoute element={<Streak />} />} />
+        <Route path="/goals" element={<ProtectedRoute element={<Goals />} />} />
       </Routes>
     </BrowserRouter>
   );

@@ -81,17 +81,6 @@
 }
 
 
-.no-data-found-container{  
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 60vh;
-
-}
-.no-data-found{
-    width: 100%;
-}
 
 .heading{
     font-size: 20px;

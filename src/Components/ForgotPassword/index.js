@@ -14,7 +14,7 @@ const ForgotPassword = () => {
     const [password, setPassword] = useState("")
     const [showPassword, setShowPassword] = useState(false)
 
-    const [forgotPassword,{isLoading}]=useForgotPasswordMutation()
+    const [forgotPassword, { isLoading }] = useForgotPasswordMutation()
 
     const navigate = useNavigate();
 
@@ -29,29 +29,36 @@ const ForgotPassword = () => {
         setPassword(event.target.value)
     }
 
-    
-
     const handleForm = async (event) => {
         event.preventDefault();
-        
+
         if (!username || !password) {
-            toast.error('Please fill in both fields.'); 
+            toast.error('Please fill in both fields.');
             return;
         }
         const userDetails = { username, password }
-        try{
+        try {
             await forgotPassword(userDetails).unwrap()
             toast.success("Password Updated Successfully")
             navigate("/login")
         }
-        catch(error){
-            toast.error(error?.data?.message)
+        catch (error) {
+            let message = "Updating Password Failed. Please try again.";
+            if (error?.status === 'FETCH_ERROR' || error?.message?.includes('Failed to fetch')) {
+                message = 'Our server is currently unavailable or taking longer than usual to wake up. Please try again later, and thank you for your patience.';
+            }
+            // If backend sent an error
+            else if (error?.data?.message) {
+                message = error.data.message;
+            }
+
+            toast.error(message);
         }
-       
+
 
     }
 
-    const isValid=username && password
+    const isValid = username && password
     return (
         <div className="login-container">
             <div className="container">
@@ -79,28 +86,28 @@ const ForgotPassword = () => {
                     </label>
                 </div>
                 <div className="input-wrapper">
-                
-                <input
-                    id="password"
-                    value={password}
-                    onChange={handlePassword}
-                    required
-                    className="input-element"
-                    type={showPassword ? 'text' : 'password'}
-                />
-                <label htmlFor="password" className="label">
-                   NEW PASSWORD
-                </label>
-                {showPassword ? (<i onClick={handleShowPassword} className="ri-eye-line eye"></i>) : (<i onClick={handleShowPassword} className="ri-eye-off-line eye"></i>)}
+
+                    <input
+                        id="password"
+                        value={password}
+                        onChange={handlePassword}
+                        required
+                        className="input-element"
+                        type={showPassword ? 'text' : 'password'}
+                    />
+                    <label htmlFor="password" className="label">
+                        NEW PASSWORD
+                    </label>
+                    {showPassword ? (<i onClick={handleShowPassword} className="ri-eye-line eye"></i>) : (<i onClick={handleShowPassword} className="ri-eye-off-line eye"></i>)}
                 </div>
                 <button disabled={isLoading || !isValid} type="submit" className="login-button-form">
-                {isLoading ? (<span style={{ display: "flex", alignItems: "center", gap: "8px",justifyContent:"center" }}>
-                    Processing...
-                    <ClipLoader color="#007bff" size={15} />
-                </span>) : ("Reset Password")}
+                    {isLoading ? (<span style={{ display: "flex", alignItems: "center", gap: "8px", justifyContent: "center" }}>
+                        Processing...
+                        <ClipLoader color="#007bff" size={15} />
+                    </span>) : ("Reset Password")}
                 </button>
-                <button onClick={()=>navigate("/login")} style={{backgroundColor:"blue"}} className="login-button-form">Go Back</button>
-                
+                <button onClick={() => navigate("/login")} style={{ backgroundColor: "blue" }} className="login-button-form">Go Back</button>
+
             </form>
         </div>
     )

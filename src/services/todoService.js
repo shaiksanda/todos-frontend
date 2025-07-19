@@ -62,6 +62,13 @@ export const todoService = createApi({
             }),
             invalidatesTags:["Todos"]
         }),
+        deleteAllTodos:builder.mutation({
+            query:()=>({
+                url:"/todos",
+                method:"DELETE"
+            }),
+            invalidatesTags:["Todos"]
+        }),
         updateTodo:builder.mutation({
             query:(updatedTodo)=>({
                 url:`/todos/${updatedTodo.id}`,
@@ -83,4 +90,4 @@ export const todoService = createApi({
     })
 })
 
-export const { useUserLoginMutation, useUserRegisterMutation, useGetTodosQuery, useDeleteTodoMutation,useUpdateTodoStatusMutation,useAddTodoMutation,useUpdateTodoMutation,useForgotPasswordMutation} = todoService
+export const { useUserLoginMutation, useUserRegisterMutation, useGetTodosQuery, useDeleteTodoMutation,useUpdateTodoStatusMutation,useAddTodoMutation,useUpdateTodoMutation,useForgotPasswordMutation,useDeleteAllTodosMutation} = todoService

@@ -35,7 +35,6 @@ const Login = () => {
     toast.success("Login Successful")
   };
 
-
   const handleLogin = async (event) => {
     event.preventDefault();
     if (!username || !password) {
@@ -48,9 +47,22 @@ const Login = () => {
       const data = await userLogin(userDetails).unwrap();
       onSubmitSuccess(data)
     } catch (error) {
-      const message = error?.data?.message || 'Login failed. Please try again.';
+      console.error("Login error:", error);
+
+      let message = 'Login failed. Please try again.';
+
+      // If server is unreachable
+      if (error?.status === 'FETCH_ERROR' || error?.message?.includes('Failed to fetch')) {
+        message = 'Our server is currently unavailable or taking longer than usual to wake up. Please try again later, and thank you for your patience.';
+      }
+      // If backend sent an error
+      else if (error?.data?.message) {
+        message = error.data.message;
+      }
+
       toast.error(message);
     }
+
   };
 
   const jwtToken = Cookies.get('jwt_token');

@@ -34,10 +34,10 @@ const Todo = () => {
   const [editTodo, setEditTodo] = useState("")
   const [editTag, setEditTag] = useState("")
   const [editPriority, setEditPriority] = useState("")
-  const [editSelectedDate,setEditSelectedDate]=useState("")
+  const [editSelectedDate, setEditSelectedDate] = useState("")
 
   //these are api calling hooks from rtk query for network calls
-  const { data, isLoading, } = useGetTodosQuery({ tag: filterTag, status: filterStatus, priority: filterPriority, selectedDate: selectedDate.toISOString().split('T')[0] })
+  const { data, isLoading, error, isError } = useGetTodosQuery({ tag: filterTag, status: filterStatus, priority: filterPriority, selectedDate: selectedDate.toISOString().split('T')[0] })
   const [deleteTodo] = useDeleteTodoMutation()
   const [updateTodoStatus] = useUpdateTodoStatusMutation()
   const [updateTodo] = useUpdateTodoMutation()
@@ -83,7 +83,7 @@ const Todo = () => {
       return;
     }
 
-    const updatedTodo = { todo: editTodo, tag: editTag, priority: editPriority,selectedDate:editSelectedDate }
+    const updatedTodo = { todo: editTodo, tag: editTag, priority: editPriority, selectedDate: editSelectedDate }
 
     try {
       await updateTodo({ id, ...updatedTodo }).unwrap()
@@ -211,7 +211,16 @@ const Todo = () => {
                 </div>
               ))}
             </div>
-          ) : filteredData?.length === 0 ? (
+          ) : isError ? (<div className='error-msg'>
+            <p>
+              {error?.data?.message || error?.error || "Something went wrong. Please try again."}
+            </p>
+            {error?.status === "FETCH_ERROR" && (
+              <p style={{ color: "orange", fontWeight: 600 }}>
+                Server seems unreachable. Check your internet connection or try again later.
+              </p>
+            )}
+          </div>) : (filteredData?.length === 0 ? (
             <div className='no-todos-container'>
               <img
                 className='todo-image-1'
@@ -311,7 +320,7 @@ const Todo = () => {
                           </select>
                           <div className='update-date-wrapper edit-mode'>
                             <label className='date-label' htmlFor="date">Update Date</label>
-                            <input style={{color:"magenta",fontWeight:"600"}} value={editSelectedDate} onChange={(e)=>setEditSelectedDate(e.target.value)} required className='date-element' id="date" type="date" />
+                            <input style={{ color: "magenta", fontWeight: "600" }} value={editSelectedDate} onChange={(e) => setEditSelectedDate(e.target.value)} required className='date-element' id="date" type="date" />
                           </div>
                           <button
                             disabled={isLoading || !validUpdate}
@@ -342,7 +351,8 @@ const Todo = () => {
                 </div>
               ))}
             </div>
-          )}
+          ))
+          }
         </div>
 
       </main>

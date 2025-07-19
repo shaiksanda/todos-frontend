@@ -20,6 +20,7 @@ const sidebarItems = [
   { label: "Streak", icon: <FaFire size={26} color="orangered" />, path: "/streak" },
   { label: "Theme", icon: <FaAffiliatetheme size={26} />, path: "/theme" },
   { label: "Feedback", icon: <MdFeedback size={28} />, path: "/feedback" },
+  {label:"Goals",icon:<FaFire size={26} />,path:"/goals"}
 ];
 
 const Sidebar = () => {
