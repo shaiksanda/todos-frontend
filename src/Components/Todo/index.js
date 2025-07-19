@@ -136,6 +136,8 @@ const Todo = () => {
   const isSmallScreen = useMediaQuery({ maxWidth: 767 });
   const skeletonCount = isSmallScreen ? 3 : 6
 
+
+
   return (
     <div>
       <TodosHeader />
@@ -193,7 +195,8 @@ const Todo = () => {
             </select>
 
             <div className='date-wrapper'>
-              <input onChange={(e) => setSelectedDate(new Date(e.target.value))} value={selectedDate.toISOString().split("T")[0]} required className='date-element' id="date" type="date" />
+              <input onChange={(e) => setSelectedDate(new Date(e.target.value))} value={selectedDate.toISOString().split("T")[0]}
+ required className='date-element' id="date" type="date" />
             </div>
 
             <button disabled={isLoading || !validFilters} onClick={handleRemoveFilters} className='remove-filters-button'>Remove Filters</button>
