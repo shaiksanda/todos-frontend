@@ -4,6 +4,7 @@ import { useAddTodoMutation } from '../../services/todoService';
 import { toast } from 'react-toastify';
 import { FaSeedling } from "react-icons/fa6";
 import { useState } from 'react';
+import ClipLoader from "react-spinners/ClipLoader";
 
 import 'reactjs-popup/dist/index.css'
 import "./index.css"
@@ -21,7 +22,7 @@ const AddTodoIcon = () => {
 
 
 
-    const [addTodo,{isLoading}] = useAddTodoMutation()
+    const [addTodo, { isLoading }] = useAddTodoMutation()
 
     const handleTodoChange = (e) => setTodo(e.target.value);
     const handleTagChange = (e) => setAddTag(e.target.value);
@@ -55,8 +56,8 @@ const AddTodoIcon = () => {
 
     const isValid = addTag && todo && addPriority
 
-    const isSmallScreen=useMediaQuery({maxWidth:767})
-    const size=isSmallScreen?50:60
+    const isSmallScreen = useMediaQuery({ maxWidth: 767 })
+    const size = isSmallScreen ? 50 : 60
 
     return (
 
@@ -80,7 +81,7 @@ const AddTodoIcon = () => {
                 }>
                 {close => (
                     <form onSubmit={(e) => handleAddTask(e, close)} id="form" className="todo-form-container" >
-                        <h1 style={{ margin: "0px",color:"black" }} className='create-task-heading'>Create A Task</h1>
+                        <h1 style={{ margin: "0px", color: "black" }} className='create-task-heading'>Create A Task</h1>
 
                         <div className='input-wrapper'>
                             <input required value={todo} onChange={handleTodoChange} id="task" className="input-element" type="text" />
@@ -125,9 +126,12 @@ const AddTodoIcon = () => {
                             <input onChange={(e) => setAddTodoDate(new Date(e.target.value))} value={addTodoDate.toISOString().split("T")[0]} required className='add-date-element' id="date" type="date" />
                         </div>
                         <button disabled={isLoading || !isValid} type="submit" className="login-button-form">
-                            Add Task
+                            {isLoading ? (<span style={{ display: "flex", alignItems: "center", gap: "8px", justifyContent: "center" }}>
+                                Processing...
+                                <ClipLoader color="#007bff" size={20} />
+                            </span>) : ("Add Task")}
                         </button>
-                        <button style={{backgroundColor:"black", width: "100%", marginTop: "10px" }} className='close-button' onClick={close}>Close</button>
+                        <button style={{ backgroundColor: "black", width: "100%", marginTop: "10px" }} className='close-button' onClick={close}>Close</button>
 
                     </form>
                 )}

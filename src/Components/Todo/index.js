@@ -4,7 +4,7 @@ import Sidebar from '../Sidebar';
 import TodosHeader from '../TodosHeader';
 import TodosFooter from '../TodosFooter';
 import AddTodoIcon from '../AddTodoIcon';
-
+import ClipLoader from "react-spinners/ClipLoader";
 import Confetti from 'react-confetti';
 import { useMediaQuery } from 'react-responsive';
 
@@ -40,7 +40,7 @@ const Todo = () => {
   const { data, isLoading, error, isError } = useGetTodosQuery({ tag: filterTag, status: filterStatus, priority: filterPriority, selectedDate: selectedDate.toISOString().split('T')[0] })
   const [deleteTodo] = useDeleteTodoMutation()
   const [updateTodoStatus] = useUpdateTodoStatusMutation()
-  const [updateTodo] = useUpdateTodoMutation()
+  const [updateTodo,{isLoading:updateLoading} ] = useUpdateTodoMutation()
 
   const validUpdate = editTodo && editPriority && editTag && editSelectedDate
 
@@ -196,7 +196,7 @@ const Todo = () => {
 
             <div className='date-wrapper'>
               <input onChange={(e) => setSelectedDate(new Date(e.target.value))} value={selectedDate.toISOString().split("T")[0]}
- required className='date-element' id="date" type="date" />
+                required className='date-element' id="date" type="date" />
             </div>
 
             <button disabled={isLoading || !validFilters} onClick={handleRemoveFilters} className='remove-filters-button'>Remove Filters</button>
@@ -326,11 +326,14 @@ const Todo = () => {
                             <input style={{ color: "magenta", fontWeight: "600" }} value={editSelectedDate} onChange={(e) => setEditSelectedDate(e.target.value)} required className='date-element' id="date" type="date" />
                           </div>
                           <button
-                            disabled={isLoading || !validUpdate}
+                            disabled={updateLoading || !validUpdate}
                             type="submit"
                             className="login-button-form btn"
                           >
-                            UPDATE
+                            {updateLoading ? (<span style={{ display: "flex", alignItems: "center", gap: "8px", justifyContent: "center" }}>
+                              Processing...
+                              <ClipLoader color="#007bff" size={15} />
+                            </span>) : ("Update")}
                           </button>
                           <button
                             style={{ textAlign: "center" }}
