@@ -37,7 +37,7 @@ const Todo = () => {
   const [editSelectedDate, setEditSelectedDate] = useState("")
 
   //these are api calling hooks from rtk query for network calls
-  const { data, isLoading, error, isError } = useGetTodosQuery({ tag: filterTag, status: filterStatus, priority: filterPriority, selectedDate: selectedDate.toISOString().split('T')[0] })
+  const { data, isFetching, error, isError } = useGetTodosQuery({ tag: filterTag, status: filterStatus, priority: filterPriority, selectedDate: selectedDate.toISOString().split('T')[0] })
   const [deleteTodo] = useDeleteTodoMutation()
   const [updateTodoStatus] = useUpdateTodoStatusMutation()
   const [updateTodo,{isLoading:updateLoading} ] = useUpdateTodoMutation()
@@ -199,14 +199,14 @@ const Todo = () => {
                 required className='date-element' id="date" type="date" />
             </div>
 
-            <button disabled={isLoading || !validFilters} onClick={handleRemoveFilters} className='remove-filters-button'>Remove Filters</button>
+            <button disabled={isFetching || !validFilters} onClick={handleRemoveFilters} className='remove-filters-button'>Remove Filters</button>
 
           </div>
         </div>
 
-        <h1 className="fetch-todos-heading">Fetching todos for: <span className="formatted-date-heading">{formattedDate}</span></h1>
+        <h1 className="fetch-todos-heading">{isFetching?"Fetching ":""}Todos for: <span className="formatted-date-heading">{formattedDate}</span></h1>
         <div>
-          {isLoading ? (
+          {isFetching ? (
             <div className='todo-grid-container'>
               {[...Array(skeletonCount)].map((_, i) => (
                 <div key={i} className='skeleton'>
@@ -326,7 +326,7 @@ const Todo = () => {
                             <input style={{ color: "magenta", fontWeight: "600" }} value={editSelectedDate} onChange={(e) => setEditSelectedDate(e.target.value)} required className='date-element' id="date" type="date" />
                           </div>
                           <button
-                            disabled={updateLoading || !validUpdate}
+                            disabled={isFetching || !validUpdate}
                             type="submit"
                             className="login-button-form btn"
                           >

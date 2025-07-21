@@ -26,7 +26,7 @@ const AllTodos = () => {
     const [search, setSearch] = useState('');
     const [status, setStatus] = useState('');
 
-    const { data, error, isLoading, isError } = useGetTodosQuery({ tag: filterTag, priority: filterPriority, status })
+    const { data, error, isFetching, isError } = useGetTodosQuery({ tag: filterTag, priority: filterPriority, status })
 
     const [deleteAllTodos] = useDeleteAllTodosMutation()
 
@@ -137,7 +137,7 @@ const AllTodos = () => {
                             <option value="completed">completed</option>
 
                         </select>
-                        <button style={{ backgroundColor: 'red', color: "white", width: '100%' }} disabled={isLoading || !validFilters} onClick={handleRemoveFilters} className='remove-filters-button btn1'>Remove Filters</button>
+                        <button style={{ backgroundColor: 'red', color: "white", width: '100%' }} disabled={isFetching || !validFilters} onClick={handleRemoveFilters} className='remove-filters-button btn1'>Remove Filters</button>
                         <Popup contentStyle={{ backgroundColor: "white", border: "none", borderRadius: "12px", width: "90%", maxWidth: "400px" }} modal trigger={<button style={{ height: "50px" }} className='delete-all-todos-button'>Delete All Todos</button>}>
                             {close => (
                                 <div className='logout-container'>
@@ -151,7 +151,12 @@ const AllTodos = () => {
                         </Popup>
                     </div>
                 </div>
-                {isLoading ? (
+                {isFetching ? (
+                    <h2 style={{ textAlign: 'center', color: 'black', margin: '1rem 0' }}>
+                        All the todos are fetching… Please wait, it may take some time.
+                    </h2>
+                ):(<h1 style={{textAlign:"center",color:"blue"}}>All Tasks</h1>)}
+                {isFetching ? (
                     <div className='todo-grid-container'>
                         {[...Array(skeletonCount)].map((_, i) => (
                             <div key={i} className='skeleton'>

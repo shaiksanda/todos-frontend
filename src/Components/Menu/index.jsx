@@ -16,9 +16,9 @@ const sidebarItems = [
   { label: "Home", icon: <IoMdHome size={30} />, path: "/" },
   { label: "All Todos", icon: <FaTasks size={26} />, path: "/all-todos" },
   { label: "Dashboard", icon: <TbLayoutDashboardFilled size={25} />, path: "/dashboard" },
-  { label: "About", icon: <FaInfoCircle size={28} />, path: "/about" },
   { label: "Streak", icon: <FaFire size={26} color="orangered" />, path: "/streak" },
   { label: "Theme", icon: <FaAffiliatetheme size={26} />, path: "/theme" },
+  { label: "About", icon: <FaInfoCircle size={28} />, path: "/about" },
   { label: "Feedback", icon: <MdFeedback size={28} />, path: "/feedback" },
 ];
 

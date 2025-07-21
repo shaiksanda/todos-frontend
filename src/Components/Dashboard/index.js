@@ -6,21 +6,28 @@ import { useMediaQuery } from "react-responsive"
 import { useGetDashboardDataQuery } from "../../services/todoService"
 import { useState } from "react"
 import { PieChart, Pie, Tooltip, Cell, Legend, } from "recharts"
-import { BarChart, Bar, XAxis, YAxis, Label, LabelList } from "recharts";
+import { BarChart, CartesianGrid, Bar, XAxis, YAxis, Label, LabelList } from "recharts";
+import {
+    LineChart,
+    Line,
+    ResponsiveContainer,
+} from 'recharts';
+
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import "./index.css"
 import AddTodoIcon from "../AddTodoIcon"
 
-const COLORS = ['purple', 'greenyellow', 'red'];
+const COLORS = ['purple', 'green', 'red'];
 
 
 const Dashboard = () => {
     const username = Cookies.get("username").toUpperCase()
-    const [range, setRange] = useState("")
-    const { data, isLoading, isError, error } = useGetDashboardDataQuery({ days: range })
+    const [range, setRange] = useState(6)
+    const { data, isFetching, isError, error } = useGetDashboardDataQuery({ days: range })
 
-    const { status_breakdown, priority_breakdown, } = data || {}
+    const { status_breakdown, priority_breakdown, completion_trend } = data || {}
+
     //completion_trend, created_vs_completed_trend, tag_breakdown 
     const pieData = [
         { name: 'Total Tasks', value: status_breakdown?.totalTodos },
@@ -31,12 +38,25 @@ const Dashboard = () => {
     const isSmallScreen = useMediaQuery({ maxWidth: 767 })
 
     const priorityData = [
-    { name: isSmallScreen?"High":"High Priority", tasks: priority_breakdown?.high },
-        { name: isSmallScreen?"Medium":"Medium Priority", tasks: priority_breakdown?.medium },
-        { name: isSmallScreen?"Low":"Low Priority", tasks: priority_breakdown?.low },
+        { name: isSmallScreen ? "High" : "High Priority", tasks: priority_breakdown?.high },
+        { name: isSmallScreen ? "Medium" : "Medium Priority", tasks: priority_breakdown?.medium },
+        { name: isSmallScreen ? "Low" : "Low Priority", tasks: priority_breakdown?.low },
     ]
 
-    
+    const lineChartData = completion_trend?.completion_breakdown
+        .map(item => {
+            const d = new Date(item.date);
+            const day = d.getDate();
+
+            return {
+                date: `${day}`,
+                completed: item.completed,
+                originalDate: d // keep full date object for sorting
+            };
+        })
+        .sort((a, b) => a.originalDate - b.originalDate)
+        .map(({ date, completed }) => ({ date, completed })); // strip helper
+
     const width = isSmallScreen ? 280 : 400
     const height = isSmallScreen ? 350 : 400
 
@@ -65,20 +85,19 @@ const Dashboard = () => {
         ticks.push(i);
     }
 
-
-
     return (
         <div>
             <TodosHeader />
             <Sidebar />
             <main style={{ padding: '6px' }} className="main-container">
                 <div className="dashboard-container">
+
                     <h1 className="dashboard-heading">Hey {username}, Welcome to Your Dashboard</h1>
                     <p className="dashboard-content">Track your tasks and progress with ease using the charts below. Stay focused and organized!</p>
                     <div className="filter-range-container">
                         <h1 className="select-date-range-heading">Select Date Range</h1>
                         <select onChange={(e) => setRange(e.target.value)} value={range} className="date-dropdown">
-                            <option value="6">Last 7 Days</option>
+                            <option default value="6">Last 7 Days</option>
                             <option value="29">Last Month</option>
                             <option value="89">Last 3 Months</option>
                             <option value="179"> Last 6 Months</option>
@@ -86,7 +105,8 @@ const Dashboard = () => {
                         </select>
                     </div>
 
-                    {isLoading ? (
+
+                    {isFetching ? (
                         <div>
                             {[...Array(3)].map((_, i) => (
                                 <div key={i} className='skeleton'>
@@ -133,21 +153,18 @@ const Dashboard = () => {
                                         </PieChart>
                                     </div>
                                     <div className="status-pie-chart">
-                                        <div className="chart-info">
-                                            <h1 className="chart-title">Title: Task Priority Breakdown</h1>
-                                            <h1 className="chart-description">Description: Overview of high, medium, and low priority tasks in the selected date range.</h1>
-                                        </div>
-                                        <BarChart margin={{ top: 5, right: 5, bottom: 5, left: 5 }} width={width} height={height} data={priorityData}>
+                                        <BarChart margin={{ left: 0 }} width={width} height={height} data={priorityData}>
+                                            <CartesianGrid strokeDasharray="3 3" />
                                             <XAxis dataKey="name"> <Label style={{
                                                 fill: 'blue',
-                                                fontSize: isSmallScreen?14:20,
+                                                fontSize: isSmallScreen ? 14 : 20,
                                                 fontWeight: 'bold',
                                                 textTransform: 'uppercase'
-                                            }} value="Priority Level" offset={-5} position="insideBottom" /></XAxis>
+                                            }} value="Priority Level" offset={-8} position="insideBottom" /></XAxis>
                                             <YAxis ticks={ticks} >  <Label
                                                 style={{
                                                     fill: 'magenta',
-                                                    fontSize: isSmallScreen?14:20,
+                                                    fontSize: isSmallScreen ? 14 : 20,
                                                     fontWeight: 'bold',
                                                     textTransform: 'uppercase'
                                                 }}
@@ -161,9 +178,9 @@ const Dashboard = () => {
                                                     <Cell
                                                         key={`cell-${index}`} position="top"
                                                         fill={
-                                                            entry.name === 'High Priority'|| entry.name==="High"
+                                                            entry.name === 'High Priority' || entry.name === "High"
                                                                 ? 'red'
-                                                                : entry.name === 'Medium Priority'||entry.name=== "Medium"
+                                                                : entry.name === 'Medium Priority' || entry.name === "Medium"
                                                                     ? '#f1c40f'
                                                                     : '#2ecc71'
                                                         }
@@ -182,7 +199,45 @@ const Dashboard = () => {
                                             />
 
                                         </BarChart>
+                                        <div className="chart-info">
+                                            <h1 className="chart-title">Title: Task Priority Breakdown</h1>
+                                            <h1 className="chart-description">Description: Overview of high, medium, and low priority tasks in the selected date range.</h1>
+                                        </div>
                                     </div>
+                                    <div className="status-pie-chart">
+                                        <div className="chart-info">
+                                            <h1 className="chart-title">Title: Task Completion Trend</h1>
+                                            <h1 className="chart-description">Description: Trend of tasks completed over time in the selected date range.</h1>
+                                        </div>
+                                        <ResponsiveContainer width={width} height={height}>
+                                            <LineChart data={lineChartData}>
+                                                <CartesianGrid strokeDasharray="3 3" />
+                                                <XAxis dataKey="date" ><Label style={{
+                                                    fill: 'blue',
+                                                    fontSize: isSmallScreen ? 14 : 20,
+                                                    fontWeight: 'bold',
+                                                    textTransform: 'uppercase'
+                                                }} value="Selected Range" offset={-8} position="insideBottom" /></XAxis>
+                                                <YAxis><Label
+                                                    style={{
+                                                        fill: 'magenta',
+                                                        fontSize: isSmallScreen ? 14 : 20,
+                                                        fontWeight: 'bold',
+                                                        textTransform: 'uppercase'
+                                                    }}
+                                                    value="Tasks Completed"
+                                                    angle={-90}
+                                                    position="insideMiddle"
+                                                    offset={10}
+                                                /></YAxis>
+                                                <Tooltip />
+                                                <Line type="monotone" dataKey="completed" stroke="#8884d8" strokeWidth={2}
+                                                    dot={{ r: 4 }} > <LabelList dataKey="value" position="top" /></Line>
+                                            </LineChart>
+                                        </ResponsiveContainer>
+
+                                    </div>
+
                                 </div>
 
 
@@ -194,7 +249,6 @@ const Dashboard = () => {
             </main>
             <AddTodoIcon />
             <TodosFooter />
-
         </div>
     )
 }
