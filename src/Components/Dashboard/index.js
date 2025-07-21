@@ -157,10 +157,10 @@ const Dashboard = () => {
                                             <CartesianGrid strokeDasharray="3 3" />
                                             <XAxis dataKey="name"> <Label style={{
                                                 fill: 'blue',
-                                                fontSize: isSmallScreen ? 14 : 20,
+                                                fontSize: 14 ,
                                                 fontWeight: 'bold',
                                                 textTransform: 'uppercase'
-                                            }} value="Priority Level" offset={-8} position="insideBottom" /></XAxis>
+                                            }} value="Priority Level" offset={0} position="insideBottom" /></XAxis>
                                             <YAxis ticks={ticks} >  <Label
                                                 style={{
                                                     fill: 'magenta',
@@ -214,10 +214,10 @@ const Dashboard = () => {
                                                 <CartesianGrid strokeDasharray="3 3" />
                                                 <XAxis dataKey="date" ><Label style={{
                                                     fill: 'blue',
-                                                    fontSize: isSmallScreen ? 14 : 20,
+                                                    fontSize:14,
                                                     fontWeight: 'bold',
                                                     textTransform: 'uppercase'
-                                                }} value="Selected Range" offset={-8} position="insideBottom" /></XAxis>
+                                                }} value="Selected Range" offset={-4} position="insideBottom" /></XAxis>
                                                 <YAxis><Label
                                                     style={{
                                                         fill: 'magenta',
