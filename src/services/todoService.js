@@ -47,6 +47,13 @@ export const todoService = createApi({
             }),
             providesTags: ["Todos"]
         }),
+        getDashboardData:builder.query({
+            query:(filter)=>({
+                url:"/dashboard",
+                params:filter
+            }),
+            providesTags:["Todos"]
+        }),
         addTodo:builder.mutation({
             query:(newTodo)=>({
                 url:"/todos",
@@ -90,4 +97,4 @@ export const todoService = createApi({
     })
 })
 
-export const { useUserLoginMutation, useUserRegisterMutation, useGetTodosQuery, useDeleteTodoMutation,useUpdateTodoStatusMutation,useAddTodoMutation,useUpdateTodoMutation,useForgotPasswordMutation,useDeleteAllTodosMutation} = todoService
+export const { useUserLoginMutation, useUserRegisterMutation, useGetTodosQuery, useDeleteTodoMutation,useUpdateTodoStatusMutation,useAddTodoMutation,useUpdateTodoMutation,useForgotPasswordMutation,useDeleteAllTodosMutation,useGetDashboardDataQuery} = todoService
