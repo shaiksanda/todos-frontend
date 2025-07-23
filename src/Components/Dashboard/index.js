@@ -29,7 +29,7 @@ const Dashboard = () => {
     const { status_breakdown, priority_breakdown, completion_trend, tag_breakdown, created_vs_completed_trend } = data || {}
     let stackedBarData = created_vs_completed_trend?.created_vs_completed_breakdown?.map(each => ({ ...each, date: new Date(each.date).getDate() })).sort((a, b) => a.date - b.date)
 
-    console.log(created_vs_completed_trend)
+
     let tagData = tag_breakdown?.tags
 
     const pieData = [
@@ -62,6 +62,9 @@ const Dashboard = () => {
         .sort((a, b) => a.originalDate - b.originalDate)
         .map(({ date, completed }) => ({ date, completed })); // strip helper
 
+    const lineChartWidth = Math.max(completion_trend?.completion_breakdown?.length * 50, 400)
+    console.log(completion_trend?.completion_breakdown?.length)
+
     const width = isSmallScreen ? 280 : 400
     const height = isSmallScreen ? 350 : 400
 
@@ -89,6 +92,12 @@ const Dashboard = () => {
     for (let i = 0; i <= upperLimit; i += step) {
         ticks.push(i);
     }
+
+
+    const dynamicWidth = Math.max(tagData?.length * 50, 400);
+    const stackBarWitdh = Math.max(created_vs_completed_trend?.created_vs_completed_breakdown?.length * 60, 400)
+
+
 
     return (
         <div>
@@ -216,72 +225,80 @@ const Dashboard = () => {
                                                     <h1 className="chart-title">Title: Task Completion Trend</h1>
                                                     <h1 className="chart-description">Description: Trend of tasks completed over time in the selected date range.</h1>
                                                 </div>
-                                                <ResponsiveContainer width={width} height={height}>
-                                                    <LineChart data={lineChartData}>
-                                                        <CartesianGrid strokeDasharray="3 3" />
-                                                        <XAxis dataKey="date" ><Label style={{
-                                                            fill: 'blue',
-                                                            fontSize: 14,
-                                                            fontWeight: 'bold',
-                                                            textTransform: 'uppercase'
-                                                        }} value="Selected Range" offset={-4} position="insideBottom" /></XAxis>
-                                                        <YAxis ticks={ticks}><Label
-                                                            style={{
-                                                                fill: 'magenta',
-                                                                fontSize: isSmallScreen ? 14 : 20,
-                                                                fontWeight: 'bold',
-                                                                textTransform: 'uppercase'
-                                                            }}
-                                                            value="Tasks Completed"
-                                                            angle={-90}
-                                                            position="insideMiddle"
-                                                            offset={10}
-                                                        /></YAxis>
-                                                        <Tooltip />
-                                                        <Line type="monotone" dataKey="completed" stroke="#8884d8" strokeWidth={2}
-                                                            dot={{ r: 4 }} > <LabelList dataKey="value" position="top" /></Line>
-                                                    </LineChart>
-                                                </ResponsiveContainer>
+                                                <div className="graph-container">
+                                                    <div style={{minWidth:lineChartWidth}}>
+                                                        <ResponsiveContainer width={lineChartWidth} height={height}>
+                                                            <LineChart data={lineChartData}>
+                                                                <CartesianGrid strokeDasharray="3 3" />
+                                                                <XAxis dataKey="date" ><Label style={{
+                                                                    fill: 'blue',
+                                                                    fontSize: 14,
+                                                                    fontWeight: 'bold',
+                                                                    textTransform: 'uppercase'
+                                                                }} value="Selected Range" offset={-4} position="insideBottom" /></XAxis>
+                                                                <YAxis ticks={ticks}><Label
+                                                                    style={{
+                                                                        fill: 'magenta',
+                                                                        fontSize: isSmallScreen ? 14 : 20,
+                                                                        fontWeight: 'bold',
+                                                                        textTransform: 'uppercase'
+                                                                    }}
+                                                                    value="Tasks Completed"
+                                                                    angle={-90}
+                                                                    position="insideMiddle"
+                                                                    offset={10}
+                                                                /></YAxis>
+                                                                <Tooltip />
+                                                                <Line type="monotone" dataKey="completed" stroke="#8884d8" strokeWidth={2}
+                                                                    dot={{ r: 4 }} > <LabelList dataKey="value" position="top" /></Line>
+                                                            </LineChart>
+                                                        </ResponsiveContainer>
+                                                    </div>
+                                                </div>
 
                                             </div>
                                             <div className="status-pie-chart">
-                                                <BarChart width={width} height={height} data={stackedBarData}>
-                                                    <CartesianGrid strokeDasharray="3 3" />
-                                                    <XAxis dataKey="date"> <Label style={{
-                                                        fill: 'blue',
-                                                        fontSize: 14,
-                                                        fontWeight: 'bold',
-                                                        textTransform: 'uppercase'
-                                                    }} value="Selected Range" offset={0} position="insideBottom" /></XAxis>
-                                                    <YAxis ticks={ticks} >  <Label
-                                                        style={{
-                                                            fill: 'magenta',
-                                                            fontSize: isSmallScreen ? 14 : 20,
-                                                            fontWeight: 'bold',
-                                                            textTransform: 'uppercase'
-                                                        }}
-                                                        value="Number of Tasks"
-                                                        angle={-90}
-                                                        position="insideMiddle"
-                                                        offset={10}
-                                                    /></YAxis>
-                                                    <Bar fill="dodgerblue" radius={[0, 0, 0, 0]} dataKey="total">
-                                                        <LabelList dataKey="value" position="top" />
-                                                    </Bar>
-                                                    <Bar fill="green" radius={[0, 0, 0, 0]} dataKey="completed">
-                                                        <LabelList dataKey="value" position="top" />
-                                                    </Bar>
-                                                    <Tooltip
-                                                        contentStyle={{
-                                                            backgroundColor: 'white',
-                                                            border: 'none',
-                                                            boxShadow: 'none',
-                                                            color: '#333',
-                                                        }}
-                                                        cursor={false}
-                                                    />
+                                                <div className="graph-container">
+                                                    <div style={{ minWidth: stackBarWitdh }}>
+                                                        <BarChart width={stackBarWitdh} height={height} data={stackedBarData}>
+                                                            <CartesianGrid strokeDasharray="3 3" />
+                                                            <XAxis dataKey="date"> <Label style={{
+                                                                fill: 'blue',
+                                                                fontSize: 14,
+                                                                fontWeight: 'bold',
+                                                                textTransform: 'uppercase'
+                                                            }} value="Selected Range" offset={0} position="insideBottom" /></XAxis>
+                                                            <YAxis ticks={ticks} >  <Label
+                                                                style={{
+                                                                    fill: 'magenta',
+                                                                    fontSize: isSmallScreen ? 14 : 20,
+                                                                    fontWeight: 'bold',
+                                                                    textTransform: 'uppercase'
+                                                                }}
+                                                                value="Number of Tasks"
+                                                                angle={-90}
+                                                                position="insideMiddle"
+                                                                offset={10}
+                                                            /></YAxis>
+                                                            <Bar fill="dodgerblue" radius={[0, 0, 0, 0]} dataKey="total">
+                                                                <LabelList dataKey="value" position="top" />
+                                                            </Bar>
+                                                            <Bar fill="green" radius={[0, 0, 0, 0]} dataKey="completed">
+                                                                <LabelList dataKey="value" position="top" />
+                                                            </Bar>
+                                                            <Tooltip
+                                                                contentStyle={{
+                                                                    backgroundColor: 'white',
+                                                                    border: 'none',
+                                                                    boxShadow: 'none',
+                                                                    color: '#333',
+                                                                }}
+                                                                cursor={false}
+                                                            />
 
-                                                </BarChart>
+                                                        </BarChart>
+                                                    </div>
+                                                </div>
                                                 <div className="chart-info">
                                                     <h1 className="chart-title">Title: Daily Task Progress in Selected Range</h1>
                                                     <h1 className="chart-description">Description: A stacked bar chart showing the total number of tasks and the portion completed for each day within the chosen date range. Visualize daily productivity and track completion trends over time.</h1>
@@ -292,48 +309,52 @@ const Dashboard = () => {
                                                     <h1 className="chart-title">Title: Task Tag   Breakdown</h1>
                                                     <h1 className="chart-description">Description:  Distribution of tasks grouped by tags, showing how many tasks belong to each tag within the selected date range.</h1>
                                                 </div>
-                                                <BarChart width={width} height={height} data={tagData}>
-                                                    <CartesianGrid strokeDasharray="3 3" />
-                                                    <XAxis dataKey="tag"> <Label style={{
-                                                        fill: 'blue',
-                                                        fontSize: 14,
-                                                        fontWeight: 'bold',
-                                                        textTransform: 'uppercase'
-                                                    }} value="Tags" offset={0} position="insideBottom" /></XAxis>
-                                                    <YAxis ticks={ticks} >  <Label
-                                                        style={{
-                                                            fill: 'magenta',
-                                                            fontSize: isSmallScreen ? 14 : 20,
-                                                            fontWeight: 'bold',
-                                                            textTransform: 'uppercase'
-                                                        }}
-                                                        value="Number of Tasks"
-                                                        angle={-90}
-                                                        position="insideMiddle"
-                                                        offset={10}
-                                                    /></YAxis>
-                                                    <Bar radius={[10, 10, 0, 0]} dataKey="count">
-                                                        {tagData.map((entry, index) => (
-                                                            <Cell
-                                                                key={`cell-${index}`} position="top"
-                                                                fill={
-                                                                    'dodgerblue'
-                                                                }
+                                                <div className="graph-container">
+                                                    <div style={{ minWidth: dynamicWidth }}>
+                                                        <BarChart width={dynamicWidth} height={height} data={tagData}>
+                                                            <CartesianGrid strokeDasharray="3 3" />
+                                                            <XAxis dataKey="tag"> <Label style={{
+                                                                fill: 'blue',
+                                                                fontSize: 14,
+                                                                fontWeight: 'bold',
+                                                                textTransform: 'uppercase'
+                                                            }} value="Tags" offset={0} position="insideBottom" /></XAxis>
+                                                            <YAxis ticks={ticks} >  <Label
+                                                                style={{
+                                                                    fill: 'magenta',
+                                                                    fontSize: isSmallScreen ? 14 : 20,
+                                                                    fontWeight: 'bold',
+                                                                    textTransform: 'uppercase'
+                                                                }}
+                                                                value="Number of Tasks"
+                                                                angle={-90}
+                                                                position="insideMiddle"
+                                                                offset={10}
+                                                            /></YAxis>
+                                                            <Bar radius={[10, 10, 0, 0]} dataKey="count">
+                                                                {tagData.map((entry, index) => (
+                                                                    <Cell
+                                                                        key={`cell-${index}`} position="top"
+                                                                        fill={
+                                                                            'dodgerblue'
+                                                                        }
+                                                                    />
+                                                                ))}
+                                                                <LabelList dataKey="value" position="top" />
+                                                            </Bar>
+                                                            <Tooltip
+                                                                contentStyle={{
+                                                                    backgroundColor: 'white',
+                                                                    border: 'none',
+                                                                    boxShadow: 'none',
+                                                                    color: '#333',
+                                                                }}
+                                                                cursor={false}
                                                             />
-                                                        ))}
-                                                        <LabelList dataKey="value" position="top" />
-                                                    </Bar>
-                                                    <Tooltip
-                                                        contentStyle={{
-                                                            backgroundColor: 'white',
-                                                            border: 'none',
-                                                            boxShadow: 'none',
-                                                            color: '#333',
-                                                        }}
-                                                        cursor={false}
-                                                    />
 
-                                                </BarChart>
+                                                        </BarChart>
+                                                    </div>
+                                                </div>
 
                                             </div>
 
