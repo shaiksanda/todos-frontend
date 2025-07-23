@@ -1,0 +1,41 @@
+
+
+.about-heading{
+    font-size: 24px;
+    text-align: center;
+}
+.box-container{
+    display: grid;
+    grid-template-columns: repeat(1,1fr);
+    grid-gap: 4px;
+}
+
+.about-content{
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    cursor: pointer;
+    transition:2s all ease;
+}
+.about-content:hover{
+    background-color: orange;
+    
+}
+.bg-lavender{
+    background-color: lavender;
+}
+@media screen and (min-width:767px){
+    .about-heading{
+        font-size: 30px;
+    }
+    .box-container{
+        grid-template-columns: repeat(3,1fr);
+    }
+    .about-content{
+        font-size: 22px;
+    }
+}
