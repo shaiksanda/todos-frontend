@@ -43,7 +43,7 @@ const Sidebar = () => {
           style={{ cursor: "pointer" }}
         >
           {item.icon}
-          <h1>{item.label}</h1>
+          <h1 className={`sidebar-icon ${selected === idx ? "selected" : ""}`}>{item.label}</h1>
         </div>
       ))}
 

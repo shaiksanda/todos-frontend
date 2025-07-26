@@ -11,7 +11,7 @@
     z-index: 100;  /* Ensure it stays above other content */
     background-color: white;
     padding:10px;
-    background: linear-gradient(90deg,  #D9EAD3,lavender);
+   background-color: #f97316;
 
 }
 
@@ -73,11 +73,12 @@
 
 .logout-button{
     display:none;
-    transition: 0.6s ease all;
+    transition: 1s ease all;
 }
 
 .logout-button:hover{
     transform: scale(1.1);
+  
 }
 
 .remove-styling{
@@ -88,9 +89,10 @@
     display: none;
 }
 .todo-logo-1{
-    width: 70px;
-    height:70px;
+    width: 80px;
+    height:60px;
     cursor: pointer;
+    border-radius: 10px;
     transition: 0.6s ease all;
 }
 
@@ -101,7 +103,7 @@
 .username-heading{
     font-size: 24px;
     font-weight: bold;
-    background-image:url("https://res.cloudinary.com/dq4yjeejc/image/upload/v1749119651/todo-username-heading_ch3mmo.webp");
+    background-image:url("https://res.cloudinary.com/dq4yjeejc/image/upload/v1753527568/Screenshot_2025-07-26_162915_eurno4.png");
     background-size: cover;
     background-position: center;
     background-clip: text;
@@ -133,8 +135,8 @@
         width:120px
     }
     .todo-logo-1{
-        width: 80px;
-        height: 80px;
+        width: 90px;
+        height: 70px;
     }
     .close-button{
         width: 120px;
@@ -150,10 +152,11 @@
         width: 120px;
         border: none;
         border-radius: 8px;
-        background-color: orangered;
+        background-color: #ffffff;
         cursor: pointer;
-        color: white;
+        color: #f97316;
         font-size: 16px;
+        font-weight: 600;
         font-weight: bold;
         display: block;
       }

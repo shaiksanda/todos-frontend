@@ -23,10 +23,6 @@ const Streak = () => {
   const completedTasks = summary.completedTasks
   const activeDays = summary.activeDays
   const maxStreak = summary.maxStreak
-  console.log("isFetching:", isFetching);
-
-
-
 
   return (
     <div>
@@ -41,49 +37,50 @@ const Streak = () => {
             </div>
           ))}
         </div>) : (
-          isError ? (<p className='fetch-heading'>{error}</p>) : (<div className='dashboard-container'>
-            <div className='streak-data-container'>
-              <h1 className='streak-data'>{totalTasks} Tasks in Last 3 Months</h1>
-              <h1 className='streak-data'>{completedTasks} Completed Tasks in Last 3 Months</h1>
-              <h1 className='streak-data'>Total Active Days: {activeDays}</h1>
-              <h1 className='streak-data'>Max Streak: {maxStreak}</h1>
-            </div>
-            <div className="streak-heatmap-wrapper">
-              <CalendarHeatmap
-                startDate={new Date(new Date().setDate(new Date().getDate() - 89))}
-                endDate={new Date()}
-                values={streakData}
-                classForValue={(value) => {
-                  if (!value || value.count === 0) return 'color-empty';
-                  if (value.count >= 5) return 'color-github-4';
-                  if (value.count >= 3) return 'color-github-3';
-                  if (value.count >= 1) return 'color-github-2';
+          isError ? (<p className='fetch-heading'>{error}</p>) : (
+            <div>
+              <div className='streak-data-container'>
+                <h1 className='streak-data'>{totalTasks} Tasks in Last 3 Months</h1>
+                <h1 className='streak-data'>{completedTasks} Completed Tasks in Last 3 Months</h1>
+                <h1 className='streak-data'>Total Active Days: {activeDays}</h1>
+                <h1 className='streak-data'>Max Streak: {maxStreak}</h1>
+              </div>
+              <div className="streak-heatmap-wrapper">
+                <CalendarHeatmap
+                  startDate={new Date(new Date().setDate(new Date().getDate() - 89))}
+                  endDate={new Date()}
+                  values={streakData}
+                  classForValue={(value) => {
+                    if (!value || value.count === 0) return 'color-empty';
+                    if (value.count >= 5) return 'color-github-4';
+                    if (value.count >= 3) return 'color-github-3';
+                    if (value.count >= 1) return 'color-github-2';
 
-                }}
-                tooltipDataAttrs={(value) => {
-                  if (!value?.date || value.count == null) return { 'data-tip': '' };
+                  }}
+                  tooltipDataAttrs={(value) => {
+                    if (!value?.date || value.count == null) return { 'data-tip': '' };
 
-                  const date = new Date(value.date);
-                  const formattedDate = `${date.toLocaleString('en-US', {
-                    month: 'short',
-                  })},${date.getDate().toString().padStart(2, '0')},${date.getFullYear()}`;
+                    const date = new Date(value.date);
+                    const formattedDate = `${date.toLocaleString('en-US', {
+                      month: 'short',
+                    })},${date.getDate().toString().padStart(2, '0')},${date.getFullYear()}`;
 
-                  return {
-                    'data-tip': `${value.count} Task${value.count !== 1 ? 's' : ''} on ${formattedDate}`,
-                  };
-                }}
-
-
-                gutterSize={2}
-
-              />
-
-              <ReactTooltip place="top" type="dark" effect="solid" />
+                    return {
+                      'data-tip': `${value.count} Task${value.count !== 1 ? 's' : ''} on ${formattedDate}`,
+                    };
+                  }}
 
 
-            </div>
+                  gutterSize={2}
 
-          </div>)
+                />
+
+                <ReactTooltip place="top" type="dark" effect="solid" />
+
+
+              </div>
+
+            </div>)
         )}
       </main>
 

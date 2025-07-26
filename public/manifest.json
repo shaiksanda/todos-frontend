@@ -1,19 +1,19 @@
 {
-  "short_name": "TodoApp",
-  "name": "My Todo Application",
+  "short_name": "Task Manager",
+  "name": "Task Manager Application",
   "icons": [
     {
-      "src": "https://res.cloudinary.com/dq4yjeejc/image/upload/v1749119305/todo-logo_xwljwp.webp",
+      "src": "https://res.cloudinary.com/dq4yjeejc/image/upload/v1753526930/Screenshot_2025-07-26_161649_cq1yfv.webp",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/webp"
     },
     {
-      "src": "https://res.cloudinary.com/dq4yjeejc/image/upload/v1749119305/todo-logo_xwljwp.webp",
+      "src": "https://res.cloudinary.com/dq4yjeejc/image/upload/v1753526930/Screenshot_2025-07-26_161649_cq1yfv.webp",
       "type": "image/webp",
       "sizes": "192x192"
     },
     {
-      "src": "https://res.cloudinary.com/dq4yjeejc/image/upload/v1749119305/todo-logo_xwljwp.webp",
+      "src": "https://res.cloudinary.com/dq4yjeejc/image/upload/v1753526930/Screenshot_2025-07-26_161649_cq1yfv.webp",
       "type": "image/webp",
       "sizes": "512x512"
     }

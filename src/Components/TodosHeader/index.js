@@ -30,7 +30,7 @@ const TodosHeader = () => {
   return (
     <header className='todo-header-container'>
       <div>
-        <img onClick={()=>handleClick("/all-todos",1)} className="todo-logo-1" alt="logo" src="https://res.cloudinary.com/dq4yjeejc/image/upload/v1749119305/todo-logo_xwljwp.webp" />
+        <img onClick={()=>handleClick("/all-todos",1)} className="todo-logo-1" alt="logo" src="https://res.cloudinary.com/dq4yjeejc/image/upload/v1753526930/Screenshot_2025-07-26_161649_cq1yfv.webp" />
       </div>
       <div>
         <h1 className='username-heading'>Welcome {(username || 'User').toUpperCase()}</h1>

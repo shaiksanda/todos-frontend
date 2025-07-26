@@ -7,7 +7,7 @@
 .dashboard-heading{
     font-size: 24px;
     text-align: center;
-    color: blue;
+    color:#f97316;
     font-weight: bold;
     margin: 10px 0px;
 }
@@ -16,6 +16,7 @@
     font-size: 18px;
     text-align: center;
     font-weight: 600;
+    color: #0f172a;
 }
 
 .filter-range-container{
@@ -27,7 +28,7 @@
 }
 .select-date-range-heading{
     font-size: 20px;
-    color:orange;
+    color:#f97316;
     font-weight: 700;
     margin-bottom:10px ;
     
@@ -40,12 +41,13 @@
     cursor: pointer;
     border-width: 0px;
     border-radius: 8px;
-    background-color: white;
+    background-color: lavender;
 }
 
 .status-pie-chart{
-    background-color: lavender;
+    background-color: rgb(241, 188, 89);
     display: grid;
+    cursor: pointer;
     grid-template-columns: repeat(1,1fr);
     grid-gap: 8px;
     padding: 8px;

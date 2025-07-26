@@ -3,7 +3,10 @@
 .about-heading{
     font-size: 24px;
     text-align: center;
+    color:#f97316;
+    font-weight: bold;
 }
+
 .box-container{
     display: grid;
     grid-template-columns: repeat(1,1fr);
@@ -20,13 +23,11 @@
     padding: 8px;
     cursor: pointer;
     transition:2s all ease;
+    color: white;
 }
-.about-content:hover{
-    background-color: orange;
-    
-}
+
 .bg-lavender{
-    background-color: lavender;
+    background-color: #f97316;
 }
 @media screen and (min-width:767px){
     .about-heading{

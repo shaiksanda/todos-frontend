@@ -3,9 +3,9 @@
     bottom: 0;
     left: 0;
     right:0;
-    background-color: white;
-    border-radius: 10px;
-    color: white;
+    background-color: #1e293b;
+    
+    color: #f8fafc;
     z-index: 900; 
     display: flex;
     justify-content: space-around;

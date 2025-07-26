@@ -11,13 +11,13 @@ const Goals = () => {
             <TodosHeader />
             <Sidebar />
             <main className="main-container">
-                <div className="dashboard-container">
+                
                     <h3 className="under-working">
                         🚧 I’m working on this feature — it will be live on the website soon!
                     </h3>
                     <h1>Goals Page</h1>
                     <h1>Weekly Goals, Monthly Goals, Quarterly Goals, Yearly Goals</h1>
-                </div>
+                
             </main>
           
             <TodosFooter />

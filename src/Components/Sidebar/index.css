@@ -5,7 +5,7 @@ aside {
     width: 250px;
     height: calc(100vh - 80px);
     background: #D1F2EB;
-    background-color: lavender;
+    background-color: #fdba74;
     color: black;
     overflow-y: auto;
     padding: 10px;
@@ -23,6 +23,9 @@ h1,
 p {
     margin: 5px;
 }
+.sidebar-icon{
+    color: #1e293b;
+}
 
 .flex-container {
     display: flex;
@@ -34,6 +37,6 @@ p {
 }
 
 .selected{
-    background-color: black;
-    color:white
+    background-color: white;
+    color:orange
 }

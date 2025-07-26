@@ -10,14 +10,14 @@
 
 }
 .streak-data{
-    background-color: lavender;
+    background-color: #f97316;
     padding: 6px;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 6px;
     font-size: 24px;
-    color:magenta;
+    color:white;
     font-weight: bold;
 }
 @media screen and (min-width:768px){
