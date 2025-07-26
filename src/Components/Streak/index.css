@@ -1,0 +1,86 @@
+/* Smooth rounded blocks */
+.streak-data-container{
+    display: grid;
+    grid-template-columns: repeat(1,1fr);
+}
+.fetch-heading{
+  color: red;
+  font-size: 24px;
+  font-weight: 600;
+
+}
+.streak-data{
+    background-color: lavender;
+    padding: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
+    font-size: 24px;
+    color:magenta;
+    font-weight: bold;
+}
+@media screen and (min-width:768px){
+    .streak-data-container{
+        grid-template-columns: repeat(2,1fr);
+    }
+    .streak-data{
+        font-size: 30px;
+    }
+    .fetch-heading{
+      font-size: 30px;
+    }
+}
+.streak-heatmap-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  padding: 1rem;
+}
+
+.react-calendar-heatmap {
+  max-width: max-content;
+  min-width: 500px;
+  margin: 0 auto;
+  display: block;
+}
+
+.react-calendar-heatmap .day {
+   width: 12px;
+  height: 12px;
+  rx: 3px;
+  ry: 3px;
+  stroke: #fff;
+  stroke-width: 1px;
+  transition: fill 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+
+
+/* Weekly column gap */
+.react-calendar-heatmap .react-calendar-heatmap-week {
+  margin-right: 4px;
+}
+
+/* Month label style */
+.react-calendar-heatmap .month-label {
+  font-size: 12px;
+  fill: #888;
+  font-weight: 600;
+  text-anchor: start;
+  transform: translateY(-10px);
+}
+
+
+.color-empty {
+  fill: #f0f0f0;
+}
+.color-github-2 {
+  fill: #a7f3d0; /* Light green */
+}
+.color-github-3 {
+  fill: #34d399; /* Medium green */
+}
+.color-github-4 {
+  fill: #059669; /* Deep green */
+}

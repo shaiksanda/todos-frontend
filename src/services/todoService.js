@@ -23,6 +23,13 @@ export const todoService = createApi({
             }),
             invalidatesTags: ["Todos"]
         }),
+        getStreakData:builder.query({
+            query:(filters)=>({
+                url:'/streak',
+                params:filters
+            }),
+            providesTags:["Todos"]
+        }),
         userRegister: builder.mutation({
             query: (data) => ({
                 url: "/register",
@@ -97,4 +104,4 @@ export const todoService = createApi({
     })
 })
 
-export const { useUserLoginMutation, useUserRegisterMutation, useGetTodosQuery, useDeleteTodoMutation,useUpdateTodoStatusMutation,useAddTodoMutation,useUpdateTodoMutation,useForgotPasswordMutation,useDeleteAllTodosMutation,useGetDashboardDataQuery} = todoService
+export const { useUserLoginMutation, useUserRegisterMutation, useGetTodosQuery, useDeleteTodoMutation,useUpdateTodoStatusMutation,useAddTodoMutation,useUpdateTodoMutation,useForgotPasswordMutation,useDeleteAllTodosMutation,useGetDashboardDataQuery,useGetStreakDataQuery} = todoService
