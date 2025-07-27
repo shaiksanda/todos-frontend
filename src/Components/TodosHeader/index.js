@@ -1,6 +1,7 @@
 import Cookies from 'js-cookie'
 import { setSelectedIndex } from "../../features/selectedSlice";
-import { useDispatch} from "react-redux";
+import { useSelector,useDispatch} from "react-redux";
+import { HeaderButton,HeaderContainer } from '../../styles';
 
 import { useNavigate, } from 'react-router-dom';
 import Popup from 'reactjs-popup'
@@ -11,6 +12,8 @@ import 'reactjs-popup/dist/index.css'
 import "./index.css"
 const TodosHeader = () => {
   const navigate = useNavigate();
+  const theme = useSelector(state => state.theme.theme)
+   
 
   const username = Cookies.get('username');
 
@@ -28,7 +31,7 @@ const TodosHeader = () => {
   }
 
   return (
-    <header className='todo-header-container'>
+    <HeaderContainer color={theme?.header?.text} bg={theme?.header.bg}>
       <div>
         <img onClick={()=>handleClick("/all-todos",1)} className="todo-logo-1" alt="logo" src="https://res.cloudinary.com/dq4yjeejc/image/upload/v1753526930/Screenshot_2025-07-26_161649_cq1yfv.webp" />
       </div>
@@ -48,9 +51,7 @@ const TodosHeader = () => {
         }}
           position="right center" modal trigger={
             <div>
-              <button type="button" className="logout-button">
-                Logout
-              </button>
+              <HeaderButton color={theme?.header.button.text} bg={theme?.header?.button?.bg}>Logout</HeaderButton>
             </div>
           }>
           {close => (
@@ -68,7 +69,7 @@ const TodosHeader = () => {
           )}
         </Popup>
       </div>
-    </header>
+    </HeaderContainer>
   )
 }
 

@@ -2,6 +2,7 @@ import Sidebar from "../Sidebar"
 import TodosHeader from "../TodosHeader"
 import TodosFooter from "../TodosFooter"
 import Cookies from "js-cookie"
+import { MainContainer } from "../../styles"
 import { useMediaQuery } from "react-responsive"
 import { useGetDashboardDataQuery } from "../../services/todoService"
 import { useState } from "react"
@@ -17,6 +18,7 @@ import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import "./index.css"
 import AddTodoIcon from "../AddTodoIcon"
+import { useSelector } from "react-redux"
 
 const COLORS = ['purple', 'green', 'red'];
 
@@ -24,6 +26,7 @@ const COLORS = ['purple', 'green', 'red'];
 const Dashboard = () => {
     const username = Cookies.get("username").toUpperCase()
     const [range, setRange] = useState(6)
+    const theme=useSelector(state=>state.theme.them)
     const { data, isFetching, isError, error } = useGetDashboardDataQuery({ days: range })
 
     const { status_breakdown, priority_breakdown, completion_trend, tag_breakdown, created_vs_completed_trend } = data || {}
@@ -103,7 +106,7 @@ const Dashboard = () => {
         <div>
             <TodosHeader />
             <Sidebar />
-            <main style={{ padding: '6px' }} className="main-container">
+            <MainContainer bg={theme?.main?.bg}>
 
 
                 <h1 className="dashboard-heading">Hey {username}, Welcome to Your Dashboard</h1>
@@ -365,7 +368,7 @@ const Dashboard = () => {
                 }
 
 
-            </main>
+            </MainContainer>
             <AddTodoIcon />
             <TodosFooter />
         </div>

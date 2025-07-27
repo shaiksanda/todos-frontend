@@ -5,15 +5,23 @@ import selectedReducer from "./features/selectedSlice"
 import { persistStore,persistReducer } from "redux-persist"
 import storage from "redux-persist/lib/storage"
 
-const persistConfig={
+import themeReducer from "./features/themeSlice"
+
+const selectPersistConfig={
     key:"selected",
     storage
 }
-const persistedReducer=persistReducer(persistConfig,selectedReducer)
+const themePersistConfig = {
+  key: "theme",
+  storage,
+};
+const selectPersistedReducer=persistReducer(selectPersistConfig,selectedReducer)
+const themePersistedReducer=persistReducer(themePersistConfig,themeReducer)
 const store=configureStore({
     reducer:{
         [todoService.reducerPath]:todoService.reducer,
-        selected:persistedReducer
+        selected:selectPersistedReducer,
+        theme:themePersistedReducer
     },
     middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

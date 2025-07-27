@@ -9,12 +9,16 @@ import 'react-calendar-heatmap/dist/styles.css';
 import ReactTooltip from 'react-tooltip';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
+import { useSelector } from 'react-redux';
+import { MainContainer } from '../../styles';
 
 
 
 
 
 const Streak = () => {
+
+  const theme=useSelector(state=>state.theme.theme)
 
   const { data, isFetching, isError, error } = useGetStreakDataQuery({ days: 89 })
   const streakData = data?.streakData || [];
@@ -28,7 +32,7 @@ const Streak = () => {
     <div>
       <TodosHeader />
       <Sidebar />
-      <main className='main-container'>
+      <MainContainer bg={theme?.main.bg}>
         {isFetching ? (<div>
           <h1 className='fetch-heading'>We're fetching your data. This might take a little time—thanks for your patience.</h1>
           {[...Array(1)].map((_, i) => (
@@ -82,7 +86,7 @@ const Streak = () => {
 
             </div>)
         )}
-      </main>
+      </MainContainer>
 
       <TodosFooter />
     </div>

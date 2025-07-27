@@ -2,13 +2,16 @@ import Sidebar from '../Sidebar';
 import TodosHeader from '../TodosHeader';
 import TodosFooter from '../TodosFooter';
 import "./index.css"
+import { MainContainer } from '../../styles';
+import { useSelector } from 'react-redux';
 
 const About = () => {
+  const theme=useSelector(state=>state.theme.theme)
   return (
     <div>
       <TodosHeader />
       <Sidebar />
-      <main className='main-container'>
+      <MainContainer bg={theme?.main?.bg}>
         
           <h1  className='about-heading'>👋 Hey there! Welcome to Task Manager</h1>
           <div className='box-container'>
@@ -64,7 +67,7 @@ const About = () => {
           </div>
 
         
-      </main>
+      </MainContainer>
 
       <TodosFooter />
     </div>

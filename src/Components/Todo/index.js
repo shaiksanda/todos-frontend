@@ -15,8 +15,11 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import Popup from 'reactjs-popup'
 import 'reactjs-popup/dist/index.css'
 
+import { MainContainer,FilterContainer,FormattedDateHeading,EachTodo } from '../../styles';
+
 import "./index.css"
 import { useUpdateTodoMutation, useDeleteTodoMutation, useGetTodosQuery, useUpdateTodoStatusMutation } from '../../services/todoService';
+import { useSelector } from 'react-redux';
 const tagOptions = ["Work", "Coding Practice", "Revision", "Learning", "English Speaking Practice", "Entertainment", "Family", "Finance",
   "Fitness", "Groceries", "Health", "Hobbies", "Household", "Maintenance",
   "Personal", "Shopping", "Spiritual", "Travel"]
@@ -45,6 +48,7 @@ const Todo = () => {
   const validUpdate = editTodo && editPriority && editTag && editSelectedDate
 
   const [showConfetti, setShowConfetti] = useState(false);
+  const theme=useSelector(state=>state.theme.theme)
 
   useEffect(() => {
     if (data && data.length > 0) {
@@ -145,8 +149,8 @@ const Todo = () => {
         {showConfetti && <Confetti />}
       </div>
       <Sidebar />
-      <main className="main-container">
-        <div className='filter-container'>
+      <MainContainer bg={theme?.main.bg}>
+        <FilterContainer bg={theme?.colors.dark}>
           <h1 className='filter-heading'>Use Filters to Organize Your Data </h1>
           <div className='filters-container all-todos'>
             <div style={{ width: "100%" }} className='input-wrapper'>
@@ -202,9 +206,9 @@ const Todo = () => {
             <button disabled={isFetching || !validFilters} onClick={handleRemoveFilters} className='remove-filters-button'>Remove Filters</button>
 
           </div>
-        </div>
+        </FilterContainer>
 
-        <h1 className="fetch-todos-heading">{isFetching?"Fetching ":""}Todos for: <span className="formatted-date-heading">{formattedDate}</span></h1>
+        <h1 className="fetch-todos-heading">{isFetching?"Fetching ":""}Todos for: <FormattedDateHeading color={theme?.colors.dark}>{formattedDate}</FormattedDateHeading></h1>
         <div>
           {isFetching ? (
             <div className='todo-grid-container'>
@@ -240,7 +244,7 @@ const Todo = () => {
           ) : (
             <div className='todo-grid-container'>
               {filteredData.map((item) => (
-                <div className='each-todo' key={item._id}>
+                <EachTodo bg={theme?.colors.dark} key={item._id}>
                   <input
                     checked={item.status === "completed"}
                     onChange={() => handleCheckboxStatus(item)}
@@ -354,14 +358,14 @@ const Todo = () => {
                   >
                     🗑️
                   </button>
-                </div>
+                </EachTodo>
               ))}
             </div>
           ))
           }
         </div>
 
-      </main>
+      </MainContainer>
       <AddTodoIcon />
       <TodosFooter />
     </div>

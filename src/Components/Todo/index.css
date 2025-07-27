@@ -38,9 +38,6 @@ html {
   margin: 10px 0px;
 }
 
-.formatted-date-heading {
-  color: #f97316;
-}
 
 .confetti-container {
   position: relative;
@@ -60,17 +57,7 @@ html {
 color: #0f172a;
 }
 
-.each-todo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 4px;
-  background-color: #f97316;
-  border-radius: 8px;
-  cursor: pointer;
-  color: #0f172a;
-  transition: all 0.5s ease;
-}
+
 
 .no-todos-content {
   font-weight: bold;
@@ -192,6 +179,7 @@ color: #0f172a;
   font-size: 20px;
   font-style: italic;
   font-weight: 700;
+  color:lavender
 }
 
 .no-todos-container {
@@ -202,25 +190,9 @@ color: #0f172a;
 
 }
 
-.main-container {
-  position: absolute;
-  top: 80px;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  overflow-y: auto;
-  scrollbar-width: none;
-  padding: 10px;
-  margin-bottom: 80px;
-  background-color: #f8fafc;
-
-}
 
 @media screen and (min-width:768px) {
-  .main-container {
-    left: 250px;
-    margin-bottom: 0px;
-  }
+  
 
   .todo-input {
     font-size: 22px;
@@ -320,9 +292,7 @@ color: #0f172a;
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .each-todo {
-    min-height: 35px;
-  }
+  
 
   .todo-image-1 {
     width: 400px;

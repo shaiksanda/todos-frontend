@@ -1,5 +1,5 @@
 import { useState } from 'react';
-
+import { MainContainer,FilterContainer,AllTodo } from '../../styles';
 import { useDeleteAllTodosMutation, useGetTodosQuery } from '../../services/todoService';
 
 import { toast } from 'react-toastify';
@@ -18,6 +18,7 @@ import TodosHeader from '../TodosHeader';
 import TodosFooter from '../TodosFooter';
 import AddTodoIcon from '../AddTodoIcon';
 import "./index.css"
+import { useSelector } from 'react-redux';
 
 const AllTodos = () => {
 
@@ -25,6 +26,8 @@ const AllTodos = () => {
     const [filterPriority, setFilterPriority] = useState('');
     const [search, setSearch] = useState('');
     const [status, setStatus] = useState('');
+
+    const theme=useSelector(state=>state.theme.theme)
 
     const { data, error, isFetching, isError } = useGetTodosQuery({ tag: filterTag, priority: filterPriority, status })
 
@@ -75,8 +78,8 @@ const AllTodos = () => {
         <div>
             <TodosHeader />
             <Sidebar />
-            <main className='main-container'>
-                <div className='filter-container'>
+            <MainContainer bg={theme?.main.bg} >
+                <FilterContainer bg={theme?.colors.dark}>
                     <h1 className='filter-heading'>Use Filters To Organize Your Data</h1>
                     <div className='filters-container all-todos'>
                         <div style={{ width: "100%" }} className='input-wrapper'>
@@ -150,7 +153,7 @@ const AllTodos = () => {
                             )}
                         </Popup>
                     </div>
-                </div>
+                </FilterContainer>
                 {isFetching ? (
                     <h2 style={{ textAlign: 'center', color: 'black', margin: '1rem 0' }}>
                         All the todos are fetching… Please wait, it may take some time.
@@ -189,7 +192,7 @@ const AllTodos = () => {
                     ) : (
                         <div className='todo-grid-container'>
                             {filteredData.map((each) => (
-                                <div className='each-todo column' key={each._id}>
+                                <AllTodo bg={theme?.colors.dark} key={each._id}>
                                     <h2 className='todo-data-heading'>
                                         Todo: <span className='style-item'>{each.todo}</span>
                                     </h2>
@@ -205,13 +208,13 @@ const AllTodos = () => {
                                     <h2 className='todo-data-heading'>
                                         Date: <span className='style-item'>{new Date(each.selectedDate).toISOString().split('T')[0]}</span>
                                     </h2>
-                                </div>
+                                </AllTodo>
                             ))}
                         </div>
                     )
 
                 )}
-            </main>
+            </MainContainer>
             <AddTodoIcon />
             <TodosFooter />
         </div>

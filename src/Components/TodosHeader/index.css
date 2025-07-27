@@ -1,21 +1,6 @@
 
-.todo-header-container{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: fixed;
-    top:0;
-    left:0;
-    right: 0;
-    height: 80px;
-    z-index: 100;  /* Ensure it stays above other content */
-    background-color: white;
-    padding:10px;
-   background-color: #f97316;
 
-}
-
-.logout-container{
+.logout-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -23,29 +8,29 @@
     text-align: center;
     padding: 10px 0px;
     border-radius: 8px;
-    height:200px;
+    height: 200px;
 }
 
-.small-device-icon{
+.small-device-icon {
     display: block;
 }
 
-.popup-heading{
+.popup-heading {
     color: orangered;
-  font-size: 24px;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
 }
 
-.popup-buttons{
+.popup-buttons {
     display: flex;
-  gap: 10px;
-  margin-top: 20px;
-  justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    justify-content: center;
 }
 
-.confirm-button{
+.confirm-button {
     width: 90px;
     height: 40px;
     border: none;
@@ -58,7 +43,7 @@
     outline: none;
 }
 
-.close-button{
+.close-button {
     width: 90px;
     height: 40px;
     border: none;
@@ -71,96 +56,87 @@
     font-size: 16px;
 }
 
-.logout-button{
-    display:none;
-    transition: 1s ease all;
-}
 
-.logout-button:hover{
-    transform: scale(1.1);
-  
-}
 
-.remove-styling{
+.remove-styling {
     text-decoration: none;
 }
 
-.dashboard{
+.dashboard {
     display: none;
 }
-.todo-logo-1{
+
+.todo-logo-1 {
     width: 80px;
-    height:60px;
+    height: 60px;
     cursor: pointer;
     border-radius: 10px;
     transition: 0.6s ease all;
 }
 
-.todo-logo-1:hover{
+.todo-logo-1:hover {
     transform: scale(1.1);
 }
 
 .username-heading{
     font-size: 24px;
     font-weight: bold;
-    background-image:url("https://res.cloudinary.com/dq4yjeejc/image/upload/v1753527568/Screenshot_2025-07-26_162915_eurno4.png");
+}
+
+/* dont remove this username-heading */
+/* .username-heading {
+    font-size: 24px;
+    font-weight: bold;
+    background-image: url("https://res.cloudinary.com/dq4yjeejc/image/upload/v1753527568/Screenshot_2025-07-26_162915_eurno4.png");
     background-size: cover;
     background-position: center;
     background-clip: text;
-    --webkit-background-clip:text;
+    --webkit-background-clip: text;
     color: transparent;
 
-}
+} */
 
-.light-mode{
+.light-mode {
     color: black;
     cursor: pointer;
     transition: 0.6s all ease;
 }
 
-.light-mode:hover{
+.light-mode:hover {
     transform: scale(1.2);
 }
 
-.navigation-heading{
-    cursor: pointer; 
+.navigation-heading {
+    cursor: pointer;
 }
 
-.navigation-heading:hover{
+.navigation-heading:hover {
     color: magenta;
 }
 
-@media screen and (min-width:768px){
-    .confirm-button{
-        width:120px
+@media screen and (min-width:768px) {
+    .confirm-button {
+        width: 120px
     }
-    .todo-logo-1{
+
+    .todo-logo-1 {
         width: 90px;
         height: 70px;
     }
-    .close-button{
+
+    .close-button {
         width: 120px;
     }
-    .dashboard{
+
+    .dashboard {
         display: block;
     }
-    .small-device-icon{
-        display:none;
+
+    .small-device-icon {
+        display: none;
     }
-    .logout-button {
-        height: 50px;
-        width: 120px;
-        border: none;
-        border-radius: 8px;
-        background-color: #ffffff;
-        cursor: pointer;
-        color: #f97316;
-        font-size: 16px;
-        font-weight: 600;
-        font-weight: bold;
-        display: block;
-      }
-      .username-heading{
+
+    .username-heading {
         font-size: 40px;
-      }
+    }
 }

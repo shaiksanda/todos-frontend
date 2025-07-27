@@ -21,12 +21,12 @@ const TodosFooter = () => {
     return (
         <footer className="footer">
             <div className="navigation-container">
-                <Link to="/todo"><AiFillHome style={{ color: "black" }} size={25} /></Link>
-                <Link className="remove-styling" to="/todo"><p style={{ color: "black" }} className="navigation-content">Home</p></Link>
+                <Link to="/todo"><AiFillHome style={{ color: "white" }} size={25} /></Link>
+                <Link className="remove-styling" to="/todo"><p style={{ color: "white" }} className="navigation-content">Home</p></Link>
             </div>
             <div className="navigation-container">
-                <Link className="remove-styling" to="/menu"><IoMdMenu style={{ color: "black" }} size={25} /></Link>
-                <Link className="remove-styling" to="/menu"><p style={{ color: "black" }} className="navigation-content">Menu</p></Link>
+                <Link className="remove-styling" to="/menu"><IoMdMenu style={{ color: "white" }} size={25} /></Link>
+                <Link className="remove-styling" to="/menu"><p style={{ color: "white" }} className="navigation-content">Menu</p></Link>
             </div>
             <div className="navigation-container">
                 <Popup contentStyle={{
@@ -43,9 +43,9 @@ const TodosFooter = () => {
                             <div className="navigation-container">
                                 <LuLogOut
                                     size={25}
-                                    color="black"
+                                    color="white"
                                 />
-                                <p style={{color:"black"}} className="navigation-content">Logout</p>
+                                <p style={{color:"white"}} className="navigation-content">Logout</p>
                             </div>
                         </div>
                     }>
