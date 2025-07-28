@@ -15,7 +15,7 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import Popup from 'reactjs-popup'
 import 'reactjs-popup/dist/index.css'
 
-import { MainContainer,FilterContainer,FormattedDateHeading,EachTodo } from '../../styles';
+import { MainContainer,FilterContainer,FormattedDateHeading,EachTodo,FilterHeading } from '../../styles';
 
 import "./index.css"
 import { useUpdateTodoMutation, useDeleteTodoMutation, useGetTodosQuery, useUpdateTodoStatusMutation } from '../../services/todoService';
@@ -151,7 +151,7 @@ const Todo = () => {
       <Sidebar />
       <MainContainer bg={theme?.main.bg}>
         <FilterContainer bg={theme?.colors.dark}>
-          <h1 className='filter-heading'>Use Filters to Organize Your Data </h1>
+          <FilterHeading >Use Filters to Organize Your Data </FilterHeading>
           <div className='filters-container all-todos'>
             <div style={{ width: "100%" }} className='input-wrapper'>
               <input required onChange={handleSearch} value={search} id="search" type="search" className='input-element' />

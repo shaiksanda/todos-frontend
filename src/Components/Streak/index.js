@@ -10,7 +10,7 @@ import ReactTooltip from 'react-tooltip';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { useSelector } from 'react-redux';
-import { MainContainer } from '../../styles';
+import { MainContainer,StreakDataHeading } from '../../styles';
 
 
 
@@ -44,10 +44,10 @@ const Streak = () => {
           isError ? (<p className='fetch-heading'>{error}</p>) : (
             <div>
               <div className='streak-data-container'>
-                <h1 className='streak-data'>{totalTasks} Tasks in Last 3 Months</h1>
-                <h1 className='streak-data'>{completedTasks} Completed Tasks in Last 3 Months</h1>
-                <h1 className='streak-data'>Total Active Days: {activeDays}</h1>
-                <h1 className='streak-data'>Max Streak: {maxStreak}</h1>
+                <StreakDataHeading bg={theme?.colors.primary} color={theme?.colors.bg}>{totalTasks} Tasks in Last 3 Months</StreakDataHeading>
+                <StreakDataHeading bg={theme?.colors.primary} color={theme?.colors.bg} >{completedTasks} Completed Tasks in Last 3 Months</StreakDataHeading>
+                <StreakDataHeading bg={theme?.colors.primary} color={theme?.colors.bg}>Total Active Days: {activeDays}</StreakDataHeading>
+                <StreakDataHeading bg={theme?.colors.primary} color={theme?.colors.bg}>Max Streak: {maxStreak}</StreakDataHeading>
               </div>
               <div className="streak-heatmap-wrapper">
                 <CalendarHeatmap

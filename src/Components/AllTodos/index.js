@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { MainContainer,FilterContainer,AllTodo } from '../../styles';
+import { MainContainer,FilterContainer,AllTodo,FilterHeading,AllTasksHeading } from '../../styles';
 import { useDeleteAllTodosMutation, useGetTodosQuery } from '../../services/todoService';
 
 import { toast } from 'react-toastify';
@@ -80,7 +80,7 @@ const AllTodos = () => {
             <Sidebar />
             <MainContainer bg={theme?.main.bg} >
                 <FilterContainer bg={theme?.colors.dark}>
-                    <h1 className='filter-heading'>Use Filters To Organize Your Data</h1>
+                    <FilterHeading>Use Filters To Organize Your Data</FilterHeading>
                     <div className='filters-container all-todos'>
                         <div style={{ width: "100%" }} className='input-wrapper'>
                             <input required onChange={handleSearch} value={search} id="search" type="search" className='input-element' />
@@ -158,7 +158,7 @@ const AllTodos = () => {
                     <h2 style={{ textAlign: 'center', color: 'black', margin: '1rem 0' }}>
                         All the todos are fetching… Please wait, it may take some time.
                     </h2>
-                ):(<h1 style={{textAlign:"center",color:"blue"}}>All Tasks</h1>)}
+                ):(<AllTasksHeading color={theme?.colors.dark}>All Tasks</AllTasksHeading>)}
                 {isFetching ? (
                     <div className='todo-grid-container'>
                         {[...Array(skeletonCount)].map((_, i) => (
@@ -173,7 +173,7 @@ const AllTodos = () => {
                             {error?.data?.message || error?.error || "Something went wrong. Please try again."}
                         </p>
                         {error?.status === "FETCH_ERROR" && (
-                            <p style={{ color: "orange", fontWeight: 600 }}>
+                            <p style={{ color: "red", fontWeight: 900 }}>
                                 Server seems unreachable. Check your internet connection or try again later.
                             </p>
                         )}

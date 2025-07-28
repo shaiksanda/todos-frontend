@@ -14,11 +14,11 @@
 .todo-data-heading{
     font-size: 20px;
     margin: 4px;
-    color: black
+    color: inherit
 }
 
 .style-item{
-    color:black;
+    color:inherit;
     font-style: italic;
     font-weight: bold;
 }

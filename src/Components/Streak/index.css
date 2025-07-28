@@ -9,24 +9,12 @@
   font-weight: 600;
 
 }
-.streak-data{
-    background-color: #f97316;
-    padding: 6px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 6px;
-    font-size: 24px;
-    color:white;
-    font-weight: bold;
-}
+
 @media screen and (min-width:768px){
     .streak-data-container{
         grid-template-columns: repeat(2,1fr);
     }
-    .streak-data{
-        font-size: 30px;
-    }
+    
     .fetch-heading{
       font-size: 30px;
     }

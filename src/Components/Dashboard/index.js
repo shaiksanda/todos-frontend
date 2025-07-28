@@ -2,7 +2,7 @@ import Sidebar from "../Sidebar"
 import TodosHeader from "../TodosHeader"
 import TodosFooter from "../TodosFooter"
 import Cookies from "js-cookie"
-import { MainContainer } from "../../styles"
+import { MainContainer,DashboardHeading,DashboardContent,DashboardGraphContainer } from "../../styles"
 import { useMediaQuery } from "react-responsive"
 import { useGetDashboardDataQuery } from "../../services/todoService"
 import { useState } from "react"
@@ -26,7 +26,7 @@ const COLORS = ['purple', 'green', 'red'];
 const Dashboard = () => {
     const username = Cookies.get("username").toUpperCase()
     const [range, setRange] = useState(6)
-    const theme=useSelector(state=>state.theme.them)
+    const theme=useSelector(state=>state.theme.theme)
     const { data, isFetching, isError, error } = useGetDashboardDataQuery({ days: range })
 
     const { status_breakdown, priority_breakdown, completion_trend, tag_breakdown, created_vs_completed_trend } = data || {}
@@ -107,12 +107,10 @@ const Dashboard = () => {
             <TodosHeader />
             <Sidebar />
             <MainContainer bg={theme?.main?.bg}>
-
-
-                <h1 className="dashboard-heading">Hey {username}, Welcome to Your Dashboard</h1>
-                <p className="dashboard-content">Track your tasks and progress with ease using the charts below. Stay focused and organized!</p>
+                <DashboardHeading color={theme?.colors?.dark}>Hey {username}, Welcome to Your Dashboard</DashboardHeading>
+                <DashboardContent color={theme?.colors?.text}>Track your tasks and progress with ease using the charts below. Stay focused and organized!</DashboardContent>
                 <div className="filter-range-container">
-                    <h1 className="select-date-range-heading">Select Date Range</h1>
+                    <DashboardHeading color={theme?.colors?.dark}>Select Date Range</DashboardHeading>
                     <select onChange={(e) => setRange(e.target.value)} value={range} className="date-dropdown">
                         <option default value="6">Last 7 Days</option>
                         <option value="29">Last Month</option>
@@ -148,7 +146,7 @@ const Dashboard = () => {
                             newUser ? (<p className="new-user">You don’t have enough Tasks yet. Add some Tasks to enjoy these insights!</p>) :
                                 (
                                     <div>
-                                        <div className="status-pie-chart">
+                                        <DashboardGraphContainer color={theme?.colors.primary} bg={theme?.main.cardBg}>
                                             <div className="chart-info">
                                                 <h1 className="chart-title">Title: Task Status Breakdown</h1>
                                                 <h1 className="chart-description">Description: Overview of total, completed, and pending tasks in the selected date range.</h1>
@@ -170,8 +168,8 @@ const Dashboard = () => {
                                                     verticalAlign="bottom"
                                                     marginTop={50} />
                                             </PieChart>
-                                        </div>
-                                        <div className="status-pie-chart">
+                                        </DashboardGraphContainer>
+                                        <DashboardGraphContainer color={theme?.colors.primary} bg={theme?.main.cardBg}>
                                             <BarChart margin={{ left: 0 }} width={width} height={height} data={priorityData}>
                                                 <CartesianGrid strokeDasharray="3 3" />
                                                 <XAxis dataKey="name"> <Label style={{
@@ -222,8 +220,8 @@ const Dashboard = () => {
                                                 <h1 className="chart-title">Title: Task Priority Breakdown</h1>
                                                 <h1 className="chart-description">Description: Overview of high, medium, and low priority tasks in the selected date range.</h1>
                                             </div>
-                                        </div>
-                                        <div className="status-pie-chart">
+                                        </DashboardGraphContainer>
+                                        <DashboardGraphContainer color={theme?.colors.primary} bg={theme?.main.cardBg}>
                                             <div className="chart-info">
                                                 <h1 className="chart-title">Title: Task Completion Trend</h1>
                                                 <h1 className="chart-description">Description: Trend of tasks completed over time in the selected date range.</h1>
@@ -259,8 +257,8 @@ const Dashboard = () => {
                                                 </div>
                                             </div>
 
-                                        </div>
-                                        <div className="status-pie-chart">
+                                        </DashboardGraphContainer>
+                                        <DashboardGraphContainer color={theme?.colors.primary} bg={theme?.main.cardBg}>
                                             <div className="graph-container">
                                                 <div style={{ minWidth: stackBarWitdh }}>
                                                     <BarChart width={stackBarWitdh} height={height} data={stackedBarData}>
@@ -306,8 +304,8 @@ const Dashboard = () => {
                                                 <h1 className="chart-title">Title: Daily Task Progress in Selected Range</h1>
                                                 <h1 className="chart-description">Description: A stacked bar chart showing the total number of tasks and the portion completed for each day within the chosen date range. Visualize daily productivity and track completion trends over time.</h1>
                                             </div>
-                                        </div>
-                                        <div className="status-pie-chart">
+                                        </DashboardGraphContainer>
+                                        <DashboardGraphContainer color={theme?.colors.primary} bg={theme?.main.cardBg}>
                                             <div className="chart-info">
                                                 <h1 className="chart-title">Title: Task Tag   Breakdown</h1>
                                                 <h1 className="chart-description">Description:  Distribution of tasks grouped by tags, showing how many tasks belong to each tag within the selected date range.</h1>
@@ -359,7 +357,7 @@ const Dashboard = () => {
                                                 </div>
                                             </div>
 
-                                        </div>
+                                        </DashboardGraphContainer>
 
                                     </div>
                                 )

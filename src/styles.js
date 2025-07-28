@@ -82,23 +82,23 @@ export const MainContainer = styled.div`
     }
 `
 
-export const FilterContainer=styled.div`
+export const FilterContainer = styled.div`
   width: 100%;
-  background-color: ${(props)=>props.bg};
+  background-color: ${(props) => props.bg};
   padding: 10px;
   border-radius: 8px;
   cursor: pointer;
 `
-export const FormattedDateHeading=styled.span`
-color: ${(props)=>props.color}
+export const FormattedDateHeading = styled.span`
+color: ${(props) => props.color}
 `
 
-export const EachTodo=styled.div`
+export const EachTodo = styled.div`
 display: flex;
   align-items: center;
   gap: 10px;
   padding: 4px;
-  background-color: ${(props)=>props.bg};
+  background-color: ${(props) => props.bg};
   border-radius: 8px;
   cursor: pointer;
   color: #0f172a;
@@ -109,9 +109,121 @@ display: flex;
   }
 `
 
-export const AllTodo=styled.div`
+export const AllTodo = styled.div`
 display: flex;
 flex-direction: column;
 justify-content:center;
-background-color: ${(props)=>props.bg}
+border-radius: 6px;
+color:lavender;
+background-color: ${props => props.bg}
+`
+
+export const FilterHeading = styled.h1`
+display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: lavender
+`
+
+export const AllTasksHeading = styled.h1`
+text-align:center;
+font-size:24px;
+color: ${props => props.color}
+`
+
+export const DashboardHeading = styled.h1`
+    font-size: 24px;
+    text-align: center;
+    color:${props => props.color};
+    font-weight: bold;
+    margin: 10px 0px;
+
+    @media (min-width:768px){
+    font-size: 30px;
+    }
+`
+
+export const DashboardContent = styled.p`
+font-size: 18px;
+text-align: center;
+font-weight: bold;
+color:${props=>props.color};
+@media (min-width:768px){
+font-size:24px
+}
+`
+
+export const DashboardGraphContainer=styled.div`
+background-color: ${props=>props.bg};
+color:${props=>props.color};
+display: grid;
+cursor: pointer;
+grid-template-columns: repeat(1,1fr);
+grid-gap: 8px;
+padding: 8px;
+outline: none;
+width: 100%;
+border-radius: 8px;
+border-width: 0px;
+box-sizing: border-box;
+margin: 10px 0px;
+box-shadow: 0 4px 10px white;
+
+@media (min-width:768px){
+grid-template-columns: repeat(2,1fr);
+}
+`
+
+export const StreakDataHeading=styled.h1`
+background-color: ${props=>props.bg};
+padding: 6px;
+display: flex;
+justify-content: center;
+align-items: center;
+border-radius: 6px;
+font-size: 24px;
+color:${props=>props.color};
+box-shadow:4px 4px 10px white;
+font-weight: bold;
+@media (min-width:768px){
+font-size:30px;
+}
+
+`
+export const BoxContainer=styled.div`
+display: grid;
+grid-template-columns: repeat(1,1fr);
+grid-gap: 4px;
+
+@media (min-width:768px){
+grid-template-columns: repeat(3,1fr);
+}
+`
+
+export const AboutHeading=styled.h1`
+font-size: 24px;
+text-align: center;
+color:${props=>props.color};
+font-weight: bold;
+@media (min-width:768px){
+font-size: 30px;
+}
+`
+
+export const AboutContent=styled.h1`
+font-size: 16px;
+font-weight: 600;
+border-radius: 8px;
+display: flex;
+justify-content: center;
+align-items: center;
+padding: 8px;
+cursor: pointer;
+transition:2s all ease;
+color: white;
+background-color:${props=>props.bg};
+@media (min-width:768px){
+font-size: 22px;
+}
 `
