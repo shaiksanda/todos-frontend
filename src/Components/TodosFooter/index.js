@@ -7,7 +7,11 @@ import { IoMdMenu } from "react-icons/io";
 import { useNavigate, } from 'react-router-dom';
 import Popup from 'reactjs-popup'
 import "./index.css"
+import { FooterContainer } from "../../styles";
+import { useSelector } from "react-redux";
 const TodosFooter = () => {
+
+    const theme=useSelector(state=>state.theme.theme)
 
     const navigate = useNavigate();
 
@@ -19,7 +23,7 @@ const TodosFooter = () => {
 
     console.log()
     return (
-        <footer className="footer">
+        <FooterContainer bg={theme?.colors.primary}>
             <div className="navigation-container">
                 <Link to="/todo"><AiFillHome style={{ color: "white" }} size={25} /></Link>
                 <Link className="remove-styling" to="/todo"><p style={{ color: "white" }} className="navigation-content">Home</p></Link>
@@ -64,7 +68,7 @@ const TodosFooter = () => {
                     )}
                 </Popup>
             </div>
-        </footer>
+        </FooterContainer>
     )
 }
 

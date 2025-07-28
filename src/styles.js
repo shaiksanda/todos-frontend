@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const HeaderContainer = styled.div`
+export const HeaderContainer = styled.header`
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -13,6 +13,24 @@ export const HeaderContainer = styled.div`
     padding: 10px;
     color: ${(props) => props.color};
     background-color: ${(props) => props.bg};
+`
+
+export const FooterContainer=styled.footer`
+position: fixed;
+bottom: 0;
+left: 0;
+right:0;
+background-color: ${props=>props.bg};
+color: #f8fafc;
+z-index: 900; 
+display: flex;
+justify-content: space-around;
+align-items: center;
+padding: 6px;
+
+@media (min-width:768px){
+display: none
+}
 `
 
 export const HeaderButton = styled.button`
@@ -33,7 +51,7 @@ export const HeaderButton = styled.button`
 
 `
 
-export const SidebarContainer = styled.div`
+export const SidebarContainer = styled.aside`
     position: fixed;
     top: 80px;
     left: 0;
@@ -64,7 +82,7 @@ export const FlexContainer = styled.div`
 
 `;
 
-export const MainContainer = styled.div`
+export const MainContainer = styled.main`
  position: absolute;
   top: 80px;
   left: 0;
