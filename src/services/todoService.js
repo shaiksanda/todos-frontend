@@ -100,8 +100,46 @@ export const todoService = createApi({
             }),
             invalidatesTags: ["Todos"],  
         }),
+        addGoal:builder.mutation({
+            query:(goalData)=>({
+                url:"/goal",
+                method:"POST",
+                body:goalData
+            }),
+            invalidatesTags:["Todos"]
+        }),
+        getGoals:builder.query({
+            query:(filters)=>({
+                url:"/goals",
+                params:filters
+            }),
+            providesTags:["Todos"]
+        }),
+        updateGoal:builder.mutation({
+            query:(updatedGoal)=>({
+                url:`/goal/${updatedGoal._id}`,
+                method:"PUT",
+                body:updatedGoal
+            }),
+            invalidatesTags:["Todos"]
+        }),
+        deleteGoal:builder.mutation({
+            query:(id)=>({
+                url:`/goal/${id}`,
+                method:"DELETE"
+            }),
+            invalidatesTags:["Todos"]
+        }),
+        deleteAllGoals:builder.mutation({
+            query:()=>({
+                url:"/goals",
+                method:"DELETE"
+            }),
+            invalidatesTags:["Todos"]
+        }),
+
 
     })
 })
 
-export const { useUserLoginMutation, useUserRegisterMutation, useGetTodosQuery, useDeleteTodoMutation,useUpdateTodoStatusMutation,useAddTodoMutation,useUpdateTodoMutation,useForgotPasswordMutation,useDeleteAllTodosMutation,useGetDashboardDataQuery,useGetStreakDataQuery} = todoService
+export const { useUpdateGoalMutation,useDeleteAllGoalsMutation,useDeleteGoalMutation,useAddGoalMutation,useGetGoalsQuery,useUserLoginMutation, useUserRegisterMutation, useGetTodosQuery, useDeleteTodoMutation,useUpdateTodoStatusMutation,useAddTodoMutation,useUpdateTodoMutation,useForgotPasswordMutation,useDeleteAllTodosMutation,useGetDashboardDataQuery,useGetStreakDataQuery} = todoService

@@ -1,0 +1,55 @@
+
+
+.goals-btns-container{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    grid-gap: 10px;
+    margin-top: 15px;
+}
+
+.goals-btns{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    grid-gap: 10px;
+    margin-top: 15px;
+}
+
+.goal-btn{
+    width: 100%;
+    height: 50px;
+    border-radius: 10px;
+    border-width: 0px;
+    outline: none;
+    font-size: 16px;
+    font-weight: 600;
+    color:orange;
+    cursor: pointer;
+}
+
+.mark-as-complete{
+    width: 100%;
+    height: 50px;
+    border-radius: 10px;
+    border-width: 0px;
+    outline: none;
+    font-size: 16px;
+    font-weight: 600;
+    color:green;
+    cursor: pointer;
+}
+
+.dropdown-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:10px;
+    margin-top: 10px;
+}
+
+
+@media screen and (min-width:768px){
+    .goals-btns-container{
+       grid-template-columns: repeat(4,1fr); 
+    }
+    
+}

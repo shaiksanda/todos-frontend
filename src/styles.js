@@ -127,6 +127,21 @@ display: flex;
   }
 `
 
+export const EachGoal = styled.div`
+display: flex;
+flex-direction: column;
+gap: 6px;
+padding: 10px;
+background-color: ${(props) => props.bg};
+border-radius: 8px;
+width:100%;
+color: lavender;
+cursor: pointer;
+@media (min-height:768px){
+min-height: 35px;
+}
+`
+
 export const AllTodo = styled.div`
 display: flex;
 flex-direction: column;
@@ -164,7 +179,6 @@ export const DashboardHeading = styled.h1`
 
 export const DashboardContent = styled.p`
 font-size: 18px;
-text-align: center;
 font-weight: bold;
 color:${props=>props.color};
 @media (min-width:768px){
@@ -243,5 +257,40 @@ color: white;
 background-color:${props=>props.bg};
 @media (min-width:768px){
 font-size: 22px;
+}
+`
+
+export const GoalsButton=styled.button`
+width: 140px;
+height: 50px;
+border-radius: 10px;
+border-width: 0px;
+outline: none;
+cursor: pointer;
+font-size: 18px;
+font-weight: 600;
+background-color:${props=>props.bg};
+color:${props=>props.color};
+
+
+@media (min-width:768px){
+width:150px
+}
+`
+
+export const Dropdown=styled.select`
+width: 120px;
+height: 50px;
+border-width: 0px;
+border-radius: 10px;
+outline: none;
+cursor: pointer;
+background-color: ${props=>props.bg};
+font-size: 16px;
+font-weight: 600;
+padding: 6px;
+
+@media (min-width:768px){
+width:250px
 }
 `

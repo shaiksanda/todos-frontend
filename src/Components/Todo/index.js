@@ -208,7 +208,7 @@ const Todo = () => {
           </div>
         </FilterContainer>
 
-        <h1 className="fetch-todos-heading">{isFetching?"Fetching ":""}Todos for: <FormattedDateHeading color={theme?.colors.dark}>{formattedDate}</FormattedDateHeading></h1>
+        <h1 className="fetch-todos-heading">{isFetching?"Fetching ":""}Tasks for: <FormattedDateHeading color={theme?.colors.dark}>{formattedDate}</FormattedDateHeading></h1>
         <div>
           {isFetching ? (
             <div className='todo-grid-container'>
@@ -223,7 +223,7 @@ const Todo = () => {
               {error?.data?.message || error?.error || "Something went wrong. Please try again."}
             </p>
             {error?.status === "FETCH_ERROR" && (
-              <p style={{ color: "orange", fontWeight: 600 }}>
+              <p style={{ color: "red", fontWeight: 600 }}>
                 Server seems unreachable. Check your internet connection or try again later.
               </p>
             )}

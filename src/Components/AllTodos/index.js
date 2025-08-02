@@ -156,7 +156,7 @@ const AllTodos = () => {
                 </FilterContainer>
                 {isFetching ? (
                     <h2 style={{ textAlign: 'center', color: 'black', margin: '1rem 0' }}>
-                        All the todos are fetching… Please wait, it may take some time.
+                        All the tasks are fetching… Please wait, it may take some time.
                     </h2>
                 ):(<AllTasksHeading color={theme?.colors.dark}>All Tasks</AllTasksHeading>)}
                 {isFetching ? (
@@ -194,7 +194,7 @@ const AllTodos = () => {
                             {filteredData.map((each) => (
                                 <AllTodo bg={theme?.colors.dark} key={each._id}>
                                     <h2 className='todo-data-heading'>
-                                        Todo: <span className='style-item'>{each.todo}</span>
+                                        Task: <span className='style-item'>{each.todo}</span>
                                     </h2>
                                     <h2 className='todo-data-heading'>
                                         Priority: <span className='style-item'>{each.priority}</span>

@@ -75,7 +75,7 @@ const AddTodoIcon = () => {
                 position="right center" modal trigger={
                     <div>
                         <button type="button" className='icon plus-icon' >
-                            <FaSeedling size={size} color="green" />
+                            <FaSeedling size={size} color="black" />
                         </button>
                     </div>
                 }>
