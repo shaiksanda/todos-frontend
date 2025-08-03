@@ -12,7 +12,7 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import Popup from 'reactjs-popup'
 import 'reactjs-popup/dist/index.css'
 import { useState } from "react"
-import { useAddGoalMutation, useDeleteGoalMutation, useGetGoalsQuery } from "../../services/todoService"
+import { useAddGoalMutation, useDeleteGoalMutation, useGetGoalsQuery, useUpdateGoalMutation } from "../../services/todoService"
 
 const Goals = () => {
     const theme = useSelector(state => state.theme.theme)
@@ -35,6 +35,7 @@ const Goals = () => {
     const [addActiveType, setAddActiveType] = useState("")
     const [activeType, setActiveType] = useState("");
     const [deleteGoal] = useDeleteGoalMutation()
+    const [updateGoal] = useUpdateGoalMutation()
     const [addGoal, { isLoading }] = useAddGoalMutation()
     const { data, isFetching, isError, error } = useGetGoalsQuery({ type: activeType, month, year, quarter })
 
@@ -94,6 +95,18 @@ const Goals = () => {
     }
 
     const handleUpdateGoal = async (id) => {
+
+    }
+
+    const handleStatus = async (id) => {
+
+        try {
+            await updateGoal({ _id: id, isCompleted: true }).unwrap()
+            toast.success("Goal Successfully Completed")
+        }
+        catch (err) {
+            toast.error(err)
+        }
     }
 
     const handleAddGoal = async (e, close) => {
@@ -146,10 +159,6 @@ const Goals = () => {
                 return false;
         }
     };
-
-
-
-
 
     return (
         <div>
@@ -279,7 +288,22 @@ const Goals = () => {
                                                 <button onClick={() => handleDeleteGoal(each._id)} style={{ color: "red" }} className="goal-btn">Delete Goal</button >
                                             </div>
                                             <div>
-                                                <button className="mark-as-complete">{each.isCompleted ? "✔ Marked As Complete" : "Mark as Completed"}</button>
+                                                {
+                                                    !each.isCompleted && (
+                                                        <button
+                                                            onClick={() => handleStatus(each._id)}
+                                                            className="mark-as-complete"
+                                                        >
+                                                            Mark as Completed
+                                                        </button>
+                                                    )
+                                                }
+                                                {
+                                                    each.isCompleted && (
+                                                        <h1 className="completed-label">✔ Marked As Complete</h1>
+                                                    )
+                                                }
+
                                             </div>
 
                                         </EachGoal>
