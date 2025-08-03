@@ -27,6 +27,8 @@ const Goals = () => {
     const [year, setYear] = useState("")
     const [quarter, setQuarter] = useState("")
 
+    const [editTitle,setEditTitle]=useState("")
+
 
     const [addMonth, setAddMonth] = useState("")
     const [addYear, setAddYear] = useState("")
@@ -35,7 +37,7 @@ const Goals = () => {
     const [addActiveType, setAddActiveType] = useState("")
     const [activeType, setActiveType] = useState("");
     const [deleteGoal] = useDeleteGoalMutation()
-    const [updateGoal] = useUpdateGoalMutation()
+    const [updateGoal,{isLoading:updateLoading,isFetching:updateFetching}] = useUpdateGoalMutation()
     const [addGoal, { isLoading }] = useAddGoalMutation()
     const { data, isFetching, isError, error } = useGetGoalsQuery({ type: activeType, month, year, quarter })
 
@@ -94,7 +96,16 @@ const Goals = () => {
 
     }
 
-    const handleUpdateGoal = async (id) => {
+    const handleUpdateGoal = async (e,id,close) => {
+        e.preventDefault()
+        try{
+          await updateGoal({_id:id,title:editTitle}).unwrap()  
+          toast.success("Your Goal Updated Successfully")
+          close()
+        }
+        catch(err){
+            toast.error(err)
+        }
 
     }
 
@@ -159,7 +170,7 @@ const Goals = () => {
                 return false;
         }
     };
-
+    
     return (
         <div>
             <TodosHeader />
@@ -284,7 +295,73 @@ const Goals = () => {
                                             <h1>Goal: {each.title}</h1>
 
                                             <div className="goals-btns">
-                                                <button onClick={() => handleUpdateGoal(each._id)} className="goal-btn">Update Goal</button>
+                                                <Popup
+                                                    onOpen={() => {
+                                                        const goalToEdit = data?.goals?.find(goal => goal._id === each._id);
+                                                        if (goalToEdit) {
+                                                            setEditTitle(goalToEdit.title)
+                                                        }
+                                                    }}
+                                                    contentStyle={{
+                                                        backgroundColor: 'white',
+                                                        border: 'none',
+                                                        borderRadius: '12px',
+                                                        width: '90%',
+                                                        maxWidth: '400px',
+                                                        marginTop: "60px",
+                                                        zIndex: '2500'
+                                                    }}
+                                                    className='popup-content'
+                                                    position="right center"
+                                                    modal
+                                                    trigger={
+                                                        <button className="goal-btn" title="Edit Task" >
+                                                            Update Goal
+                                                        </button>
+                                                    }
+                                                >
+                                                    {close => (
+                                                        <div className="update-todo-container">
+                                                            <h1 className='update-heading'>Update Your Goal</h1>
+                                                            <form
+                                                                onSubmit={(e) => handleUpdateGoal(e, each._id, close)}
+                                                                id="form"
+                                                                className="todo-form-container"
+                                                            >
+                                                                <div className='input-wrapper'>
+                                                                    <input
+                                                                        required
+                                                                        value={editTitle}
+                                                                        onChange={(e) => setEditTitle(e.target.value)}
+                                                                        id="task"
+                                                                        className="input-element"
+                                                                        type="text"
+                                                                    />
+                                                                    <label htmlFor="task" className="label">TASK</label>
+                                                                </div>
+                                                                
+                                                                
+                                                                <button
+                                                                    disabled={updateFetching || updateLoading}
+                                                                    type="submit"
+                                                                    className="login-button-form btn"
+                                                                >
+                                                                    {updateLoading ? (<span style={{ display: "flex", alignItems: "center", gap: "8px", justifyContent: "center" }}>
+                                                                        Processing...
+                                                                        <ClipLoader color="#007bff" size={15} />
+                                                                    </span>) : ("Update")}
+                                                                </button>
+                                                                <button
+                                                                    style={{ textAlign: "center" }}
+                                                                    onClick={() => { close(); }}
+                                                                    className='login-button-form'
+                                                                >
+                                                                    Close
+                                                                </button>
+                                                            </form>
+                                                        </div>
+                                                    )}
+                                                </Popup>
                                                 <button onClick={() => handleDeleteGoal(each._id)} style={{ color: "red" }} className="goal-btn">Delete Goal</button >
                                             </div>
                                             <div>

@@ -330,7 +330,7 @@ const Todo = () => {
                             <input style={{ color: "magenta", fontWeight: "600" }} value={editSelectedDate} onChange={(e) => setEditSelectedDate(e.target.value)} required className='date-element' id="date" type="date" />
                           </div>
                           <button
-                            disabled={isFetching || !validUpdate}
+                            disabled={isFetching|| updateLoading || !validUpdate}
                             type="submit"
                             className="login-button-form btn"
                           >
