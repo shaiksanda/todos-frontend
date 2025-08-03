@@ -27,7 +27,7 @@ const Goals = () => {
     const [year, setYear] = useState("")
     const [quarter, setQuarter] = useState("")
 
-    const [editTitle,setEditTitle]=useState("")
+    const [editTitle, setEditTitle] = useState("")
 
 
     const [addMonth, setAddMonth] = useState("")
@@ -37,7 +37,7 @@ const Goals = () => {
     const [addActiveType, setAddActiveType] = useState("")
     const [activeType, setActiveType] = useState("");
     const [deleteGoal] = useDeleteGoalMutation()
-    const [updateGoal,{isLoading:updateLoading,isFetching:updateFetching}] = useUpdateGoalMutation()
+    const [updateGoal, { isLoading: updateLoading, isFetching: updateFetching }] = useUpdateGoalMutation()
     const [addGoal, { isLoading }] = useAddGoalMutation()
     const { data, isFetching, isError, error } = useGetGoalsQuery({ type: activeType, month, year, quarter })
 
@@ -96,14 +96,14 @@ const Goals = () => {
 
     }
 
-    const handleUpdateGoal = async (e,id,close) => {
+    const handleUpdateGoal = async (e, id, close) => {
         e.preventDefault()
-        try{
-          await updateGoal({_id:id,title:editTitle}).unwrap()  
-          toast.success("Your Goal Updated Successfully")
-          close()
+        try {
+            await updateGoal({ _id: id, title: editTitle }).unwrap()
+            toast.success("Your Goal Updated Successfully")
+            close()
         }
-        catch(err){
+        catch (err) {
             toast.error(err)
         }
 
@@ -170,7 +170,22 @@ const Goals = () => {
                 return false;
         }
     };
-    
+
+    const monthMap = {
+        1: "Jan", 2: "Feb", 3: "Mar", 4: "Apr",
+        5: "May", 6: "Jun", 7: "Jul", 8: "Aug",
+        9: "Sep", 10: "Oct", 11: "Nov", 12: "Dec"
+    };
+
+    const quarterToMonths = {
+        1: "Jan – Mar",
+        2: "Apr – Jun",
+        3: "Jul – Sep",
+        4: "Oct – Dec"
+    };
+
+
+
     return (
         <div>
             <TodosHeader />
@@ -293,7 +308,9 @@ const Goals = () => {
                                     {data?.goals?.map(each => (
                                         <EachGoal bg={theme?.colors.dark} key={each._id}>
                                             <h1>Goal: {each.title}</h1>
-
+                                            {each.timeframe.month && (<h1>Month: {monthMap[each.timeframe.month]}</h1>)}
+                                            {each.timeframe.quarter && (<h1>Quarter: {quarterToMonths[each.timeframe.quarter]}</h1>)}
+                                            {each.timeframe.year && (<h1>Year: {each.timeframe.year}</h1>)}
                                             <div className="goals-btns">
                                                 <Popup
                                                     onOpen={() => {
@@ -339,8 +356,8 @@ const Goals = () => {
                                                                     />
                                                                     <label htmlFor="task" className="label">TASK</label>
                                                                 </div>
-                                                                
-                                                                
+
+
                                                                 <button
                                                                     disabled={updateFetching || updateLoading}
                                                                     type="submit"
