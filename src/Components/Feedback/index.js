@@ -40,7 +40,7 @@ const Feedback = () => {
       toast.success("Feedback Deleted Successfully")
     }
     catch (err) {
-      toast.error(err)
+      toast.error(err?.data?.error)
     }
 
   }
