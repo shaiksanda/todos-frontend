@@ -279,7 +279,7 @@ width:150px
 `
 
 export const Dropdown=styled.select`
-width: 120px;
+width: 140px;
 height: 50px;
 border-width: 0px;
 border-radius: 10px;

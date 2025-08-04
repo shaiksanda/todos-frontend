@@ -5,6 +5,8 @@ import { HeaderButton,HeaderContainer } from '../../styles';
 
 import { useNavigate, } from 'react-router-dom';
 import Popup from 'reactjs-popup'
+import { logout } from '../../features/authSlice';
+import { persistor } from '../../store';
 
 
 
@@ -26,7 +28,8 @@ const TodosHeader = () => {
   
   const handleLogout = () => {
     Cookies.remove('jwt_token')
-    Cookies.remove('username')
+    dispatch(logout())
+    persistor.purge(); 
     navigate('/')
   }
 

@@ -7,7 +7,9 @@ import Cookies from 'js-cookie';
 import { Link } from 'react-router-dom';
 import './index.css';
 import 'remixicon/fonts/remixicon.css';
+import { setCredentials } from '../../features/authSlice';
 import { useUserLoginMutation } from '../../services/todoService';
+import { useDispatch } from 'react-redux';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -19,6 +21,7 @@ const Login = () => {
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
+  const dispatch=useDispatch()
 
   const handleUsername = ({ target: { value } }) => {
     setUsername(value);
@@ -30,7 +33,8 @@ const Login = () => {
 
   const onSubmitSuccess = (data) => {
     Cookies.set('jwt_token', data.jwtToken, { expires: 1 });
-    Cookies.set('username', username, { expires: 1 });
+    dispatch(setCredentials({username:data.username,role:data.role}))
+    
     navigate("/todo")
     toast.success("Login Successful")
   };

@@ -137,9 +137,40 @@ export const todoService = createApi({
             }),
             invalidatesTags:["Todos"]
         }),
+        addFeedback:builder.mutation({
+            query:(feedbackData)=>({
+                url:"/feedback",
+                method:"POST",
+                body:feedbackData
+            }),
+            invalidatesTags:["Todos"]
+        }),
+        getFeedbacks:builder.query({
+            query:(filters)=>({
+                url:"/feedbacks",
+                params:filters
+            }),
+            providesTags:["Todos"]
+        }),
+        updateFeedback:builder.mutation({
+            query:(updatedFeedback)=>({
+                url:`/feedback/${updatedFeedback._id}`,
+                method:"PUT",
+                body:updatedFeedback
+            }),
+            invalidatesTags:["Todos"]
+        }),
+        deleteFeedback:builder.mutation({
+            query:(id)=>({
+                url:`/feedback/${id}`,
+                method:"DELETE"
+            }),
+            invalidatesTags:["Todos"]
+        })
+        
 
 
     })
 })
 
-export const { useUpdateGoalMutation,useDeleteAllGoalsMutation,useDeleteGoalMutation,useAddGoalMutation,useGetGoalsQuery,useUserLoginMutation, useUserRegisterMutation, useGetTodosQuery, useDeleteTodoMutation,useUpdateTodoStatusMutation,useAddTodoMutation,useUpdateTodoMutation,useForgotPasswordMutation,useDeleteAllTodosMutation,useGetDashboardDataQuery,useGetStreakDataQuery} = todoService
+export const { useDeleteFeedbackMutation,useUpdateFeedbackMutation,useGetFeedbacksQuery,useAddFeedbackMutation,useUpdateGoalMutation,useDeleteAllGoalsMutation,useDeleteGoalMutation,useAddGoalMutation,useGetGoalsQuery,useUserLoginMutation, useUserRegisterMutation, useGetTodosQuery, useDeleteTodoMutation,useUpdateTodoStatusMutation,useAddTodoMutation,useUpdateTodoMutation,useForgotPasswordMutation,useDeleteAllTodosMutation,useGetDashboardDataQuery,useGetStreakDataQuery} = todoService

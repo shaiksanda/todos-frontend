@@ -5,7 +5,9 @@ import selectedReducer from "./features/selectedSlice"
 import { persistStore,persistReducer } from "redux-persist"
 import storage from "redux-persist/lib/storage"
 
+
 import themeReducer from "./features/themeSlice"
+import authReducer from "./features/authSlice"
 
 const selectPersistConfig={
     key:"selected",
@@ -15,13 +17,20 @@ const themePersistConfig = {
   key: "theme",
   storage,
 };
+
+const authPersistConfig={
+  key:"auth",
+  storage
+}
 const selectPersistedReducer=persistReducer(selectPersistConfig,selectedReducer)
 const themePersistedReducer=persistReducer(themePersistConfig,themeReducer)
+const authPersistReducer=persistReducer(authPersistConfig,authReducer)
 const store=configureStore({
     reducer:{
         [todoService.reducerPath]:todoService.reducer,
         selected:selectPersistedReducer,
-        theme:themePersistedReducer
+        theme:themePersistedReducer,
+        auth:authPersistReducer
     },
     middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
