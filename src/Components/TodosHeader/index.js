@@ -15,9 +15,8 @@ import "./index.css"
 const TodosHeader = () => {
   const navigate = useNavigate();
   const theme = useSelector(state => state.theme.theme)
-   
-
-  const username = Cookies.get('username');
+  const auth=useSelector(state=>state.auth)
+  const {username}=auth
 
   const dispatch = useDispatch();
    

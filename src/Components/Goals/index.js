@@ -192,10 +192,10 @@ const Goals = () => {
             <Sidebar />
             <MainContainer bg={theme?.main?.bg}>
                 <DashboardHeading color={theme?.colors.dark}>Stay On Track With Your Goals</DashboardHeading>
-                <DashboardContent color={theme?.colors?.text}>
+                <DashboardContent color={theme?.colors?.primary}>
                     Set, track, and achieve your personal goals. Whether it's monthly milestones, quarterly progress, or yearly ambitions — this page helps you stay focused and measure your success.
                 </DashboardContent>
-                <DashboardContent color={theme?.colors?.text}>
+                <DashboardContent color={theme?.colors?.primary}>
                     Every great achievement begins with a clear goal.
                 </DashboardContent>
                 <div className="goals-btns-container">

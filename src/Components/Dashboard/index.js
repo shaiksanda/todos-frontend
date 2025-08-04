@@ -1,7 +1,7 @@
 import Sidebar from "../Sidebar"
 import TodosHeader from "../TodosHeader"
 import TodosFooter from "../TodosFooter"
-import Cookies from "js-cookie"
+
 import { MainContainer,DashboardHeading,DashboardContent,DashboardGraphContainer } from "../../styles"
 import { useMediaQuery } from "react-responsive"
 import { useGetDashboardDataQuery } from "../../services/todoService"
@@ -24,7 +24,8 @@ const COLORS = ['purple', 'green', 'red'];
 
 
 const Dashboard = () => {
-    const username = Cookies.get("username").toUpperCase()
+    const auth=useSelector(state=>state.auth)
+    const {username}=auth
     const [range, setRange] = useState(6)
     const theme=useSelector(state=>state.theme.theme)
     const { data, isFetching, isError, error } = useGetDashboardDataQuery({ days: range })

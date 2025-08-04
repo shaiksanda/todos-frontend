@@ -232,13 +232,13 @@ const Todo = () => {
               <img
                 className='todo-image-1'
                 alt="todo"
-                src="https://res.cloudinary.com/dq4yjeejc/image/upload/v1749119752/no-todos-image_g38jaf.webp"
+                src="https://res.cloudinary.com/dq4yjeejc/image/upload/v1754304003/Screenshot_2025-08-04_160928_tkliwk.webp"
               />
               <div>
                 <p className='no-todos-content'>
-                  No Todos for this Date: <span className="formatted-date-heading">{formattedDate}</span>
+                  No Tasks for this Date: <span className="formatted-date-heading">{formattedDate}</span>
                 </p>
-                <h3 style={{ fontWeight: "bold", color: "green" }}>Please Try to Add Tasks</h3>
+                <h3 className='no-todos-content'>Please Try to Add Tasks</h3>
               </div>
             </div>
           ) : (
