@@ -2,7 +2,7 @@ import Sidebar from "../Sidebar"
 import TodosHeader from "../TodosHeader"
 import TodosFooter from "../TodosFooter"
 
-import { MainContainer,DashboardHeading,DashboardContent,DashboardGraphContainer } from "../../styles"
+import { MainContainer, DashboardHeading, DashboardContent, DashboardGraphContainer } from "../../styles"
 import { useMediaQuery } from "react-responsive"
 import { useGetDashboardDataQuery } from "../../services/todoService"
 import { useState } from "react"
@@ -24,18 +24,20 @@ const COLORS = ['purple', 'green', 'red'];
 
 
 const Dashboard = () => {
-    const auth=useSelector(state=>state.auth)
-    const {username}=auth
+    const auth = useSelector(state => state.auth)
+    const { username } = auth
     const [range, setRange] = useState(6)
-    const theme=useSelector(state=>state.theme.theme)
+    const theme = useSelector(state => state.theme.theme)
     const { data, isFetching, isError, error } = useGetDashboardDataQuery({ days: range })
 
     const { status_breakdown, priority_breakdown, completion_trend, tag_breakdown, created_vs_completed_trend } = data || {}
-    let stackedBarData = created_vs_completed_trend?.created_vs_completed_breakdown ||[]
-    const maxStack=Math.max(...stackedBarData?.map(item=>item.total))
+    let stackedBarData = created_vs_completed_trend?.created_vs_completed_breakdown || []
+    const maxStack = Math.max(...stackedBarData?.map(item => item.total))
 
 
-    let tagData = tag_breakdown?.tags
+    let tagData = tag_breakdown?.tags || []
+
+    const maxTags = Math.max(...tagData?.map(item => item.count))
 
     const pieData = [
         { name: 'Total Tasks', value: status_breakdown?.totalTodos },
@@ -53,11 +55,11 @@ const Dashboard = () => {
         { name: isSmallScreen ? "Low" : "Low Priority", tasks: priority_breakdown?.low },
     ]
 
-    const lineChartData = completion_trend?.completion_breakdown||[]
-    let maxTick=Math.max(...lineChartData?.map(item=>item.count))
-    
+    const lineChartData = completion_trend?.completion_breakdown || []
+    let maxTick = Math.max(...lineChartData?.map(item => item.count))
+
     const lineChartWidth = Math.max(completion_trend?.completion_breakdown?.length * 80, 400)
-    
+
 
     const width = isSmallScreen ? 280 : 400
     const height = isSmallScreen ? 350 : 400
@@ -83,29 +85,33 @@ const Dashboard = () => {
     const upperLimit = Math.ceil(maxValue / step) * step;
 
     const ticks = [];
-    for (let i = 0; i <= upperLimit; i+=step) {
+    for (let i = 0; i <= upperLimit; i += step) {
         ticks.push(i);
     }
-    const upperLimitLineChart=Math.ceil(maxTick/step)*step
+    const upperLimitLineChart = Math.ceil(maxTick / step) * step
 
-    const lineChartTicks=[]
-    for (let i=0;i<=upperLimitLineChart;i+=step){
+    const lineChartTicks = []
+    for (let i = 0; i <= upperLimitLineChart; i += step) {
         lineChartTicks.push(i)
 
     }
 
-    const stackTicks=[]
+    const stackTicks = []
 
-    const stackUpperLimit=Math.ceil(maxStack/step)*step
-    for (let i=0;i<=stackUpperLimit;i+=step){
+    const stackUpperLimit = Math.ceil(maxStack / step) * step
+    for (let i = 0; i <= stackUpperLimit; i += step) {
         stackTicks.push(i)
     }
 
+    const tagTicks = []
+    const tagUpperLimit = Math.ceil(maxTags / step) * step
+    for (let i = 0; i <= tagUpperLimit; i += step) {
+        tagTicks.push(i)
+    }
 
-    const dynamicWidth = Math.max(tagData?.length * 50, 400);
-    const stackBarWitdh = Math.max(created_vs_completed_trend?.created_vs_completed_breakdown?.length * 60, 400)
 
-
+    const dynamicWidth = Math.max(tagData?.length * 70, 400);
+    const stackBarWitdh = Math.max(created_vs_completed_trend?.created_vs_completed_breakdown?.length * 70, 400)
 
     return (
         <div>
@@ -325,7 +331,7 @@ const Dashboard = () => {
                                                             fontWeight: 'bold',
                                                             textTransform: 'uppercase'
                                                         }} value="Tags" offset={0} position="insideBottom" /></XAxis>
-                                                        <YAxis ticks={ticks} >  <Label
+                                                        <YAxis ticks={tagTicks} >  <Label
                                                             style={{
                                                                 fill: 'magenta',
                                                                 fontSize: isSmallScreen ? 14 : 20,
