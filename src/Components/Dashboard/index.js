@@ -52,22 +52,11 @@ const Dashboard = () => {
         { name: isSmallScreen ? "Low" : "Low Priority", tasks: priority_breakdown?.low },
     ]
 
-    const lineChartData = completion_trend?.completion_breakdown
-        .map(item => {
-            const d = new Date(item.date);
-            const day = d.getDate();
-
-            return {
-                date: `${day}`,
-                completed: item.completed,
-                originalDate: d // keep full date object for sorting
-            };
-        })
-        .sort((a, b) => a.originalDate - b.originalDate)
-        .map(({ date, completed }) => ({ date, completed })); // strip helper
-
-    const lineChartWidth = Math.max(completion_trend?.completion_breakdown?.length * 50, 400)
-    console.log(completion_trend?.completion_breakdown?.length)
+    const lineChartData = completion_trend?.completion_breakdown||[]
+    let maxTick=Math.max(...lineChartData?.map(item=>item.count))
+    
+    const lineChartWidth = Math.max(completion_trend?.completion_breakdown?.length * 80, 400)
+    
 
     const width = isSmallScreen ? 280 : 400
     const height = isSmallScreen ? 350 : 400
@@ -82,10 +71,10 @@ const Dashboard = () => {
         step = 2
     }
     else if (maxValue <= 50) {
-        step = 5
+        step = 3
     }
     else if (maxValue <= 200) {
-        step = 10
+        step = 5
     }
     else {
         step = 20
@@ -93,8 +82,15 @@ const Dashboard = () => {
     const upperLimit = Math.ceil(maxValue / step) * step;
 
     const ticks = [];
-    for (let i = 0; i <= upperLimit; i += step) {
+    for (let i = 0; i <= upperLimit; i+=step) {
         ticks.push(i);
+    }
+    const upperLimitLineChart=Math.ceil(maxTick/step)*step
+
+    const lineChartTicks=[]
+    for (let i=0;i<=upperLimitLineChart;i+=step){
+        lineChartTicks.push(i)
+
     }
 
 
@@ -238,7 +234,7 @@ const Dashboard = () => {
                                                                 fontWeight: 'bold',
                                                                 textTransform: 'uppercase'
                                                             }} value="Selected Range" offset={-4} position="insideBottom" /></XAxis>
-                                                            <YAxis ticks={ticks}><Label
+                                                            <YAxis ticks={lineChartTicks}><Label
                                                                 style={{
                                                                     fill: 'magenta',
                                                                     fontSize: isSmallScreen ? 14 : 20,
@@ -251,7 +247,7 @@ const Dashboard = () => {
                                                                 offset={10}
                                                             /></YAxis>
                                                             <Tooltip />
-                                                            <Line type="monotone" dataKey="completed" stroke="#8884d8" strokeWidth={2}
+                                                            <Line type="monotone" dataKey="count" stroke="#8884d8" strokeWidth={2}
                                                                 dot={{ r: 4 }} > <LabelList dataKey="value" position="top" /></Line>
                                                         </LineChart>
                                                     </ResponsiveContainer>
