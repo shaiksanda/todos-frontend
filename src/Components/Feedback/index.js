@@ -17,7 +17,7 @@ const Feedback = () => {
   const theme = useSelector(state => state.theme.theme)
   const auth = useSelector(state => state.auth)
 
-  console.log(auth)
+  
   const [addFeedback, { isLoading: addLoading }] = useAddFeedbackMutation()
 
 
@@ -74,7 +74,6 @@ const Feedback = () => {
 
   }
 
-
   const handleStatus = async (id) => {
     try {
       await updateFeedback({ _id: id, status: "resolved" })
@@ -84,7 +83,6 @@ const Feedback = () => {
       toast.error(err?.data?.error)
     }
   }
-
 
   const isValid = message && type
   return (
@@ -146,7 +144,7 @@ const Feedback = () => {
                     <EachGoal bg={theme?.colors.dark} key={each._id}>
                       <h2>Created By: {each.userId.username}</h2>
                       <h2>{each.type}: {each.message}</h2>
-                      {each.type === "bug" && (<h2>Status: {each.status}</h2>)}
+                      {(each.type === "bug" || each.type==="suggestion") && (<h2>Status: {each.status}</h2>)}
 
                       <div className="goals-btns">
                         <Popup
@@ -232,7 +230,7 @@ const Feedback = () => {
                       </div>
                       <div>
                         {
-                          each.type === "bug" && ((auth.role === "admin" && each.status!=="resolved") && (
+                          (each.type === "bug" || each.type==="suggestion") && ((auth.role === "admin" && each.status!=="resolved") && (
                             <button onClick={() => handleStatus(each._id)}
 
                               className="mark-as-complete"

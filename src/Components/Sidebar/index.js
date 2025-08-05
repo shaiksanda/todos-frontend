@@ -8,6 +8,7 @@ import { FaTasks } from "react-icons/fa";
 import { FaFire } from "react-icons/fa";
 import { FaAffiliatetheme } from "react-icons/fa";
 import { MdFeedback } from "react-icons/md";
+import { GoGoal } from "react-icons/go";
 
 import { useNavigate } from "react-router-dom";
 import { SidebarContainer, FlexContainer } from "../../styles";
@@ -17,7 +18,7 @@ const sidebarItems = [
   { label: "Home", icon: <IoMdHome size={30} />, path: "/" },
   { label: "All Todos", icon: <FaTasks size={26} />, path: "/all-todos" },
   { label: "Dashboard", icon: <TbLayoutDashboardFilled size={30} />, path: "/dashboard" },
-  { label: "Goals", icon: <FaFire size={26} />, path: "/goals" },
+  { label: "Goals", icon: <GoGoal size={26}/>, path: "/goals" },
   { label: "Streak", icon: <FaFire size={26} color="orangered" />, path: "/streak" },
   { label: "Theme", icon: <FaAffiliatetheme size={26} />, path: "/theme" },
   { label: "About", icon: <FaInfoCircle size={28} />, path: "/about" },
