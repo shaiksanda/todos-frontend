@@ -19,9 +19,9 @@ const Home = () => {
             <Header />
             <HomeContainer bg={theme?.main.bg} >
                 <div className='todo-content-container'>
-                    <DashboardHeading style={{alignSelf:"flex-start"}} color={theme?.colors.dark} >Focus On What Matters.</DashboardHeading>
+                    <DashboardHeading  color={theme?.colors.dark} >Focus On What Matters.</DashboardHeading>
                     <DashboardContent color={theme?.colors.primary} >Life is full of noise, but your goals deserve clarity. With our app, organize your tasks, prioritize what’s important, and achieve more with ease. Simplify your day and make every moment count.</DashboardContent>
-                    <Link to="/login" className='login-button'><HeaderButton style={{marginTop:"10px"}} color={"white"} bg={theme?.colors.primary}>Start Now</HeaderButton></Link>
+                    <Link to="/login" className='login-button'><HeaderButton style={{marginTop:"10px",width:'120px',alignSelf:"center"}} color={"white"} bg={theme?.colors.primary}>Start Now</HeaderButton></Link>
                 </div>
                 <div className='todo-image-container'>
                     <img className='todo-image' src="https://res.cloudinary.com/dq4yjeejc/image/upload/v1749118861/todo-images_ehns3k.webp" alt="todo" />

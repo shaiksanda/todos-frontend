@@ -58,7 +58,7 @@ const Dashboard = () => {
     const lineChartData = completion_trend?.completion_breakdown || []
     let maxTick = Math.max(...lineChartData?.map(item => item.count))
 
-    const lineChartWidth = Math.max(completion_trend?.completion_breakdown?.length * 80, 400)
+    const lineChartWidth = Math.max(completion_trend?.completion_breakdown?.length * 50, 400)
 
 
     const width = isSmallScreen ? 280 : 400
@@ -110,8 +110,8 @@ const Dashboard = () => {
     }
 
 
-    const dynamicWidth = Math.max(tagData?.length * 70, 400);
-    const stackBarWitdh = Math.max(created_vs_completed_trend?.created_vs_completed_breakdown?.length * 70, 400)
+    const dynamicWidth = Math.max(tagData?.length * 50, 400);
+    const stackBarWitdh = Math.max(created_vs_completed_trend?.created_vs_completed_breakdown?.length * 50, 400)
 
     return (
         <div>
@@ -181,6 +181,10 @@ const Dashboard = () => {
                                             </PieChart>
                                         </DashboardGraphContainer>
                                         <DashboardGraphContainer color={theme?.colors.primary} bg={theme?.main.cardBg}>
+                                            <div className="chart-info">
+                                                <h1 className="chart-title">Title: Task Priority Breakdown</h1>
+                                                <h1 className="chart-description">Description: Overview of high, medium, and low priority tasks in the selected date range.</h1>
+                                            </div>
                                             <BarChart margin={{ left: 0 }} width={width} height={height} data={priorityData}>
                                                 <CartesianGrid strokeDasharray="3 3" />
                                                 <XAxis dataKey="name"> <Label style={{
@@ -227,10 +231,7 @@ const Dashboard = () => {
                                                 />
 
                                             </BarChart>
-                                            <div className="chart-info">
-                                                <h1 className="chart-title">Title: Task Priority Breakdown</h1>
-                                                <h1 className="chart-description">Description: Overview of high, medium, and low priority tasks in the selected date range.</h1>
-                                            </div>
+
                                         </DashboardGraphContainer>
                                         <DashboardGraphContainer color={theme?.colors.primary} bg={theme?.main.cardBg}>
                                             <div className="chart-info">
@@ -270,6 +271,10 @@ const Dashboard = () => {
 
                                         </DashboardGraphContainer>
                                         <DashboardGraphContainer color={theme?.colors.primary} bg={theme?.main.cardBg}>
+                                            <div className="chart-info">
+                                                <h1 className="chart-title">Title: Daily Task Progress in Selected Range</h1>
+                                                <h1 className="chart-description">Description: A stacked bar chart showing the total number of tasks and the portion completed for each day within the chosen date range. Visualize daily productivity and track completion trends over time.</h1>
+                                            </div>
                                             <div className="graph-container">
                                                 <div style={{ minWidth: stackBarWitdh }}>
                                                     <BarChart width={stackBarWitdh} height={height} data={stackedBarData}>
@@ -311,10 +316,7 @@ const Dashboard = () => {
                                                     </BarChart>
                                                 </div>
                                             </div>
-                                            <div className="chart-info">
-                                                <h1 className="chart-title">Title: Daily Task Progress in Selected Range</h1>
-                                                <h1 className="chart-description">Description: A stacked bar chart showing the total number of tasks and the portion completed for each day within the chosen date range. Visualize daily productivity and track completion trends over time.</h1>
-                                            </div>
+
                                         </DashboardGraphContainer>
                                         <DashboardGraphContainer color={theme?.colors.primary} bg={theme?.main.cardBg}>
                                             <div className="chart-info">
