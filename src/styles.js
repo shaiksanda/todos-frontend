@@ -15,12 +15,12 @@ export const HeaderContainer = styled.header`
     background-color: ${(props) => props.bg};
 `
 
-export const FooterContainer=styled.footer`
+export const FooterContainer = styled.footer`
 position: fixed;
 bottom: 0;
 left: 0;
 right:0;
-background-color: ${props=>props.bg};
+background-color: ${props => props.bg};
 color: #f8fafc;
 z-index: 900; 
 display: flex;
@@ -33,22 +33,41 @@ display: none
 }
 `
 
+export const TodosHeaderButton=styled.button`
+height: 45px;
+width: 110px;
+border: none;
+border-radius: 6px;
+background-color: ${(props) => props.bg};
+cursor: pointer;
+color: ${(props) => props.color};
+font-size: 16px;
+font-weight: 600;
+font-weight: bold;
+
+@media (max-width:768px){
+display:none
+}
+`
+
 export const HeaderButton = styled.button`
-    height: 50px;
-    width: 120px;
+    height: 45px;
+    width: 65px;
     border: none;
-    border-radius: 8px;
+    border-radius: 6px;
+    text-decoration:none;
     background-color: ${(props) => props.bg};
     cursor: pointer;
     color: ${(props) => props.color};
     font-size: 16px;
     font-weight: 600;
     font-weight: bold;
-    display: block;
-     @media (max-width: 768px) {
-    display: none
-  }
 
+    @media (min-width:768px){
+    width:100px;
+    }
+    
+     
 `
 
 export const SidebarContainer = styled.aside`
@@ -81,6 +100,22 @@ export const FlexContainer = styled.div`
   color: ${(props) => (props.selected ? props.selectedColor : "")};
 
 `;
+
+export const HomeContainer = styled.div`
+display: grid;
+grid-template-columns: repeat(1,1fr);
+grid-gap: 10px;
+padding: 10px 5px;
+background-color:${props=>props.bg};
+width: 100%;
+margin-top: 70px;
+min-height: calc(100vh - 70px - 8px);
+place-items: center;
+
+@media (min-width:768px){
+grid-template-columns: repeat(2,1fr);
+}
+`
 
 export const MainContainer = styled.main`
  position: absolute;
@@ -180,15 +215,15 @@ export const DashboardHeading = styled.h1`
 export const DashboardContent = styled.p`
 font-size: 18px;
 font-weight: bold;
-color:${props=>props.color};
+color:${props => props.color};
 @media (min-width:768px){
 font-size:24px
 }
 `
 
-export const DashboardGraphContainer=styled.div`
-background-color: ${props=>props.bg};
-color:${props=>props.color};
+export const DashboardGraphContainer = styled.div`
+background-color: ${props => props.bg};
+color:${props => props.color};
 display: grid;
 cursor: pointer;
 grid-template-columns: repeat(1,1fr);
@@ -207,15 +242,15 @@ grid-template-columns: repeat(2,1fr);
 }
 `
 
-export const StreakDataHeading=styled.h1`
-background-color: ${props=>props.bg};
+export const StreakDataHeading = styled.h1`
+background-color: ${props => props.bg};
 padding: 6px;
 display: flex;
 justify-content: center;
 align-items: center;
 border-radius: 6px;
 font-size: 24px;
-color:${props=>props.color};
+color:${props => props.color};
 box-shadow:4px 4px 10px white;
 font-weight: bold;
 @media (min-width:768px){
@@ -223,7 +258,7 @@ font-size:30px;
 }
 
 `
-export const BoxContainer=styled.div`
+export const BoxContainer = styled.div`
 display: grid;
 grid-template-columns: repeat(1,1fr);
 grid-gap: 4px;
@@ -233,17 +268,17 @@ grid-template-columns: repeat(3,1fr);
 }
 `
 
-export const AboutHeading=styled.h1`
+export const AboutHeading = styled.h1`
 font-size: 24px;
 text-align: center;
-color:${props=>props.color};
+color:${props => props.color};
 font-weight: bold;
 @media (min-width:768px){
 font-size: 30px;
 }
 `
 
-export const AboutContent=styled.h1`
+export const AboutContent = styled.h1`
 font-size: 16px;
 font-weight: 600;
 border-radius: 8px;
@@ -254,13 +289,13 @@ padding: 8px;
 cursor: pointer;
 transition:2s all ease;
 color: white;
-background-color:${props=>props.bg};
+background-color:${props => props.bg};
 @media (min-width:768px){
 font-size: 22px;
 }
 `
 
-export const GoalsButton=styled.button`
+export const GoalsButton = styled.button`
 width: 140px;
 height: 50px;
 border-radius: 10px;
@@ -269,8 +304,8 @@ outline: none;
 cursor: pointer;
 font-size: 18px;
 font-weight: 600;
-background-color:${props=>props.bg};
-color:${props=>props.color};
+background-color:${props => props.bg};
+color:${props => props.color};
 
 
 @media (min-width:768px){
@@ -278,14 +313,14 @@ width:150px
 }
 `
 
-export const Dropdown=styled.select`
+export const Dropdown = styled.select`
 width: 140px;
 height: 50px;
 border-width: 0px;
 border-radius: 10px;
 outline: none;
 cursor: pointer;
-background-color: ${props=>props.bg};
+background-color: ${props => props.bg};
 font-size: 16px;
 font-weight: 600;
 padding: 6px;

@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie'
 import { setSelectedIndex } from "../../features/selectedSlice";
 import { useSelector,useDispatch} from "react-redux";
-import { HeaderButton,HeaderContainer } from '../../styles';
+import { TodosHeaderButton,HeaderContainer } from '../../styles';
 
 import { useNavigate, } from 'react-router-dom';
 import Popup from 'reactjs-popup'
@@ -53,7 +53,7 @@ const TodosHeader = () => {
         }}
           position="right center" modal trigger={
             <div>
-              <HeaderButton color={theme?.header.button.text} bg={theme?.header?.button?.bg}>Logout</HeaderButton>
+              <TodosHeaderButton color={theme?.header.button.text} bg={theme?.header?.button?.bg}>Logout</TodosHeaderButton>
             </div>
           }>
           {close => (

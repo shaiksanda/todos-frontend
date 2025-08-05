@@ -1,18 +1,20 @@
 import {Link} from "react-router-dom"
-import {motion} from "framer-motion"
+import { HeaderButton,HeaderContainer } from "../../styles"
 import "./index.css"
+import { useSelector } from "react-redux"
 
 const Header=()=>{
+    const theme=useSelector(state=>state.theme.theme)
     return(
-        <div className="header-container">
+        <HeaderContainer bg={theme?.header.bg} color={theme?.header?.text}>
             <div>
-                <img className="todo-logo" alt="logo" src="https://res.cloudinary.com/dq4yjeejc/image/upload/v1749119305/todo-logo_xwljwp.webp" />
+                <img className="todo-logo-1" alt="logo" src="https://res.cloudinary.com/dq4yjeejc/image/upload/v1753526930/Screenshot_2025-07-26_161649_cq1yfv.webp" />
             </div>
             <div className="buttons-container">
-                <Link to="/login"><motion.button drag whileTap={{scale:0.6}} className="login-button">Login</motion.button></Link>
-                <Link to="/signup"><motion.button drag whileTap={{scale:0.6}} className="signup-button">Signup</motion.button></Link>
+                <Link to="/login" className="login-button"><HeaderButton bg={theme?.header?.button?.bg} color={theme?.header.button.text}  >Login</HeaderButton></Link>
+                <Link to="/signup" className="login-button"><HeaderButton bg={theme?.header?.button?.bg} color={theme?.header.button.text}>Signup</HeaderButton></Link>
             </div>
-        </div>
+        </HeaderContainer>
     )
 }
 
