@@ -31,7 +31,8 @@ const Dashboard = () => {
     const { data, isFetching, isError, error } = useGetDashboardDataQuery({ days: range })
 
     const { status_breakdown, priority_breakdown, completion_trend, tag_breakdown, created_vs_completed_trend } = data || {}
-    let stackedBarData = created_vs_completed_trend?.created_vs_completed_breakdown?.map(each => ({ ...each, date: new Date(each.date).getDate() })).sort((a, b) => a.date - b.date)
+    let stackedBarData = created_vs_completed_trend?.created_vs_completed_breakdown ||[]
+    const maxStack=Math.max(...stackedBarData?.map(item=>item.total))
 
 
     let tagData = tag_breakdown?.tags
@@ -71,10 +72,10 @@ const Dashboard = () => {
         step = 2
     }
     else if (maxValue <= 50) {
-        step = 3
+        step = 5
     }
     else if (maxValue <= 200) {
-        step = 5
+        step = 10
     }
     else {
         step = 20
@@ -91,6 +92,13 @@ const Dashboard = () => {
     for (let i=0;i<=upperLimitLineChart;i+=step){
         lineChartTicks.push(i)
 
+    }
+
+    const stackTicks=[]
+
+    const stackUpperLimit=Math.ceil(maxStack/step)*step
+    for (let i=0;i<=stackUpperLimit;i+=step){
+        stackTicks.push(i)
     }
 
 
@@ -266,7 +274,7 @@ const Dashboard = () => {
                                                             fontWeight: 'bold',
                                                             textTransform: 'uppercase'
                                                         }} value="Selected Range" offset={0} position="insideBottom" /></XAxis>
-                                                        <YAxis ticks={ticks} >  <Label
+                                                        <YAxis ticks={stackTicks} >  <Label
                                                             style={{
                                                                 fill: 'magenta',
                                                                 fontSize: isSmallScreen ? 14 : 20,
