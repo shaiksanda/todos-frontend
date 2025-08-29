@@ -16,7 +16,7 @@ import "./index.css"
 
 const sidebarItems = [
   { label: "Home", icon: <IoMdHome size={30} />, path: "/" },
-  { label: "All Todos", icon: <FaTasks size={26} />, path: "/all-todos" },
+  { label: "All Tasks", icon: <FaTasks size={26} />, path: "/all-tasks" },
   { label: "Dashboard", icon: <TbLayoutDashboardFilled size={30} />, path: "/dashboard" },
   { label: "Goals", icon: <GoGoal size={26}/>, path: "/goals" },
   { label: "Streak", icon: <FaFire size={26} color="orangered" />, path: "/streak" },

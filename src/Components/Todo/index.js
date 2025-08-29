@@ -83,19 +83,19 @@ const Todo = () => {
   const handleUpdateTask = async (event, id, close) => {
     event.preventDefault()
     if (!id) {
-      toast.error("Todo ID is missing.");
+      toast.error("Task ID is missing.");
       return;
     }
 
     const updatedTodo = { todo: editTodo, tag: editTag, priority: editPriority, selectedDate: editSelectedDate }
 
     try {
-      await updateTodo({ id, ...updatedTodo }).unwrap()
-      toast.success("Todo Updated Successfully")
+      let res=await updateTodo({ id, ...updatedTodo }).unwrap()
+      toast.success(res.message)
       close()
     }
     catch (error) {
-      toast.error(error?.data?.message || "Failed to Update Todo")
+      toast.error(error?.data?.err_msg || "Failed to Update Todo")
     }
   }
 
@@ -112,11 +112,11 @@ const Todo = () => {
     const updatedTodo = { ...todo, status: todo.status === "completed" ? "pending" : "completed" }
 
     try {
-      await updateTodoStatus(updatedTodo).unwrap()
-      toast.success("Todo Status Changed Successfully")
+      let res=await updateTodoStatus(updatedTodo).unwrap()
+      toast.success(res.message)
     }
     catch (error) {
-      toast.error("Failed to Update the todo status")
+      toast.error(error?.data?.err_msg)
     }
   }
 
@@ -124,11 +124,11 @@ const Todo = () => {
 
   const handleDeleteTodo = async (id) => {
     try {
-      await deleteTodo(id).unwrap()
-      toast.success("Todo deleted Successfully")
+      let res=await deleteTodo(id).unwrap()
+      toast.success(res.message)
     }
     catch (error) {
-      toast.error(error?.data?.error || "Error While Deleting Todo")
+      toast.error(error?.data?.err_msg || "Error While Deleting Todo")
     }
 
   }
@@ -220,7 +220,7 @@ const Todo = () => {
             </div>
           ) : isError ? (<div className='error-msg'>
             <p>
-              {error?.data?.message || error?.error || "Something went wrong. Please try again."}
+              {error?.data?.err_msg}
             </p>
             {error?.status === "FETCH_ERROR" && (
               <p style={{ color: "red", fontWeight: 600 }}>
