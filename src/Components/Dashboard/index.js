@@ -40,9 +40,9 @@ const Dashboard = () => {
     const maxTags = Math.max(...tagData?.map(item => item.count))
 
     const pieData = [
-        { name: 'Total Tasks', value: status_breakdown?.totalTodos },
-        { name: 'Completed Tasks', value: status_breakdown?.completedTodos },
-        { name: 'Pending Tasks', value: status_breakdown?.pendingTodos },
+        { name: 'Total Tasks', value: status_breakdown?.totalTasks },
+        { name: 'Completed Tasks', value: status_breakdown?.completedTasks },
+        { name: 'Pending Tasks', value: status_breakdown?.pendingTasks },
     ];
 
     let newUser = status_breakdown?.totalTodos < 5

@@ -7,14 +7,19 @@ import { useNavigate } from 'react-router-dom';
 import 'remixicon/fonts/remixicon.css';
 
 import "./index.css"
-import { useForgotPasswordMutation } from "../../services/todoService";
+import { useResetPasswordMutation, useSendOtpMutation, useVerifyOtpMutation } from "../../services/todoService";
+
+
 
 const ForgotPassword = () => {
-    const [username, setUsername] = useState("")
+
     const [password, setPassword] = useState("")
     const [showPassword, setShowPassword] = useState(false)
 
-    const [forgotPassword, { isLoading }] = useForgotPasswordMutation()
+    const [resetPassword, { isLoading }] = useResetPasswordMutation()
+
+    const [sendOtp, { isLoading: otpSendLoading }] = useSendOtpMutation()
+    const [verifyOtp, { isLoading: verifyOtpLoading }] = useVerifyOtpMutation()
 
     const navigate = useNavigate();
 
@@ -22,43 +27,77 @@ const ForgotPassword = () => {
         setShowPassword(!showPassword)
     }
 
-    const handleUsername = (event) => {
-        setUsername(event.target.value)
+    const [email, setEmail] = useState('')
+
+    const handleEmail = (event) => {
+        setEmail(event.target.value)
     }
-    const handlePassword = (event) => {
-        setPassword(event.target.value)
+
+    const handlePassword = (e) => {
+        setPassword(e.target.value)
     }
+
+
+    const [otpSent, setOtpSent] = useState(false)
+    const [verified, setVerified] = useState(false)
+    const [otp, setOtp] = useState("")
+
+    const handleOtp = (e) => {
+        setOtp(e.target.value)
+    }
+
+    const handleSendOtp = async () => {
+        try {
+            const emailBody = { email }
+            const res = await sendOtp(emailBody).unwrap()
+            toast.success(res.message)
+            setOtpSent(true)
+        }
+        catch (error) {
+            toast.error(error?.data?.err_msg)
+        }
+    }
+
+    const handleVerifyOtp = async () => {
+        try {
+            const otpData = { email, otp }
+            let res = await verifyOtp(otpData).unwrap()
+            toast.success(res.message)
+            setVerified(true)
+
+        }
+        catch (error) {
+            toast.error(error?.data?.err_msg)
+        }
+
+    }
+
 
     const handleForm = async (event) => {
         event.preventDefault();
 
-        if (!username || !password) {
+        if (!email || !password) {
             toast.error('Please fill in both fields.');
             return;
         }
-        const userDetails = { username, password }
+        if (password.length < 6) {
+            toast.error("Password must be Atleast 6 Characters Long");
+            return;
+        }
+        const userDetails = { email, password }
         try {
-            await forgotPassword(userDetails).unwrap()
-            toast.success("Password Updated Successfully")
+            let res = await resetPassword(userDetails).unwrap()
+            toast.success(res.msg)
             navigate("/login")
         }
         catch (error) {
-            let message = "Updating Password Failed. Please try again.";
-            if (error?.status === 'FETCH_ERROR' || error?.message?.includes('Failed to fetch')) {
-                message = 'Our server is currently unavailable or taking longer than usual to wake up. Please try again later, and thank you for your patience.';
-            }
-            // If backend sent an error
-            else if (error?.data?.message) {
-                message = error.data.message;
-            }
-
-            toast.error(message);
+            toast.error(error?.data?.err_msg);
         }
-
-
     }
 
-    const isValid = username && password
+    const isValidToSentOtp = email
+
+    const isValid = email && password
     return (
         <div className="login-container">
             <div className="container">
@@ -70,22 +109,49 @@ const ForgotPassword = () => {
                 />
             </div>
             <form onSubmit={handleForm} id="form" className="form-container">
+                <h1>Reset Password</h1>
                 <div className="input-wrapper">
 
                     <input
-                        id="username"
-                        value={username}
-                        onChange={handleUsername}
+                        id="email"
+                        value={email}
+                        onChange={handleEmail}
 
                         className="input-element"
                         type="text"
                         required
                     />
-                    <label htmlFor="username" className="label">
-                        USERNAME
+                    <label htmlFor="email" className="label">
+                        Enter Your Mail
                     </label>
                 </div>
-                <div className="input-wrapper">
+                {!otpSent && <button onClick={handleSendOtp} disabled={otpSendLoading || !isValidToSentOtp} className="login-button-form">
+                    {otpSendLoading ? (<span style={{ display: "flex", alignItems: "center", gap: "8px", justifyContent: "center" }}>
+                        Processing...
+                        <ClipLoader color="#007bff" size={15} />
+                    </span>) : ("Send Otp")}
+                </button>}
+                {(otpSent && !verified) && <div className="input-wrapper">
+                    <input
+                        id="otp"
+                        value={otp}
+                        onChange={handleOtp}
+                        className="input-element"
+                        type="text"
+                        required
+                    />
+                    <label htmlFor="otp" className="label">
+                        ENTER OTP
+                    </label>
+                </div>}
+
+                {(otpSent && !verified) && <button onClick={handleVerifyOtp} disabled={verifyOtpLoading} className="login-button-form">
+                    {verifyOtpLoading ? (<span style={{ display: "flex", alignItems: "center", gap: "8px", justifyContent: "center" }}>
+                        Processing...
+                        <ClipLoader color="#007bff" size={15} />
+                    </span>) : ("Verify Otp")}
+                </button>}
+                {(otpSent && verified) && <div className="input-wrapper">
 
                     <input
                         id="password"
@@ -95,17 +161,17 @@ const ForgotPassword = () => {
                         className="input-element"
                         type={showPassword ? 'text' : 'password'}
                     />
-                    <label htmlFor="password" className="label">
+                    <label htmlFor="otp" className="label">
                         NEW PASSWORD
                     </label>
                     {showPassword ? (<i onClick={handleShowPassword} className="ri-eye-line eye"></i>) : (<i onClick={handleShowPassword} className="ri-eye-off-line eye"></i>)}
-                </div>
-                <button disabled={isLoading || !isValid} type="submit" className="login-button-form">
+                </div>}
+                {verified && <button disabled={isLoading || !isValid} type="submit" className="login-button-form">
                     {isLoading ? (<span style={{ display: "flex", alignItems: "center", gap: "8px", justifyContent: "center" }}>
                         Processing...
                         <ClipLoader color="#007bff" size={15} />
                     </span>) : ("Reset Password")}
-                </button>
+                </button>}
                 <button onClick={() => navigate("/login")} style={{ backgroundColor: "blue" }} className="login-button-form">Go Back</button>
 
             </form>

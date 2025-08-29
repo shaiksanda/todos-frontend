@@ -12,6 +12,8 @@ import Theme from "./Components/Theme"
 import Streak from "./Components/Streak"
 import Menu from "./Components/Menu";
 import Goals from "./Components/Goals"
+import VerifyEmail from "./Components/VerifyEmail";
+
 import ForgotPassword from "./Components/ForgotPassword"
 import ProtectedRoute from "./Components/ProtectedRoute";
 import { ToastContainer } from 'react-toastify';
@@ -28,6 +30,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/verify-email" element={<VerifyEmail />} />
         <Route path="/dashboard" element={<ProtectedRoute element={<Dashboard />} />} />
         <Route path="/todo" element={<ProtectedRoute element={<Todo />} />} />
         <Route path="/menu" element={<ProtectedRoute element={<Menu />} />} />

@@ -9,9 +9,9 @@ import { useUserRegisterMutation } from '../../services/todoService';
 const Signup = () => {
     const [showPassword, setShowPassword] = useState(false)
     const [username, setUsername] = useState("")
-    const [fullname, setFullname] = useState("")
+    const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const [gender, setGender] = useState("")
+    
 
     const [userRegister, { isLoading }] = useUserRegisterMutation()
 
@@ -20,50 +20,44 @@ const Signup = () => {
     const handleShowPassword = () => {
         setShowPassword(!showPassword)
     }
-    const handleGender = (event) => {
-        setGender(event.target.value)
-    }
+    
     const handleUsername = (event) => {
         setUsername(event.target.value)
     }
-    const handleFullName = (event) => {
-        setFullname(event.target.value)
+    const handleEmail = (event) => {
+        setEmail(event.target.value)
     }
     const handlePassword = (event) => {
         setPassword(event.target.value)
     }
-    const handleSubmitSuccess = () => {
-        navigate("/login")
-        toast.success("User Registered Successfully")
+    const handleSubmitSuccess = (msg) => {
+        navigate("/verify-email",{ state: { email } })
+        toast.success(msg)
     }
 
     const handleSubmit = async (event) => {
         event.preventDefault()
-        if (!username || !fullname || !password || !gender) {
+        if (!username || !email || !password ) {
             toast.error("Please fill in all fields.");
             return;
         }
 
-        const userDetails = { username, fullname, password, gender }
+        if (password.length<6){
+            toast.error("Password must be Atleast 6 Characters Long");
+            return;
+        }
+
+        const userDetails = { username,email , password,  }
         try {
-            await userRegister(userDetails).unwrap()
-            handleSubmitSuccess()
+            let res=await userRegister(userDetails).unwrap()
+            handleSubmitSuccess(res.message)
         }
         catch (error) {
-            let message = "User Registration Failed. Please try again.";
-            if (error?.status === 'FETCH_ERROR' || error?.message?.includes('Failed to fetch')) {
-                message = 'Our server is currently unavailable or taking longer than usual to wake up. Please try again later, and thank you for your patience.';
-            }
-            // If backend sent an error
-            else if (error?.data?.message) {
-                message = error.data.message;
-            }
-
-            toast.error(message);
+            toast.error(error?.data?.err_msg);
         }
     }
 
-    const isValid = fullname && username && password && gender
+    const isValid = email && username && password
     return (
         <div className="login-container">
             <div className="container">
@@ -71,24 +65,15 @@ const Signup = () => {
             </div>
             <form id="form" onSubmit={handleSubmit} className="form-container">
                 <div className="input-wrapper">
-                    <input required name="fullname" id="fullname" onChange={handleFullName} value={fullname} className="input-element" type="text" />
-                    <label htmlFor="fullname" className="label">FULLNAME</label>
-                </div>
-                <div className="input-wrapper">
                     <input required name="username" id="username" onChange={handleUsername} value={username} className="input-element" type="text" />
                     <label htmlFor='username' className="label">USERNAME</label>
                 </div>
-                <div>
-                    <select name="gender" id="gender" onChange={handleGender} value={gender} className='dropdown' required style={{ color: "magenta" }}>
-                        <option value="" hidden>Choose Gender</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                        <option value="others">Others</option>
-                    </select>
-
-                </div>
                 <div className="input-wrapper">
-
+                    <input required name="email" id="email" onChange={handleEmail} value={email} className="input-element" type="email" />
+                    <label htmlFor="email" className="label">EMAIL</label>
+                </div>
+                
+                <div className="input-wrapper">
                     <input required name="password" id="password" onChange={handlePassword} value={password} className="input-element" type={showPassword ? "text" : "password"} />
                     <label htmlFor='password' className="label" >PASSWORD</label>
                     {showPassword ? (<i onClick={handleShowPassword} className="ri-eye-line eye"></i>) : (<i onClick={handleShowPassword} className="ri-eye-off-line eye"></i>)}
@@ -99,7 +84,7 @@ const Signup = () => {
                         <ClipLoader color="#007bff" size={15} />
                     </span>) : ("Sign Up")}
                 </button>
-                <Link to="/login" style={{ textDecoration: "none" }} className='login-text'>Already signed up? Log in</Link>
+                <Link to="/login" style={{ textDecoration: "none" }} className='login-text'>Already signed up? Login</Link>
             </form>
         </div>
     )

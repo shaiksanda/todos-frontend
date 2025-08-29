@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 export const todoService = createApi({
     reducerPath: "todoApi",
     baseQuery: fetchBaseQuery({
-        baseUrl: "https://todos-backend-d9im.onrender.com/",
+        baseUrl: "https://tm-backend-bfoy.onrender.com",
         prepareHeaders: (headers) => {
             const token = Cookies.get("jwt_token"); // or from redux state
             if (token) {
@@ -38,9 +38,9 @@ export const todoService = createApi({
             }),
             invalidatesTags: ["Todos"]
         }),
-        forgotPassword:builder.mutation({
+        resetPassword:builder.mutation({
             query:(data)=>({
-                url:"/forgotPassword",
+                url:"/resetPassword",
                 method:"POST",
                 body:data,
                 headers:{}  // clears any default headers
@@ -49,7 +49,7 @@ export const todoService = createApi({
         }),
         getTodos: builder.query({
             query: (filters) => ({
-                url: "/todos",
+                url: "/tasks",
                 params: filters
             }),
             providesTags: ["Todos"]
@@ -63,29 +63,47 @@ export const todoService = createApi({
         }),
         addTodo:builder.mutation({
             query:(newTodo)=>({
-                url:"/todos",
+                url:"/tasks",
                 method:"POST",
                 body:newTodo
             }),
             invalidatesTags:["Todos"]
         }),
+        sendOtp:builder.mutation(({
+            query:(data)=>({
+                url:"/sendOtp",
+                method:"POST",
+                body:data
+
+            }),
+            invalidatesTags:["Todos"]
+        })),
+        verifyOtp:builder.mutation({
+            query:(data)=>({
+                url:"/verifyOtp",
+                method:"POST",
+                body:data
+            }),
+            invalidatesTags:["Todos"]
+        }),
+        
         deleteTodo: builder.mutation({
             query: (id) => ({
-                url: `/todos/${id}`,
+                url: `/tasks/${id}`,
                 method: "DELETE"
             }),
             invalidatesTags:["Todos"]
         }),
         deleteAllTodos:builder.mutation({
             query:()=>({
-                url:"/todos",
+                url:"/tasks",
                 method:"DELETE"
             }),
             invalidatesTags:["Todos"]
         }),
         updateTodo:builder.mutation({
             query:(updatedTodo)=>({
-                url:`/todos/${updatedTodo.id}`,
+                url:`/tasks/${updatedTodo.id}`,
                 method:"PUT",
                 body:updatedTodo
             }),
@@ -94,7 +112,7 @@ export const todoService = createApi({
         
         updateTodoStatus: builder.mutation({
             query: (updatedTodo) => ({
-                url: `/todos/${updatedTodo._id}`,
+                url: `/tasks/${updatedTodo._id}`,
                 method: 'PUT',          
                 body: updatedTodo,     
             }),
@@ -173,4 +191,4 @@ export const todoService = createApi({
     })
 })
 
-export const { useDeleteFeedbackMutation,useUpdateFeedbackMutation,useGetFeedbacksQuery,useAddFeedbackMutation,useUpdateGoalMutation,useDeleteAllGoalsMutation,useDeleteGoalMutation,useAddGoalMutation,useGetGoalsQuery,useUserLoginMutation, useUserRegisterMutation, useGetTodosQuery, useDeleteTodoMutation,useUpdateTodoStatusMutation,useAddTodoMutation,useUpdateTodoMutation,useForgotPasswordMutation,useDeleteAllTodosMutation,useGetDashboardDataQuery,useGetStreakDataQuery} = todoService
+export const { useVerifyOtpMutation,useSendOtpMutation,useDeleteFeedbackMutation,useUpdateFeedbackMutation,useGetFeedbacksQuery,useAddFeedbackMutation,useUpdateGoalMutation,useDeleteAllGoalsMutation,useDeleteGoalMutation,useAddGoalMutation,useGetGoalsQuery,useUserLoginMutation, useUserRegisterMutation, useGetTodosQuery, useDeleteTodoMutation,useUpdateTodoStatusMutation,useAddTodoMutation,useUpdateTodoMutation,useResetPasswordMutation,useDeleteAllTodosMutation,useGetDashboardDataQuery,useGetStreakDataQuery} = todoService
