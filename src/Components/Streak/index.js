@@ -1,8 +1,10 @@
 import Sidebar from '../Sidebar';
 import TodosHeader from '../TodosHeader';
 import TodosFooter from '../TodosFooter';
+import { stagedTimers } from "../../fetchData";
 import { useGetStreakDataQuery } from '../../services/todoService';
 import "./index.css"
+import { useEffect } from 'react';
 
 import CalendarHeatmap from 'react-calendar-heatmap';
 import 'react-calendar-heatmap/dist/styles.css';
@@ -10,17 +12,27 @@ import ReactTooltip from 'react-tooltip';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { useSelector } from 'react-redux';
-import { MainContainer,StreakDataHeading } from '../../styles';
+import { MainContainer, StreakDataHeading } from '../../styles';
 
 
-
+import { useLocation } from "react-router-dom";
 
 
 const Streak = () => {
 
-  const theme=useSelector(state=>state.theme.theme)
+  const theme = useSelector(state => state.theme.theme)
 
-  const { data, isFetching, isError, error } = useGetStreakDataQuery({ days: 89 })
+  const { data, isLoading, isFetching, isError, error } = useGetStreakDataQuery({ days: 89 })
+  const location = useLocation()
+  useEffect(() => {
+    if (isLoading || isFetching) stagedTimers.start();
+    else stagedTimers.stop();
+
+    return ()=>{
+      stagedTimers.stop()
+    }
+  }, [isLoading, isFetching,location.pathname]);
+
   const streakData = data?.streakData || [];
   const summary = data?.summary || []
   const totalTasks = summary.totalTasks

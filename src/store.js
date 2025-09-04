@@ -1,11 +1,11 @@
 import {configureStore} from "@reduxjs/toolkit"
 import {setupListeners} from "@reduxjs/toolkit/query"
 import { todoService } from "./services/todoService"
-import selectedReducer from "./features/selectedSlice"
+
 import { persistStore,persistReducer } from "redux-persist"
 import storage from "redux-persist/lib/storage"
 
-
+import selectedReducer from "./features/selectedSlice"
 import themeReducer from "./features/themeSlice"
 import authReducer from "./features/authSlice"
 

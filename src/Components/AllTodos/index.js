@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { MainContainer,FilterContainer,AllTodo,FilterHeading,AllTasksHeading } from '../../styles';
 import { useDeleteAllTodosMutation, useGetTodosQuery } from '../../services/todoService';
-
+import { stagedTimers } from "../../fetchData";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -12,7 +12,7 @@ import Popup from 'reactjs-popup'
 import 'reactjs-popup/dist/index.css'
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
-
+import { useLocation } from "react-router-dom";
 import Sidebar from '../Sidebar';
 import TodosHeader from '../TodosHeader';
 import TodosFooter from '../TodosFooter';
@@ -28,8 +28,16 @@ const AllTodos = () => {
     const [status, setStatus] = useState('');
 
     const theme=useSelector(state=>state.theme.theme)
+    const location=useLocation()
+    const { data,isLoading, error, isFetching, isError } = useGetTodosQuery({ tag: filterTag, priority: filterPriority, status })
 
-    const { data, error, isFetching, isError } = useGetTodosQuery({ tag: filterTag, priority: filterPriority, status })
+    useEffect(() => {
+    if (isLoading || isFetching) stagedTimers.start();
+    else stagedTimers.stop();
+    return ()=>{
+        stagedTimers.stop();
+    }
+  }, [isLoading,isFetching,location.pathname]);
 
     const [deleteAllTodos] = useDeleteAllTodosMutation()
 

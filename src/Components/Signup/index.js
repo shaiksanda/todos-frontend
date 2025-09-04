@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { Link } from "react-router-dom"
-import { useNavigate } from 'react-router-dom';
+import { stagedTimers } from "../../fetchData";
+import { useNavigate,useLocation } from 'react-router-dom';
 import ClipLoader from "react-spinners/ClipLoader";
 import { toast } from 'react-toastify';
 import 'remixicon/fonts/remixicon.css';
@@ -12,8 +13,17 @@ const Signup = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     
+    const location=useLocation()
+    const [userRegister, { isLoading,isFetching }] = useUserRegisterMutation()
 
-    const [userRegister, { isLoading }] = useUserRegisterMutation()
+    useEffect(() => {
+        if (isLoading || isFetching) stagedTimers.start();
+        else stagedTimers.stop();
+
+        return ()=>{
+            stagedTimers.stop();
+        }
+      }, [isLoading,isFetching,location.pathname]);
 
     const navigate = useNavigate();
 

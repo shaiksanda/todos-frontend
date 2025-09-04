@@ -1,13 +1,13 @@
 
-import { useMediaQuery } from 'react-responsive';
 import { useAddTodoMutation } from '../../services/todoService';
 import { toast } from 'react-toastify';
-import { FaSeedling } from "react-icons/fa6";
+import { useSelector } from "react-redux"
 import { useState } from 'react';
 import ClipLoader from "react-spinners/ClipLoader";
 import Popup from 'reactjs-popup'
 import 'reactjs-popup/dist/index.css'
 import "./index.css"
+import { GoalsButton } from '../../styles';
 
 const tagOptions = ["Work", "Coding Practice", "Revision", "Learning", "English Speaking Practice", "Entertainment", "Family", "Finance",
     "Fitness", "Groceries", "Health", "Hobbies", "Household", "Maintenance",
@@ -20,7 +20,7 @@ const AddTodoIcon = () => {
     const [addPriority, setAddPriority] = useState('');
     const [todo, setTodo] = useState('');
 
-
+    const theme = useSelector(state => state.theme.theme)
 
     const [addTodo, { isLoading }] = useAddTodoMutation()
 
@@ -56,9 +56,6 @@ const AddTodoIcon = () => {
 
     const isValid = addTag && todo && addPriority
 
-    const isSmallScreen = useMediaQuery({ maxWidth: 767 })
-    const size = isSmallScreen ? 50 : 60
-
     return (
 
         <div className='floating-plus-btn'>
@@ -74,9 +71,7 @@ const AddTodoIcon = () => {
                 }}
                 position="right center" modal trigger={
                     <div>
-                        <button type="button" className='icon plus-icon' >
-                            <FaSeedling size={size} color="black" />
-                        </button>
+                        <GoalsButton color={theme?.colors.bg} bg={theme?.colors.primary}>Add Task</GoalsButton>
                     </div>
                 }>
                 {close => (

@@ -1,5 +1,5 @@
 import { useState, useEffect, } from 'react';
-
+import { useLocation } from "react-router-dom";
 import Sidebar from '../Sidebar';
 import TodosHeader from '../TodosHeader';
 import TodosFooter from '../TodosFooter';
@@ -7,6 +7,7 @@ import AddTodoIcon from '../AddTodoIcon';
 import ClipLoader from "react-spinners/ClipLoader";
 import Confetti from 'react-confetti';
 import { useMediaQuery } from 'react-responsive';
+import { stagedTimers } from "../../fetchData";
 
 import { toast } from 'react-toastify';
 
@@ -15,7 +16,7 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import Popup from 'reactjs-popup'
 import 'reactjs-popup/dist/index.css'
 
-import { MainContainer,FilterContainer,FormattedDateHeading,EachTodo,FilterHeading } from '../../styles';
+import { MainContainer, FilterContainer, FormattedDateHeading, EachTodo, FilterHeading } from '../../styles';
 
 import "./index.css"
 import { useUpdateTodoMutation, useDeleteTodoMutation, useGetTodosQuery, useUpdateTodoStatusMutation } from '../../services/todoService';
@@ -40,15 +41,25 @@ const Todo = () => {
   const [editSelectedDate, setEditSelectedDate] = useState("")
 
   //these are api calling hooks from rtk query for network calls
-  const { data, isFetching, error, isError } = useGetTodosQuery({ tag: filterTag, status: filterStatus, priority: filterPriority, selectedDate: selectedDate.toISOString().split('T')[0] })
+  const { data, isLoading, isFetching, error, isError } = useGetTodosQuery({ tag: filterTag, status: filterStatus, priority: filterPriority, selectedDate: selectedDate.toISOString().split('T')[0] })
+  const location = useLocation(); // ✅ extract
+  useEffect(() => {
+    if (isLoading || isFetching) stagedTimers.start();
+    else stagedTimers.stop();
+
+    return () => {
+      stagedTimers.stop();
+    };
+  }, [isLoading, isFetching, location.pathname]);
+
   const [deleteTodo] = useDeleteTodoMutation()
   const [updateTodoStatus] = useUpdateTodoStatusMutation()
-  const [updateTodo,{isLoading:updateLoading} ] = useUpdateTodoMutation()
+  const [updateTodo, { isLoading: updateLoading }] = useUpdateTodoMutation()
 
   const validUpdate = editTodo && editPriority && editTag && editSelectedDate
 
   const [showConfetti, setShowConfetti] = useState(false);
-  const theme=useSelector(state=>state.theme.theme)
+  const theme = useSelector(state => state.theme.theme)
 
   useEffect(() => {
     if (data && data.length > 0) {
@@ -90,7 +101,7 @@ const Todo = () => {
     const updatedTodo = { todo: editTodo, tag: editTag, priority: editPriority, selectedDate: editSelectedDate }
 
     try {
-      let res=await updateTodo({ id, ...updatedTodo }).unwrap()
+      let res = await updateTodo({ id, ...updatedTodo }).unwrap()
       toast.success(res.message)
       close()
     }
@@ -112,7 +123,7 @@ const Todo = () => {
     const updatedTodo = { ...todo, status: todo.status === "completed" ? "pending" : "completed" }
 
     try {
-      let res=await updateTodoStatus(updatedTodo).unwrap()
+      let res = await updateTodoStatus(updatedTodo).unwrap()
       toast.success(res.message)
     }
     catch (error) {
@@ -124,7 +135,7 @@ const Todo = () => {
 
   const handleDeleteTodo = async (id) => {
     try {
-      let res=await deleteTodo(id).unwrap()
+      let res = await deleteTodo(id).unwrap()
       toast.success(res.message)
     }
     catch (error) {
@@ -208,7 +219,7 @@ const Todo = () => {
           </div>
         </FilterContainer>
 
-        <h1 className="fetch-todos-heading">{isFetching?"Fetching ":""}Tasks for: <FormattedDateHeading color={theme?.colors.dark}>{formattedDate}</FormattedDateHeading></h1>
+        <h1 className="fetch-todos-heading">{isFetching ? "Fetching " : ""}Tasks for: <FormattedDateHeading color={theme?.colors.dark}>{formattedDate}</FormattedDateHeading></h1>
         <div>
           {isFetching ? (
             <div className='todo-grid-container'>
@@ -330,7 +341,7 @@ const Todo = () => {
                             <input style={{ color: "magenta", fontWeight: "600" }} value={editSelectedDate} onChange={(e) => setEditSelectedDate(e.target.value)} required className='date-element' id="date" type="date" />
                           </div>
                           <button
-                            disabled={isFetching|| updateLoading || !validUpdate}
+                            disabled={isFetching || updateLoading || !validUpdate}
                             type="submit"
                             className="login-button-form btn"
                           >

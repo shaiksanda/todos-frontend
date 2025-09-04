@@ -1,7 +1,8 @@
-import { useState, } from 'react';
+import { useState,useEffect } from 'react';
 import { toast } from 'react-toastify';
+import { stagedTimers } from "../../fetchData";
 
-import { useNavigate, Navigate } from 'react-router-dom';
+import { useNavigate, Navigate,useLocation } from 'react-router-dom';
 import ClipLoader from "react-spinners/ClipLoader";
 import Cookies from 'js-cookie';
 import { Link } from 'react-router-dom';
@@ -16,12 +17,22 @@ const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const [userLogin, { isLoading }] = useUserLoginMutation()
+  const [userLogin, { isLoading,isFetching }] = useUserLoginMutation()
+  const location=useLocation()
+  useEffect(() => {
+    if (isLoading || isFetching) stagedTimers.start();
+    else stagedTimers.stop();
+    return ()=>{
+      stagedTimers.stop();
+    }
+  }, [isLoading,isFetching,location.pathname]);
+
+
   const navigate = useNavigate();
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
-  const dispatch=useDispatch()
+  const dispatch = useDispatch()
 
   const handleUsername = ({ target: { value } }) => {
     setUsername(value);
@@ -32,9 +43,9 @@ const Login = () => {
   };
 
   const onSubmitSuccess = (data) => {
-    Cookies.set('jwt_token', data.jwtToken, { expires: 1 });
-    dispatch(setCredentials({username:data.username,role:data.role}))
-    
+    Cookies.set('jwt_token', data.jwtToken, { expires: 3 });
+    dispatch(setCredentials({ username: data.username, role: data.role }))
+
     navigate("/todo")
     toast.success("Login Successful")
   };
@@ -52,19 +63,6 @@ const Login = () => {
       onSubmitSuccess(data)
     } catch (error) {
       console.error("Login error:", error);
-
-      let message = 'Login failed. Please try again.';
-
-      // If server is unreachable
-      if (error?.status === 'FETCH_ERROR' || error?.message?.includes('Failed to fetch')) {
-        message = 'Our server is currently unavailable or taking longer than usual to wake up. Please try again later, and thank you for your patience.';
-      }
-      // If backend sent an error
-      else if (error?.data?.message) {
-        message = error.data.message;
-      }
-
-      toast.error(message);
     }
 
   };

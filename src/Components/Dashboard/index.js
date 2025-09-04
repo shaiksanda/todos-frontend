@@ -1,11 +1,13 @@
 import Sidebar from "../Sidebar"
 import TodosHeader from "../TodosHeader"
 import TodosFooter from "../TodosFooter"
+import { stagedTimers } from "../../fetchData";
+import { useLocation } from "react-router-dom";
 
 import { MainContainer, DashboardHeading, DashboardContent, DashboardGraphContainer } from "../../styles"
 import { useMediaQuery } from "react-responsive"
 import { useGetDashboardDataQuery } from "../../services/todoService"
-import { useState } from "react"
+import { useState,useEffect } from "react"
 import { PieChart, Pie, Tooltip, Cell, Legend, } from "recharts"
 import { BarChart, CartesianGrid, Bar, XAxis, YAxis, Label, LabelList } from "recharts";
 import {
@@ -28,7 +30,16 @@ const Dashboard = () => {
     const { username } = auth
     const [range, setRange] = useState(6)
     const theme = useSelector(state => state.theme.theme)
-    const { data, isFetching, isError, error } = useGetDashboardDataQuery({ days: range })
+    const { data, isLoading,isFetching, isError, error } = useGetDashboardDataQuery({ days: range })
+const location=useLocation()
+    useEffect(() => {
+            if (isLoading || isFetching) stagedTimers.start();
+            else stagedTimers.stop();
+
+            return ()=>{
+                stagedTimers.stop()
+            }
+          }, [isLoading,isFetching,location.pathname]);
 
     const { status_breakdown, priority_breakdown, completion_trend, tag_breakdown, created_vs_completed_trend } = data || {}
     let stackedBarData = created_vs_completed_trend?.created_vs_completed_breakdown || []
@@ -45,7 +56,7 @@ const Dashboard = () => {
         { name: 'Pending Tasks', value: status_breakdown?.pendingTasks },
     ];
 
-    let newUser = status_breakdown?.totalTodos < 5
+    let newUser = status_breakdown?.totalTasks < 5
 
     const isSmallScreen = useMediaQuery({ maxWidth: 767 })
 

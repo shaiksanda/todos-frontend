@@ -4,14 +4,15 @@ import TodosFooter from "../TodosFooter"
 import { MainContainer, DashboardHeading, DashboardContent, GoalsButton, Dropdown, EachGoal } from "../../styles"
 import { toast } from 'react-toastify';
 import ClipLoader from "react-spinners/ClipLoader";
-
+import { stagedTimers } from "../../fetchData";
 import "./index.css"
 import { useSelector } from "react-redux"
 import Skeleton from 'react-loading-skeleton';
+import { useLocation } from "react-router-dom";
 import 'react-loading-skeleton/dist/skeleton.css';
 import Popup from 'reactjs-popup'
 import 'reactjs-popup/dist/index.css'
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useAddGoalMutation, useDeleteGoalMutation, useGetGoalsQuery, useUpdateGoalMutation } from "../../services/todoService"
 
 const Goals = () => {
@@ -39,7 +40,16 @@ const Goals = () => {
     const [deleteGoal] = useDeleteGoalMutation()
     const [updateGoal, { isLoading: updateLoading, isFetching: updateFetching }] = useUpdateGoalMutation()
     const [addGoal, { isLoading }] = useAddGoalMutation()
-    const { data, isFetching, isError, error } = useGetGoalsQuery({ type: activeType, month, year, quarter })
+    const { data, isLoading: goalLoading, isFetching, isError, error } = useGetGoalsQuery({ type: activeType, month, year, quarter })
+    const location = useLocation()
+    useEffect(() => {
+        if (goalLoading || isFetching) stagedTimers.start();
+        else stagedTimers.stop();
+
+        return ()=>{
+            stagedTimers.stop()
+        }
+    }, [goalLoading, isFetching,location.pathname]);
 
 
     const handleMonthly = () => {
