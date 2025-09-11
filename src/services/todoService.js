@@ -17,7 +17,7 @@ export const todoService = createApi({
     endpoints: builder => ({
         userLogin: builder.mutation({
             query: (data) => ({
-                url: "/login",
+                url: "/users/login",
                 method: "POST",
                 body: data
             }),
@@ -25,14 +25,14 @@ export const todoService = createApi({
         }),
         getStreakData:builder.query({
             query:(filters)=>({
-                url:'/streak',
+                url:'/users/streak',
                 params:filters
             }),
             providesTags:["Todos"]
         }),
         userRegister: builder.mutation({
             query: (data) => ({
-                url: "/register",
+                url: "/users/register",
                 method: "POST",
                 body: data
             }),
@@ -40,7 +40,7 @@ export const todoService = createApi({
         }),
         resetPassword:builder.mutation({
             query:(data)=>({
-                url:"/resetPassword",
+                url:"/users/resetPassword",
                 method:"POST",
                 body:data,
                 headers:{}  // clears any default headers
@@ -49,21 +49,21 @@ export const todoService = createApi({
         }),
         getTodos: builder.query({
             query: (filters) => ({
-                url: "/tasks",
+                url: "/tasks/getTasks",
                 params: filters
             }),
             providesTags: ["Todos"]
         }),
         getDashboardData:builder.query({
             query:(filter)=>({
-                url:"/dashboard",
+                url:"/users/dashboard",
                 params:filter
             }),
             providesTags:["Todos"]
         }),
         addTodo:builder.mutation({
             query:(newTodo)=>({
-                url:"/tasks",
+                url:"/tasks/postTask",
                 method:"POST",
                 body:newTodo
             }),
@@ -71,7 +71,7 @@ export const todoService = createApi({
         }),
         sendOtp:builder.mutation(({
             query:(data)=>({
-                url:"/sendOtp",
+                url:"/users/sendOtp",
                 method:"POST",
                 body:data
 
@@ -80,7 +80,7 @@ export const todoService = createApi({
         })),
         verifyOtp:builder.mutation({
             query:(data)=>({
-                url:"/verifyOtp",
+                url:"/users/verifyOtp",
                 method:"POST",
                 body:data
             }),
@@ -89,21 +89,21 @@ export const todoService = createApi({
         
         deleteTodo: builder.mutation({
             query: (id) => ({
-                url: `/tasks/${id}`,
+                url: `/tasks/deleteTask/${id}`,
                 method: "DELETE"
             }),
             invalidatesTags:["Todos"]
         }),
         deleteAllTodos:builder.mutation({
             query:()=>({
-                url:"/tasks",
+                url:"/tasks/deleteAllTasks",
                 method:"DELETE"
             }),
             invalidatesTags:["Todos"]
         }),
         updateTodo:builder.mutation({
             query:(updatedTodo)=>({
-                url:`/tasks/${updatedTodo.id}`,
+                url:`/tasks/updateTask/${updatedTodo.id}`,
                 method:"PUT",
                 body:updatedTodo
             }),
@@ -112,7 +112,7 @@ export const todoService = createApi({
         
         updateTodoStatus: builder.mutation({
             query: (updatedTodo) => ({
-                url: `/tasks/${updatedTodo._id}`,
+                url: `/tasks/updateTask/${updatedTodo._id}`,
                 method: 'PUT',          
                 body: updatedTodo,     
             }),
@@ -120,7 +120,7 @@ export const todoService = createApi({
         }),
         addGoal:builder.mutation({
             query:(goalData)=>({
-                url:"/goal",
+                url:"/goals/postGoal",
                 method:"POST",
                 body:goalData
             }),
@@ -128,14 +128,14 @@ export const todoService = createApi({
         }),
         getGoals:builder.query({
             query:(filters)=>({
-                url:"/goals",
+                url:"/goals/getGoals",
                 params:filters
             }),
             providesTags:["Todos"]
         }),
         updateGoal:builder.mutation({
             query:(updatedGoal)=>({
-                url:`/goal/${updatedGoal._id}`,
+                url:`/goals/updateGoal/${updatedGoal._id}`,
                 method:"PUT",
                 body:updatedGoal
             }),
@@ -143,21 +143,21 @@ export const todoService = createApi({
         }),
         deleteGoal:builder.mutation({
             query:(id)=>({
-                url:`/goal/${id}`,
+                url:`/goals/deleteGoal/${id}`,
                 method:"DELETE"
             }),
             invalidatesTags:["Todos"]
         }),
         deleteAllGoals:builder.mutation({
             query:()=>({
-                url:"/goals",
+                url:"/goals/deleteAllGoals",
                 method:"DELETE"
             }),
             invalidatesTags:["Todos"]
         }),
         addFeedback:builder.mutation({
             query:(feedbackData)=>({
-                url:"/feedback",
+                url:"/feedback/postFeedback",
                 method:"POST",
                 body:feedbackData
             }),
@@ -165,14 +165,14 @@ export const todoService = createApi({
         }),
         getFeedbacks:builder.query({
             query:(filters)=>({
-                url:"/feedbacks",
+                url:"/feedback/getFeedbacks",
                 params:filters
             }),
             providesTags:["Todos"]
         }),
         updateFeedback:builder.mutation({
             query:(updatedFeedback)=>({
-                url:`/feedback/${updatedFeedback._id}`,
+                url:`/feedback/updateFeedback/${updatedFeedback._id}`,
                 method:"PUT",
                 body:updatedFeedback
             }),
@@ -180,7 +180,7 @@ export const todoService = createApi({
         }),
         deleteFeedback:builder.mutation({
             query:(id)=>({
-                url:`/feedback/${id}`,
+                url:`/feedback/deleteFeedback/${id}`,
                 method:"DELETE"
             }),
             invalidatesTags:["Todos"]

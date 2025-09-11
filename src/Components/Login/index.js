@@ -43,7 +43,7 @@ const Login = () => {
   };
 
   const onSubmitSuccess = (data) => {
-    Cookies.set('jwt_token', data.jwtToken, { expires: 3 });
+    Cookies.set('jwt_token', data.token, { expires: 5 });
     dispatch(setCredentials({ username: data.username, role: data.role }))
 
     navigate("/todo")
@@ -62,7 +62,7 @@ const Login = () => {
       const data = await userLogin(userDetails).unwrap();
       onSubmitSuccess(data)
     } catch (error) {
-      console.error("Login error:", error);
+      toast.error(error.data.message)
     }
 
   };
