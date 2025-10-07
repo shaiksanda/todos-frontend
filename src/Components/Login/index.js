@@ -43,8 +43,9 @@ const Login = () => {
   };
 
   const onSubmitSuccess = (data) => {
+    console.log(data)
     Cookies.set('jwt_token', data.token, { expires: 5 });
-    dispatch(setCredentials({ username: data.username, role: data.role }))
+    dispatch(setCredentials({ username: data?.existingUser?.username, role: data?.existingUser?.role }))
 
     navigate("/todo")
     toast.success("Login Successful")

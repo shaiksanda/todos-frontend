@@ -41,6 +41,7 @@ const Goals = () => {
     const [updateGoal, { isLoading: updateLoading, isFetching: updateFetching }] = useUpdateGoalMutation()
     const [addGoal, { isLoading }] = useAddGoalMutation()
     const { data, isLoading: goalLoading, isFetching, isError, error } = useGetGoalsQuery({ type: activeType, month, year, quarter })
+    console.log(data)
     const location = useLocation()
     useEffect(() => {
         if (goalLoading || isFetching) stagedTimers.start();
