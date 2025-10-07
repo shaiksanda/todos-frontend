@@ -20,3 +20,13 @@ p {
     padding: 5px;
 }
 
+.item-label{
+    font-size: 22px;
+}
+
+@media screen and (min-width:768px){
+    .item-label{
+        font-size: 30px;
+    }
+}
+

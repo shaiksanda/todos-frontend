@@ -46,7 +46,7 @@ const Sidebar = () => {
           onClick={() => handleClick(item.path, idx)}
         >
           {item.icon}
-          <h1 >{item.label}</h1>
+          <h1 className="item-label">{item.label}</h1>
         </FlexContainer>
       ))}
 
