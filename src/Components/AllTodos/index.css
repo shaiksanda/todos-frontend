@@ -112,3 +112,15 @@
     }
     
 }
+
+.delete-task-btn{
+    width:120px;
+    height: 45px;
+    margin: 10px;
+    border-width: 0px;
+    border-radius: 10px;
+    cursor: pointer;
+    outline: none;
+    font-size: 18px;
+    font-weight: 600;
+}

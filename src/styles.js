@@ -183,6 +183,7 @@ flex-direction: column;
 justify-content:center;
 border-radius: 6px;
 color:lavender;
+padding:10px;
 background-color: ${props => props.bg}
 `
 

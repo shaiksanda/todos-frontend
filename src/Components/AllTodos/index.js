@@ -1,6 +1,6 @@
-import { useState,useEffect } from 'react';
-import { MainContainer,FilterContainer,AllTodo,FilterHeading,AllTasksHeading } from '../../styles';
-import { useDeleteAllTodosMutation, useGetTodosQuery } from '../../services/todoService';
+import { useState, useEffect } from 'react';
+import { GoalsButton, MainContainer, FilterContainer, AllTodo, FilterHeading, AllTasksHeading } from '../../styles';
+import { useDeleteAllTodosMutation, useDeleteTodoMutation, useGetTodosQuery } from '../../services/todoService';
 import { stagedTimers } from "../../fetchData";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -27,19 +27,20 @@ const AllTodos = () => {
     const [search, setSearch] = useState('');
     const [status, setStatus] = useState('');
 
-    const theme=useSelector(state=>state.theme.theme)
-    const location=useLocation()
-    const { data,isLoading, error, isFetching, isError } = useGetTodosQuery({ tag: filterTag, priority: filterPriority, status })
+    const theme = useSelector(state => state.theme.theme)
+    const location = useLocation()
+    const { data, isLoading, error, isFetching, isError } = useGetTodosQuery({ tag: filterTag, priority: filterPriority, status })
 
     useEffect(() => {
-    if (isLoading || isFetching) stagedTimers.start();
-    else stagedTimers.stop();
-    return ()=>{
-        stagedTimers.stop();
-    }
-  }, [isLoading,isFetching,location.pathname]);
+        if (isLoading || isFetching) stagedTimers.start();
+        else stagedTimers.stop();
+        return () => {
+            stagedTimers.stop();
+        }
+    }, [isLoading, isFetching, location.pathname]);
 
     const [deleteAllTodos] = useDeleteAllTodosMutation()
+    const [deleteTodo]=useDeleteTodoMutation()
 
     const handleFilterTag = (event) => {
         setFilterTag(event.target.value)
@@ -74,6 +75,20 @@ const AllTodos = () => {
         }
         finally {
             close()
+        }
+
+    }
+
+    const handleDelete = async (id) => {
+        try {
+            if (window.confirm("Are You Sure This Can't de undone")) {
+                let res = await deleteTodo(id).unwrap()
+                toast.success(res.message)
+            }
+
+        }
+        catch (error) {
+            toast.error(error?.data?.err_msg || "Error While Deleting Todo")
         }
 
     }
@@ -166,7 +181,7 @@ const AllTodos = () => {
                     <h2 style={{ textAlign: 'center', color: 'black', margin: '1rem 0' }}>
                         All the tasks are fetching… Please wait, it may take some time.
                     </h2>
-                ):(<AllTasksHeading color={theme?.colors.dark}>All Tasks</AllTasksHeading>)}
+                ) : (<AllTasksHeading color={theme?.colors.dark}>All Tasks</AllTasksHeading>)}
                 {isFetching ? (
                     <div className='todo-grid-container'>
                         {[...Array(skeletonCount)].map((_, i) => (
@@ -216,6 +231,7 @@ const AllTodos = () => {
                                     <h2 className='todo-data-heading'>
                                         Date: <span className='style-item'>{new Date(each.selectedDate).toISOString().split('T')[0]}</span>
                                     </h2>
+                                    <GoalsButton onClick={() => handleDelete(each._id)} bg={"white"} color={theme?.colors.primary}>Delete Task</GoalsButton>
                                 </AllTodo>
                             ))}
                         </div>

@@ -135,8 +135,11 @@ const Todo = () => {
 
   const handleDeleteTodo = async (id) => {
     try {
-      let res = await deleteTodo(id).unwrap()
-      toast.success(res.message)
+      if (window.confirm("Are You Sure This Can't de undone")) {
+        let res = await deleteTodo(id).unwrap()
+        toast.success(res.message)
+      }
+
     }
     catch (error) {
       toast.error(error?.data?.err_msg || "Error While Deleting Todo")
