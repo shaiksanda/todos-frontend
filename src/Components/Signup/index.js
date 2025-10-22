@@ -63,7 +63,7 @@ const Signup = () => {
             handleSubmitSuccess(res.message)
         }
         catch (error) {
-            toast.error(error?.data?.err_msg);
+            toast.error(error?.data?.message);
         }
     }
 

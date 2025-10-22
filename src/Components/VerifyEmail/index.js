@@ -30,7 +30,7 @@ const VerifyEmail = () => {
             setOtpSent(true)
         }
         catch (error) {
-            toast.error(error?.data?.err_msg)
+            toast.error(error?.data?.message)
         }
     }
 
@@ -42,7 +42,7 @@ const VerifyEmail = () => {
             navigate("/login")
         }
         catch(error){
-            toast.error(error?.data?.err_msg)
+            toast.error(error?.data?.message)
         }
 
     }
