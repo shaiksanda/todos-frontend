@@ -258,7 +258,7 @@ const Todo = () => {
           ) : (
             <div className='todo-grid-container'>
               {filteredData.map((item) => (
-                <EachTodo bg={theme?.colors.dark} key={item._id}>
+                <EachTodo onDoubleClick={()=>handleCheckboxStatus(item)} bg={theme?.colors.dark} key={item._id}>
                   <input
                     checked={item.status === "completed"}
                     onChange={() => handleCheckboxStatus(item)}

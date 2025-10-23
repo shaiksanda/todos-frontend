@@ -1,5 +1,8 @@
 import styled from "styled-components";
 
+
+import { motion } from "framer-motion";
+
 export const HeaderContainer = styled.header`
     display: flex;
     justify-content: space-between;
@@ -296,23 +299,34 @@ font-size: 22px;
 }
 `
 
+
+
 export const GoalsButton = styled.button`
-width: 140px;
-height: 50px;
-border-radius: 10px;
-border-width: 0px;
-outline: none;
-cursor: pointer;
-font-size: 18px;
-font-weight: 600;
-background-color:${props => props.bg};
-color:${props => props.color};
+  width: 140px;
+  height: 50px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  cursor: grab;
+  font-size: 18px;
+  font-weight: 600;
+  background-color: ${(props) => props.bg};
+  color: ${(props) => props.color};
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  transition:all 0.2s ease;
+
+  &:hover {
+    box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  @media (min-width: 768px) {
+    width: 150px;
+  }
+`;
+
+export const MotionGoalsButton = motion(GoalsButton);
 
 
-@media (min-width:768px){
-width:150px
-}
-`
 
 export const Dropdown = styled.select`
 width: 140px;

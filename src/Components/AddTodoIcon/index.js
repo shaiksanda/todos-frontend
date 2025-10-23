@@ -7,7 +7,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import Popup from 'reactjs-popup'
 import 'reactjs-popup/dist/index.css'
 import "./index.css"
-import { GoalsButton } from '../../styles';
+import { MotionGoalsButton } from '../../styles';
 
 const tagOptions = ["Work", "Coding Practice", "Revision", "Learning", "English Speaking Practice", "Entertainment", "Family", "Finance",
     "Fitness", "Groceries", "Health", "Hobbies", "Household", "Maintenance",
@@ -71,7 +71,7 @@ const AddTodoIcon = () => {
                 }}
                 position="right center" modal trigger={
                     <div>
-                        <GoalsButton color={theme?.colors.bg} bg={theme?.colors.primary}>Add Task</GoalsButton>
+                        <MotionGoalsButton title="slowly Drag Me"  drag dragMomentum={true}  dragElastic={0}      color={theme?.colors.bg} bg={theme?.colors.primary}>Add Task</MotionGoalsButton>
                     </div>
                 }>
                 {close => (
