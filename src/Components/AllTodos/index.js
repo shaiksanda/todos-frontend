@@ -164,7 +164,7 @@ const AllTodos = () => {
 
                         </select>
                         <button style={{ backgroundColor: 'red', color: "white", width: '100%' }} disabled={isFetching || !validFilters} onClick={handleRemoveFilters} className='remove-filters-button btn1'>Remove Filters</button>
-                        <Popup contentStyle={{ backgroundColor: "white", border: "none", borderRadius: "12px", width: "90%", maxWidth: "400px" }} modal trigger={<button style={{ height: "50px" }} className='delete-all-todos-button'>Delete All Todos</button>}>
+                        <Popup contentStyle={{ backgroundColor: "white", border: "none", borderRadius: "12px", width: "90%", maxWidth: "400px" }} modal trigger={<button style={{ height: "50px" }} className='delete-all-todos-button'>Delete All Tasks</button>}>
                             {close => (
                                 <div className='logout-container'>
                                     <h1 className='popup-heading'>Are you sure? All your todos will be permanently deleted!</h1>

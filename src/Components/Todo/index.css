@@ -6,12 +6,12 @@ html {
   box-sizing: border-box;
 }
 
-.edit-mode{
+.edit-mode {
   margin: 10px 0px;
-  color:magenta !important
+  color: magenta !important
 }
 
-.edit-mode option{
+.edit-mode option {
   background-color: black;
 }
 
@@ -24,11 +24,11 @@ html {
 }
 
 .welcome-heading {
-  font-size: 24px;
+  font-size: 18px;
 }
 
 .create-task-heading {
-  font-size: 24px;
+  font-size: 18px;
   text-align: center;
   color: #FF1493;
   font-weight: bold;
@@ -50,24 +50,24 @@ html {
 }
 
 .fetch-todos-heading {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: bold;
   text-align: center;
   margin: 10px 0px;
-color: #0f172a;
+  color: #0f172a;
 }
 
 
 
 .no-todos-content {
   font-weight: bold;
-  font-size: 20px;
-  color:red
+  font-size: 18px;
+  color: red
 }
 
 .filter-heading {
   font-weight: bold;
-  font-size: 24px;
+  font-size: 20px;
   text-align: center;
   color: black
 }
@@ -118,7 +118,7 @@ color: #0f172a;
 }
 
 .update-heading {
-  font-size: 24px;
+  font-size: 20px;
   color: #FF9800;
   font-weight: bold;
 }
@@ -154,7 +154,7 @@ color: #0f172a;
   grid-template-columns: repeat(2, 130px);
   gap: 4px;
   width: 100%;
-  
+
 }
 
 @media screen and (min-width:768px) {
@@ -180,7 +180,7 @@ color: #0f172a;
   font-size: 20px;
   font-style: italic;
   font-weight: 700;
-  color:lavender
+  color: lavender
 }
 
 .no-todos-container {
@@ -193,10 +193,10 @@ color: #0f172a;
 
 
 @media screen and (min-width:768px) {
-  
+
 
   .todo-input {
-    font-size: 22px;
+    font-size: 20px;
   }
 }
 
@@ -207,9 +207,9 @@ color: #0f172a;
   border-radius: 4px;
   background: linear-gradient(90deg,
       90deg,
-    #e6eaf0 0%,
-    #f8fbff 50%,
-    #e6eaf0 100%);
+      #e6eaf0 0%,
+      #f8fbff 50%,
+      #e6eaf0 100%);
   background-size: 200% 100%;
   animation: skeleton-loading 1.2s infinite ease;
 }
@@ -269,7 +269,7 @@ color: #0f172a;
   }
 
   .date-element {
-    font-size: 22px;
+    font-size: 20px;
   }
 }
 
@@ -283,7 +283,7 @@ color: #0f172a;
 .icon {
   border: none;
   background-color: transparent;
-  font-size: 24px;
+  font-size: 20px;
   outline: none;
   cursor: pointer;
 }
@@ -293,18 +293,18 @@ color: #0f172a;
     grid-template-columns: repeat(2, 1fr);
   }
 
-  
+
 
   .todo-image-1 {
     width: 400px;
   }
 
   .todo-display {
-    font-size: 26px;
+    font-size: 22px;
   }
 
   .fetch-todos-heading {
-    font-size: 30px;
+    font-size: 24px;
   }
 }
 
@@ -320,16 +320,16 @@ color: #0f172a;
   }
 
   .welcome-heading {
-    font-size: 40px;
+    font-size: 28px;
   }
 }
 
-.update-date-wrapper{
+.update-date-wrapper {
   background-color: lavender;
   width: 100%;
   border-radius: 10px;
   padding: 10px;
   display: flex;
   align-items: center;
-  gap:4px
+  gap: 4px
 }

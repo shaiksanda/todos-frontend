@@ -17,7 +17,7 @@
 
 .popup-heading {
     color: orangered;
-    font-size: 24px;
+    font-size: 18px;
     font-weight: bold;
     text-align: center;
     margin-bottom: 10px;
@@ -79,7 +79,7 @@
 }
 
 .username-heading{
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
 }
 
@@ -137,6 +137,6 @@
     }
 
     .username-heading {
-        font-size: 40px;
+        font-size: 30px;
     }
 }

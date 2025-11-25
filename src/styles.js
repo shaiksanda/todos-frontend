@@ -36,7 +36,7 @@ display: none
 }
 `
 
-export const TodosHeaderButton=styled.button`
+export const TodosHeaderButton = styled.button`
 height: 45px;
 width: 110px;
 border: none;
@@ -109,7 +109,7 @@ display: grid;
 grid-template-columns: repeat(1,1fr);
 grid-gap: 10px;
 padding: 10px 5px;
-background-color:${props=>props.bg};
+background-color:${props => props.bg};
 width: 100%;
 margin-top: 70px;
 min-height: calc(100vh - 70px - 8px);
@@ -195,7 +195,8 @@ display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  color: lavender
+  color: lavender;
+  font-size:20px;
 `
 
 export const AllTasksHeading = styled.h1`
